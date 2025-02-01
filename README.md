@@ -13,5 +13,5 @@ Diogo Silva - [github](https://github.com/dfern005)
 <details>
 <summary>Testing dropdown feature... CLICK ME!</summary>
 <br>
-[The Team](./website/the_team.md)
+[The Team](https://dledw001.github.io/BabyBites/website/the_team.html)
 </details>
