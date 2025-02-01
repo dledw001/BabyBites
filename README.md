@@ -10,8 +10,9 @@ Asia Acosta - [github](https://github.com/aacos007) <br />
 Martin Salisbury - [github](https://github.com/Knulleffect) <br />
 Diogo Silva - [github](https://github.com/dfern005)
 
+<!--- Intent is to create a drop down with usable links -->
 <details>
 <summary>Testing dropdown feature... CLICK ME!</summary>
 
-[The Team](./website/the_team.md)
+<p><a href="./website/the_team.md">The Team</a></p>
 </details>
