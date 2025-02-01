@@ -14,5 +14,5 @@ Diogo Silva - [github](https://github.com/dfern005)
 <details>
 <summary>Testing dropdown feature... CLICK ME!</summary>
 
-<p><a href="./website/the_team.md">The Team</a></p>
+<p><a href="./website/the_team.html">The Team</a></p>
 </details>
