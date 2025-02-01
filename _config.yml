@@ -1,0 +1,4 @@
+remote_theme: pages-themes/dinky
+
+plugins:
+  - jekyll-remote-theme
