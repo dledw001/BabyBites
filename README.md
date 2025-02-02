@@ -11,6 +11,11 @@ Martin Salisbury - [github](https://github.com/Knulleffect) <br />
 Diogo Silva - [github](https://github.com/dfern005) <br />
 Dominique Mora - [github](https://github.com/Dominique10) 
 
+# Quick Links
+  - GitHub Repository - <https://github.com/dledw001/BabyBites>
+  - GitHub Pages Site - <https://dledw001.github.io/BabyBites/>
+
+
 <!--- Intent is to create a drop down with usable links -->
 <details>
 <summary>Testing dropdown feature... CLICK ME!</summary>
