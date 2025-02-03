@@ -5,11 +5,11 @@ One problem that comes to mind when considering societal problems is one that I 
 Most babies begin transitioning to solids around 6 months of age[1][2], starting with pureed foods before moving to more solid textures. However, every baby is different, and many factors must be considered, such as potential allergies. Another issue, especially for first time parents, is not knowing what foods are safe at various stages, how to prepare the food to prevent choking, and when to introduce utensils like spoons and forks.
 
 ## The Team
-<a href="./website/the_team.html">Meet the Team</a>
+  - <a href="./website/the_team.html">Meet the Team</a>
 
 ## Presenting Our Solution
-<a href="./website/presentations.html">Presentations</a>
+  - <a href="./website/presentations.html">Presentations</a>
 
 ## Quick Links
-  - GitHub Repository - <https://github.com/dledw001/BabyBites>
-  - GitHub Pages Site - <https://dledw001.github.io/BabyBites/>
+  - <a href="https://github.com/dledw001/BabyBites">GitHub Repository</a>
+  - <a href="https://dledw001.github.io/BabyBites/">GitHub Pages Site</a>
