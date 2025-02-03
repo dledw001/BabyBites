@@ -8,7 +8,7 @@ Most babies begin transitioning to solids around 6 months of age[1][2], starting
 <a href="./website/the_team.html">Meet the Team</a>
 
 ## Presentating Our Solution
-<a href="./website/presentations.md">Presentations</a>
+<a href="./website/presentations.html">Presentations</a>
 
 ## Quick Links
   - GitHub Repository - <https://github.com/dledw001/BabyBites>
