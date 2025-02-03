@@ -7,7 +7,7 @@ Most babies begin transitioning to solids around 6 months of age[1][2], starting
 ## The Team
 <a href="./website/the_team.html">Meet the Team</a>
 
-## Presentating Our Solution
+## Presenting Our Solution
 <a href="./website/presentations.html">Presentations</a>
 
 ## Quick Links
