@@ -7,7 +7,7 @@ BabyBites provides parents with expert-backed advice, meal prep tips, alerts abo
 ## The Team
   - <a href="./website/the_team.html">Meet the Team</a>
 
-## Presenting Our Solution
+## Our Solution
   - <a href="./website/presentations.html">Presentations</a>
 
 ## Quick Links
