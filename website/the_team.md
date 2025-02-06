@@ -5,9 +5,9 @@ Dan Ledwith - [github](https://github.com/dledw001) <br /> <br />
 <img src="images/asia_acosta.png" alt="Asia Acosta's Photo" style="width:200px;height:250px;"> <br />
 Asia Acosta - [github](https://github.com/aacos007) <br /> <br />
 
-<div style="display: flex; align-items: center;">
+<div style="display: flex; align-items: flex-start;">
     <img src="images/martin_salisbury.png" alt="Martin Salisbury's Photo" style="width:200px;height:250px;">
-    <div>
+    <div style="max-width: 300px">
         <p style="font-weight: bold; font-size: 20px; margin: 0;">
             Martin Salisbury <a href="https://github.com/Knulleffect" style="font-size: 16px; margin-left: 10px;">GitHub</a>
         </p>
