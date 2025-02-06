@@ -11,15 +11,7 @@ Dan Ledwith - [GitHub](https://github.com/dledw001) <br /> <br />
         <p>A third year student pursuing her BA in  Computer Science. She is a collegiate athlete; a 
             member of Old Dominion University’s sailing  team. Her hobbies consist of traveling, photography, and sports.
         </p>
-        
-        Asia Acosta
-                [GitHub](https://github.com/aacos007) <br /> <br />
-        </p>
-        <p>A third year student pursuing her BA in  Computer Science. She is a collegiate athlete; a 
-            member of Old Dominion University’s sailing  team. Her hobbies consist of traveling, photography, and sports.
-        </p>
-        </div>
-</div>
+    </div>
 </div>
 
 
