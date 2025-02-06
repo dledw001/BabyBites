@@ -1,4 +1,4 @@
-d# The Team
+# The Team
 <img src="images/dan_ledwith.png" alt="Dan Ledwith's Photo" style="width:200px;height:250px;"> <br />
 Dan Ledwith - [github](https://github.com/dledw001) <br /> <br />
 
