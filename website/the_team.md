@@ -2,7 +2,7 @@
 <img src="images/dan_ledwith.png" alt="Dan Ledwith's Photo" style="width:200px;height:250px;"> <br />
 Dan Ledwith - [github](https://github.com/dledw001) <br /> <br />
 
-<img src="images/asia_acosta.png" alt="Asia Acosta's Photo" style="width:200px;height:250px;"> <br />
+<img src="images/Asia Acosta headshot.jpg" alt="Asia Acosta's Photo" style="width:200px;height:250px;"> <br />
 Asia Acosta - [github](https://github.com/aacos007) <br /> <br />
 
 <div style="display: flex; align-items: flex-start;">
