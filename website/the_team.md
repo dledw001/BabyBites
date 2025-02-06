@@ -1,14 +1,4 @@
 # The Team
-<img src="images/dan_ledwith.png" alt="Dan Ledwith's Photo" style="width:200px;height:250px;"> 
-        <p style="font-weight: bold; font-size: 20px; margin: 0;"> Dan Ledwith
-        </p>
-        <p>A second degree student pursuing a bachelor’s degree in computer science. His previous degree is in 
-                economics, and he currently works as a financial analyst for a registered investment advisor. His hobbies 
-                include cooking and playing the guitar.   
-        </p>
-
-
-
 
 <div style="display: flex; align-items: flex-start;">
         <img src="images/dan_ledwith.png" alt="Dan Ledwith's Photo" style="width:200px;height:250px;"> 
