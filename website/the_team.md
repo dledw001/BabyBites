@@ -9,7 +9,7 @@ Asia Acosta - [github](https://github.com/aacos007) <br /> <br />
     <img src="images/martin_salisbury.png" alt="Martin Salisbury's Photo" style="width:200px;height:250px;">
     <div style="max-width: 300px">
         <p style="font-weight: bold; font-size: 20px; margin: 0;">
-            Martin Salisbury <a href="https://github.com/Knulleffect" style="font-size: 16px; margin-left: 10px;">GitHub</a>
+           <br />Martin Salisbury <a href="https://github.com/Knulleffect" style="font-size: 16px; margin-left: 10px;">GitHub</a>
         </p>
         <p>A second degree student pursuing his Masters in Computer Science. His 
         previous degree is Electrical Engineering. He is a Navy Veteran and former 
