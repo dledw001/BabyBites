@@ -10,6 +10,8 @@ BabyBites provides parents with expert-backed advice, meal prep tips, alerts abo
 ## Our Solution
   - <a href="./website/presentations.html">Presentations</a>
 
+## Presentations
+
 ## Quick Links
   - <a href="https://github.com/dledw001/BabyBites">GitHub Repository</a>
   - <a href="https://dledw001.github.io/BabyBites/">GitHub Pages Site</a>
