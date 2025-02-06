@@ -1,4 +1,4 @@
-# The Team
+d# The Team
 <img src="images/dan_ledwith.png" alt="Dan Ledwith's Photo" style="width:200px;height:250px;"> <br />
 Dan Ledwith - [github](https://github.com/dledw001) <br /> <br />
 
@@ -7,12 +7,15 @@ Asia Acosta - [github](https://github.com/aacos007) <br /> <br />
 
 <div style="display: flex; align-items: center;">
     <img src="images/martin_salisbury.png" alt="Martin Salisbury's Photo" style="width:200px;height:250px;">
-    <p><h3>Martin Salisbury</h3></p> [github](https://github.com/Knulleffect) <br />
-    <p>A second degree student pursuing his Masters in Computer Science. His 
-    previous degree is Electrical Engineering. He is a Navy Veteran and former 
-    Defense Contractor. His hobbies include traveling, hiking, cooking, and gaming.
-    </p>
+    <div>
+        <h3>Martin Salisbury</h3> <a href="https://github.com/Knulleffect" style="font-size: 16px; margin-left: 10px;">GitHub</a>
+        <p>A second degree student pursuing his Masters in Computer Science. His 
+        previous degree is Electrical Engineering. He is a Navy Veteran and former 
+        Defense Contractor. His hobbies include traveling, hiking, cooking, and gaming.
+        </p>
+    </div>
 </div>
+
 <!---Martin Salisbury - [github](https://github.com/Knulleffect) <br /> <br />-->
 
 <img src="images/diogo_silva.png" alt="Diogo Silva's Photo" style="width:200px;height:250px;"> <br />
