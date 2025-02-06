@@ -2,7 +2,7 @@
 
 <div style="display: flex; align-items: flex-start;">
         <img src="images/dan_ledwith.png" alt="Dan Ledwith's Photo" style="width:200px;height:250px;"> 
-<div style="display: flex; align-items: flex-start;">
+    <div style="max-width: 300px">
         <p style="font-weight: bold; font-size: 20px; margin: 0;"> 
                 <br />Dan Ledwith <a href="https://github.com/dledw001" style="font-size: 16px; margin-left: 10px;">GitHub</a>
         </p>
@@ -16,7 +16,7 @@
 
 <div style="display: flex; align-items: flex-start;">
         <img src="images/asia_acosta.png" alt="Asia Acosta's Photo" style="width:200px;height:250px;"> 
-<div style="display: flex; align-items: flex-start;">
+    <div style="max-width: 300px">
         <p style="font-weight: bold; font-size: 20px; margin: 0;"> 
                 <br />Asia Acosta <a href="https://github.com/aacos007" style="font-size: 16px; margin-left: 10px;">GitHub</a>
         </p>
@@ -29,7 +29,7 @@
 
 <div style="display: flex; align-items: flex-start;">
     <img src="images/martin_salisbury.png" alt="Martin Salisbury's Photo" style="width:200px;height:250px;">
-<div style="display: flex; align-items: flex-start;">
+    <div style="max-width: 300px">
         <p style="font-weight: bold; font-size: 20px; margin: 0;">
            <br />Martin Salisbury <a href="https://github.com/Knulleffect" style="font-size: 16px; margin-left: 10px;">GitHub</a>
         </p>
@@ -40,11 +40,9 @@
     </div>
 </div>
 
-<!---Martin Salisbury - [github](https://github.com/Knulleffect) <br /> <br />-->
-
 <div style="display: flex; align-items: flex-start;">
     <img src="images/diogo_silva.png" alt="Diogo Silva's Photo" style="width:200px;height:250px;">
-<div style="display: flex; align-items: flex-start;">
+    <div style="max-width: 300px">
         <p style="font-weight: bold; font-size: 20px; margin: 0;">
            <br />Diogo Silva <a href="https://github.com/dfern005" style="font-size: 16px; margin-left: 10px;">GitHub</a>
         </p>
@@ -57,7 +55,7 @@
 
 <div style="display: flex; align-items: flex-start;">
     <img src="images/dominique_mora.png" alt="Dominique Mora's Photo" style="width:200px;height:250px;">
-<div style="display: flex; align-items: flex-start;">
+    <div style="max-width: 300px">
         <p style="font-weight: bold; font-size: 20px; margin: 0;">
            <br />Dominique Mora <a href="https://github.com/Dominique10" style="font-size: 16px; margin-left: 10px;">GitHub</a>
         </p>
@@ -70,7 +68,7 @@
 
 <div style="display: flex; align-items: flex-start;">
     <img src="images/cameron_williams.png" alt="Cameron Williams Photo" style="width:200px;height:250px;">
-<div style="display: flex; align-items: flex-start;">
+    <div style="max-width: 300px">
         <p style="font-weight: bold; font-size: 20px; margin: 0;">
            <br />Cameron Williams <a href="https://github.com/cwill104" style="font-size: 16px; margin-left: 10px;">GitHub</a>
         </p>
