@@ -6,8 +6,8 @@ Dan Ledwith - [GitHub](https://github.com/dledw001) <br /> <br />
         <img src="images/Asia Acosta headshot.jpg" alt="Asia Acosta's Photo" style="width:200px;height:250px;"> 
 <div style="display: flex; align-items: flex-start;">
         <p style="font-weight: bold; font-size: 20px; margin: 0;"> <br />
-        Asia Acosta <br />
-                <style="width:200px;height:250px;" [GitHub](https://github.com/aacos007) <br /> <br />
+        Asia Acosta
+                [GitHub](https://github.com/aacos007) <br /> <br />
         </p>
         <p>A third year student pursuing her BA in  Computer Science. She is a collegiate athlete; a 
             member of Old Dominion University’s sailing  team. Her hobbies consist of traveling, photography, and sports.
