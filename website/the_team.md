@@ -3,7 +3,7 @@
 Dan Ledwith - [GitHub](https://github.com/dledw001) <br /> <br />
 
 <div style="display: flex; align-items: flex-start;">
-        <img src="images/Asia Acosta headshot.jpg" alt="Asia Acosta's Photo" style="width:200px;height:250px;"> 
+        <img src="images/asia_acosta.png" alt="Asia Acosta's Photo" style="width:200px;height:250px;"> 
 <div style="display: flex; align-items: flex-start;">
         <p style="font-weight: bold; font-size: 20px; margin: 0;"> 
                 <br />Asia Acosta <a href="https://github.com/aacos007" style="font-size: 16px; margin-left: 10px;">GitHub</a>
