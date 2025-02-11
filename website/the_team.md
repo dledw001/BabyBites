@@ -48,7 +48,7 @@
         </p>
         <p>A third year student pursuing a bachelor’s degree in Computer Science. 
         He is a collegiate athlete, a member of Old Dominion University’s sailing team. 
-        His hobbies include traveling, hiking, and sports6. 
+        His hobbies include traveling, hiking, and sports. 
         </p>
     </div>
 </div>
