@@ -9,7 +9,7 @@ BabyBites provides parents with expert-backed advice, meal prep tips, alerts abo
 
 ## Presentations
   - <a href="./website/presentations.html#Societal-Problem-Presentation">Societal Problem Presentation</a>
-  - <a href="./website/presentations.html#Working-Draft-Feasibility-Presentation">Working Draft Feasibility Presentation</a>
+  - <a href="./website/presentations.html#Working-Draft-Feasibility-Presentation">Feasibility Presentation</a>
 
 ## Quick Links
   - <a href="https://github.com/dledw001/BabyBites">GitHub Repository</a>
