@@ -10,7 +10,7 @@ This transition goes beyond simply feeding, it is about fostering safe, balanced
 *Kuo, A. A., Inkelas, M., Slusser, W. M., Maidenberg, M., & Halfon, N. (2010). Introduction of Solid Food to Young Infants. Maternal and Child Health Journal, 15(8), 1185–1194. https://doi.org/10.1007/s10995-010-0669-5
 
 ## Customer and End User
-Parents and caregivers who want a simple way to transition their child from milk to solid foods and beyond.
+Parents and caregivers who want a simple and stress-free way to transition their child from milk to solid foods and beyond.
 
 ## The Solution
 Introducing BabyBites, the ultimate mobile-first web application to simplify and safeguard your babies’ and toddlers’ feeding journey. From the first spoonful of purees to mastering utensils, BabyBites takes the stress out of transitioning from milk to solids and beyond. Designed to reduce overwhelm, the app ensures balanced nutrition and helps babies and toddlers develop healthy eating habits. 
