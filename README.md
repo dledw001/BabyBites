@@ -4,10 +4,10 @@ Shouldn't feeding your child be simpler and less stressful? BabyBites is designe
 
 ## The Problem
 The process of transitioning a baby from milk to solid foods and eventually, to more complex meals appropriate for toddlers is a crucial, yet challenging, phase for many parents and caregivers. 
-Typically, babies begin this transition around six months, starting with pureed foods before gradually moving to more textured solids*. This can be overwhelming for parents and caregivers, as it can be difficult to know which foods are safe at various stages, how to prepare them, and when to introduce certain utensils.
+Typically, babies begin this transition around six months, starting with pureed foods before gradually moving to more textured solids. [^1] This can be overwhelming for parents and caregivers, as it can be difficult to know which foods are safe at various stages, how to prepare them, and when to introduce certain utensils.
 This transition goes beyond simply feeding, it is about fostering safe, balanced nutrition while supporting babies and toddlers in developing essential eating skills and independence.
 
-*Kuo, A. A., Inkelas, M., Slusser, W. M., Maidenberg, M., & Halfon, N. (2010). Introduction of Solid Food to Young Infants. Maternal and Child Health Journal, 15(8), 1185–1194. https://doi.org/10.1007/s10995-010-0669-5
+[^1]: Kuo, A. A., Inkelas, M., Slusser, W. M., Maidenberg, M., & Halfon, N. (2010). Introduction of Solid Food to Young Infants. Maternal and Child Health Journal, 15(8), 1185–1194. https://doi.org/10.1007/s10995-010-0669-5
 
 ## Customer and End User
 Parents and caregivers who want a simple and stress-free way to transition their child from milk to solid foods and beyond.
