@@ -26,6 +26,9 @@ BabyBites provides parents and caregivers with expert-backed resources, meal pre
   - <a href="./website/assets/BabyBites.pdf">(PDF) Feasibility Presentation</a>
   - <a href="./website/presentations.html#Working-Draft-Design-Presentation">Working Draft Design Presentation</a>
 
+## Labs
+  - <a href="./website/labs.html#Lab-1-Outline">Lab 1 Outline</a>
+
 ## Quick Links
   - <a href="https://github.com/dledw001/BabyBites">GitHub Repository</a>
   - <a href="https://dledw001.github.io/BabyBites/">GitHub Pages Site</a>
