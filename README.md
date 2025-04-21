@@ -32,3 +32,5 @@ BabyBites provides parents and caregivers with expert-backed resources, meal pre
 ## Quick Links
   - <a href="https://github.com/dledw001/BabyBites">GitHub Repository</a>
   - <a href="https://dledw001.github.io/BabyBites/">GitHub Pages Site</a>
+  - <a href="http://www.odu.edu/">Old Dominion University</a>
+  - <a href="http://www.cs.odu.edu/">ODU Computer Science Department</a>
