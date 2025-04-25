@@ -25,8 +25,8 @@ BabyBites provides parents and caregivers with expert-backed resources, meal pre
   - <a href="./website/presentations.html#Feasibility-Presentation">Feasibility Presentation</a>
   - <a href="./website/assets/BabyBites.pdf">(PDF) Feasibility Presentation</a>
   - <a href="./website/presentations.html#Final-Design-Presentation">Final Design Presentation</a>
-  - <a href="./website/presentations.html#Working-Draft-Prototype-Design-Presentation">Working Draft Prototype Design Presentation</a>
   - <a href="./website/assets/BabyBites_Design.pdf">(PDF) Design Presentation</a>
+  - <a href="./website/presentations.html#Working-Draft-Prototype-Design-Presentation">Working Draft Prototype Design Presentation</a>
 
 ## Labs
   - <a href="./website/labs.html#Lab-1-Outline">Lab 1 Outline</a>
