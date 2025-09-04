@@ -1,7 +1,7 @@
-window.addEventListener("load", () => {
-	console.log("this function runs once the page is fully loaded.")
+document.addEventListener("DOMContentLoaded", () => {
+	document.getElementById("call-api").onclick = async () => {
+		const response = await fetch("/api/hello?name=User");
+		const data = await response.json();
+		document.getElementById("output").textContent = data.message;
+	};
 });
-
-function buttonClick() {
-	alert("You tried to login!");
-}
