@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+    <head><meta charset="UTF-8"><title>{% block title %}BabyBites{% endblock %}</title></head>
+    <body>
+        <nav><a href="{% url 'home' %}">HOME</a></nav>
+        {% if messages %}<ul>{% for m in messages %}<li>{{ m }}</li>{% endfor %}</ul>{% endif %}
+        {% block content %}{% endblock %}
+    </body>
+</html>
