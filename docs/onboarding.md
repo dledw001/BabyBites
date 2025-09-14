@@ -12,7 +12,7 @@
     `pip install -r requirements.txt`
 
 5. launch the backend server
-    `python manage.py runserver localhost:8080`
+    `python manage.py runserver 0.0.0.0:8080`
 
 6. go to localhost:8080 in a web browser.
     - i find it helpful to use the private browsing or incognito option to avoid caching issues
