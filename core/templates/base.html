@@ -16,6 +16,12 @@
         <!-- BabyBites CSS overrides -->
         {% load static %}
         <link href="{% static 'core/css/custom.css' %}" rel="stylesheet">
+
+        <!-- PWA Manifest for mobile -->
+        <link rel="manifest" href="{% static 'manifest.webmanifest' %}">
+        <meta name="theme-color" content="#1693DB">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     </head>
     
     <body class="babybites-body">

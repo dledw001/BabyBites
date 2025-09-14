@@ -1,0 +1,10 @@
+{
+    "name": "BabyBites",
+    "short_name": "BabyBites",
+    "start_url": "/?source=pwa",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#FFFFBB",
+    "theme_color": "#1693DB",
+
+}
