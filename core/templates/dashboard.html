@@ -3,19 +3,24 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-    <h1 class="mb-4">Welcome, {{user.username}}!</h1>
-    <p>This is your dashboard</p>
-    <br>
-    <p>Link to Profiles</p>
-    <br>
-    <p>Link to Tracker</p>
-    <br>
-    <p>Link to Resources</p>
-    <br>
+    <h1 class="text-center mb-4">Welcome, {{user.username}}!</h1>
+    <p class="text-center mt-3 mb-0">
+    This is a placeholder for the dashboard
+    <br><br>
+    Link to Profiles
+    <br><br>
+    Link to Tracker
+    <br><br>
+    Link to Resources
+    <br><br>
+    and more...
     
-    <form method="post" action={% url 'logout' %}>
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Log Out</button>
-    </form>
-
+    <div class="row justify-content-center mt-4">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+            <form method="post" action="{% url 'logout' %}" class="p-4 border rounded bg-white shadow-sm">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger w-100">Log Out</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}
