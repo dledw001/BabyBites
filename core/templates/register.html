@@ -52,6 +52,18 @@
                 {% endif %}
             </div>
 
+            <div class="mb-3 form-check">
+                <input type="checkbox" name="agree_privacy" id="id_agree_privacy"
+                class="form-check-input{% if form.agree_privacy.errors %} is-invalid{% endif %}"
+                {% if form.agree_privacy.value %}checked{% endif %}>
+            <label class="form-check-label" for="id_agree_privacy">
+                {{ form.fields.agree_privacy.label|safe }}
+            </label>
+            {% if form.agree_privacy.errors %}
+                <div class="invalid-feedback d-block">{{ form.agree_privacy.errors|striptags }}</div>
+                {% endif %}
+            </div>
+
             <button type="submit" class="btn btn-primary w-100">Create Account</button>
             
             <p class="text-center mt-3 mb-0">
