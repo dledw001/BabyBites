@@ -5,6 +5,13 @@
 {% block content %}
     <h1 class="mb-4">Welcome, {{user.username}}!</h1>
     <p>This is your dashboard</p>
+    <br>
+    <p>Link to Profiles</p>
+    <br>
+    <p>Link to Tracker</p>
+    <br>
+    <p>Link to Resources</p>
+    <br>
     
     <form method="post" action={% url 'logout' %}>
         {% csrf_token %}
