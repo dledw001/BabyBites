@@ -1,46 +1,48 @@
-{% load static %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
+{% block title %}BabyBites{% endblock %}
 
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>BabyBites</title>
-    <link rel="stylesheet" href="{% static 'core/css/app.css' %}">
-    <script src="{% static 'core/js/app.js' %}" defer></script>
-</head>
+{% block content %}
+    <h1 class="babybites-title">BabyBites</h1>
+    <h5 class="babybites-slogan">Introducing solids, one bite at a time.</h5>
 
-<body>
-    <div class="header">
-	<div class="header-right">
-    		<p> <span style="color: #00e6e6"> BabyBites</span </p>
-    		<p> <span style="color: #a6a6a6"> Introducing Solids, One Bite at a Time</span </p>
-    	</div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+            <form method="post" class="p-4 border rounded babybites-form shadow-sm">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+                {% endif %}
+
+            <div class="mb-3">
+                <label for="id_username" class="form-label">Username</label>
+                <input type="text" name="username" autofocus
+                    class="form-control{% if form.username.errors %} is-invalid{% endif %}"
+                    id="id_username" value="{{ form.username.value|default_if_none:'' }}">
+                {% if form.username.errors %}
+                    <div class="invalid-feedback">{{ form.username.errors|striptags }}</div>
+                {% endif %}
+            </div>
+        
+            <div class="mb-3">
+                <label for="id_password" class="form-label">Password</label>
+                <input type="password" name="password"
+                    class="form-control{% if form.password.errors %} is-invalid{% endif %}"
+                    id="id_password">
+                {% if form.password.errors %}
+                    <div class="invalid-feedback">{{ form.password.errors|striptags }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Log In</button>
+            
+            <p class="text-center mt-3 mb-0">
+                Don't have an account?<br>
+                <a href="{% url 'register' %}">Create an Account</a>
+            </p>
+
+            </form>
+        </div>
     </div>
-
-    <div class="wrapper">  
-    	<form action="">
-		<h1>Create your Free Account</h>
-		<div class="input-box">
-			<input type="text" id="email" placeholder="Enter your email here" required>
-		</div>
-		<div class="input-box">
-			<input type="password" placeholder="Enter your password here" required>
-		</div>
-
-		<div class="terms">
-			<label><input type="checkbox"> Creating an account means you're okay with our Terms of Service, Privacy Policy, and our default Notification Settings.</label>
-		</div>
-        <button id="register">Register</button>
-    </form>
-
-<footer>
-    <p>Dan Ledwith was here.</p>
-    <p>Martin Salisbury was also here.</p>
-    <p>Dominique Willis was here.</p>
-	<p>Diogo Silva was also here.</p>
-</footer>
-
-</body>
-</html>
-
+{% endblock %}
