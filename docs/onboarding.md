@@ -14,7 +14,7 @@
 5. launch the backend server
     `python manage.py runserver localhost:8080`
 
-6. go to localhost:8080 in a web browser.
+6. go to localhost:8080 in a web browser
     - i find it helpful to use the private browsing or incognito option to avoid caching issues
     - i also find it useful to pull up the development tools window (F12 should bring it up)
     - also, if your phone is on the same network as your pc, you can pull up the website on your phone at your-pcs-local-ip:8080 in a browser
