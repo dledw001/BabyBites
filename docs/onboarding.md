@@ -17,9 +17,14 @@
     `python manage.py runserver 0.0.0.0:8080`
 
 7. setup database
-   `python manage.py migrate` 
+   `python manage.py migrate`
 
-8. go to localhost:8080 in a web browser
+8. create a superuser account
+    `python manage.py createsuperuser`
+
+10. go to localhost:8080 in a web browser
+    - you can log into the app with the user you just created
+    - you can also log into /admin
     - i find it helpful to use the private browsing or incognito option to avoid caching issues
     - i also find it useful to pull up the development tools window (F12 should bring it up)
     - also, if your phone is on the same network as your pc, you can pull up the website on your phone at your-pcs-local-ip:8080 in a browser
