@@ -4,22 +4,25 @@
 
 2. clone the repo and cd BabyBites
 
-3. start a python virtual environment
+3. checkout the dan branch
+    `git checkout dan`
+
+4. start a python virtual environment
     `python -m venv .venv`
 
-4. activate the python virtual environment
+5. activate the python virtual environment
     `source .venv/bin/activate`
 
-5. install dependencies
+6. install dependencies
     `pip install -r requirements.txt`
 
-6. launch the backend server
+7. launch the backend server
     `python manage.py runserver 0.0.0.0:8080`
 
-7. setup database
+8. setup database
    `python manage.py migrate`
 
-8. create a superuser account
+9. create a superuser account
     `python manage.py createsuperuser`
 
 10. go to localhost:8080 in a web browser
