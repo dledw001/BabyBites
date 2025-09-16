@@ -34,7 +34,7 @@
 
             <div class="mb-3">
                 <label for="id_password1" class="form-label">Password</label>
-                <input type="text" name="password1"
+                <input type="password" name="password1"
                 class="form-control{% if form.password1.errors %} is-invalid{% endif %}"
                 id="id_password1" value="{{ form.password1.value|default_if_none:'' }}">
                 {% if form.password1.errors %}
@@ -44,7 +44,7 @@
 
             <div class="mb-3">
                 <label for="id_password2" class="form-label">Confirm Password</label>
-                <input type="text" name="password2"
+                <input type="password" name="password2"
                 class="form-control{% if form.password2.errors %} is-invalid{% endif %}"
                 id="is_password2" value="{{ form.password2.value|default_if_none:'' }}">
                 {% if form.password2.errors %}
