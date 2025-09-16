@@ -16,14 +16,14 @@
 6. install dependencies
     `pip install -r requirements.txt`
 
-7. launch the backend server
-    `python manage.py runserver 0.0.0.0:8080`
-
-8. setup database
+7. setup database
    `python manage.py migrate`
 
-9. create a superuser account
+8. create a superuser account
     `python manage.py createsuperuser`
+
+9. launch the backend server
+    `python manage.py runserver 0.0.0.0:8080`   
 
 10. go to localhost:8080 in a web browser
     - you can log into the app with the user you just created
