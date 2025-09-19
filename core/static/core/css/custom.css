@@ -1,0 +1,15 @@
+.babybites-body {
+    background-color: #FFFFBB;
+}
+
+.babybites-title {
+    font-family: "Sour Gummy", sans-serif;
+    text-align: center;
+    font-size: calc(2rem + 4vw);
+    color: #1693DB;
+}
+
+.babybites-slogan {
+    font-family: "Yrsa", sans-serif;
+    text-align: center;
+}

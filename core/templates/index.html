@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}BabyBites{% endblock %}
+
+{% block content %}
+    <h1 class="babybites-title">BabyBites</h1>
+    <h5 class="babybites-slogan">Introducing solids, one bite at a time.</h5>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+            <form method="post" class="p-4 border rounded bg-white shadow-sm">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+                {% endif %}
+
+            <div class="mb-3">
+                <label for="id_username" class="form-label">Username</label>
+                <input type="text" name="username" autofocus
+                    class="form-control{% if form.username.errors %} is-invalid{% endif %}"
+                    id="id_username" value="{{ form.username.value|default_if_none:'' }}">
+                {% if form.username.errors %}
+                    <div class="invalid-feedback">{{ form.username.errors|striptags }}</div>
+                {% endif %}
+            </div>
+        
+            <div class="mb-3">
+                <label for="id_password" class="form-label">Password</label>
+                <input type="password" name="password"
+                    class="form-control{% if form.password.errors %} is-invalid{% endif %}"
+                    id="id_password">
+                {% if form.password.errors %}
+                    <div class="invalid-feedback">{{ form.password.errors|striptags }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Log In</button>
+            
+            <p class="text-center mt-3 mb-0">
+                Don't have an account?<br>
+                <a href="{% url 'register' %}">Create an Account</a>
+            </p>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
