@@ -17,10 +17,7 @@ import environ
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(
     DEBUG=(bool, True),
-    DATABASE_URL=(str, "")      #this will point to PostgreSQL eventually
 )
-
-environ.Env.read_env(BASE_DIR / ".env")
 
 DEBUG = env("DEBUG")
 
@@ -81,15 +78,19 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-db_url = env("DATABASE_URL")
-if db_url:
-    DATABASES = {"default": env.db("DATABASE_URL")}
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }   
+
+
+
+
+DATABASES = {
+    'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'babybites',
+    'USER': 'dledwith',
+    'PASSWORD': 'password',
+    'HOST': '127.0.0.1',
+    'PORT': '5432',
+}   
     }
 
 
