@@ -9,7 +9,7 @@ class SignUpForm(UserCreationForm):
     agree_privacy = forms.BooleanField(
         required=True,
         label=mark_safe(
-            'I agree to the Privacy Policy'),
+            'I agree to the Privacy Policy*'),
         error_messages={"required": "You must agree to the Privacy Policy."},
     )
 

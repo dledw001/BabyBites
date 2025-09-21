@@ -12,7 +12,7 @@
             {% endif %}
             
             <div class="mb-3">
-                <label for="id_name" class="form-label">Name</label>
+                <label for="id_name" class="form-label">Name*</label>
                 <input type="text" name="name" autofocus
                 class="form-control{% if form.name.errors %} is-invalid{% endif %}"
                 id="id_name" value="{{ form.name.value|default_if_none:'' }}">
