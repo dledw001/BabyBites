@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title  %}Create a Baby Profile{% endblock %}
+
+{% block content %}
+<h1 class="text-center mb-4">Create a Baby Profile</h1>
+    
+<div class="row justify-content-center">    
+    <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+        <form method="post" nonvalidate class="p-4 border rounded bg-white shadow-sm">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+            {% endif %}
+            
+            <div class="mb-3">
+                <label for="id_name" class="form-label">Name</label>
+                <input type="text" name="name" autofocus
+                class="form-control{% if form.name.errors %} is-invalid{% endif %}"
+                id="id_name" value="{{ form.name.value|default_if_none:'' }}">
+                {% if form.name.errors %}
+                    <div class="invalid-feedback d-block">{{ form.username.errors|striptags }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="mb-3">
+                <label for="id_date_of_birth" class="form-label">Date of Birth</label>
+                <input type="date" name="date_of_birth"
+                class="form-control{% if form.date_of_birth.errors %} is-invalid{% endif %}"
+                id="id_date_of_birth" value="{{ form.date_of_birth.value|default_if_none:'' }}">
+                {% if form.date_of_birth.errors %}
+                    <div class="invalid-feedback d-block">{{ form.date_of_bith.errors|striptags }}</div>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100">Save</button>
+            <p class="text-center mt-3 mb-0">
+                Change your mind?<br>
+                <a href="{% url 'home' %}">Return to Dashboard</a>
+            </p>
+        </form>
+    </div>
+</div>
+{% endblock %}
