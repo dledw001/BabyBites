@@ -4,8 +4,8 @@
 
 2. clone the repo and cd BabyBites
 
-3. checkout the dan branch
-    `git checkout dan`
+3. make sure you're on the main branch
+    `git checkout main`
 
 4. start a python virtual environment
     `python -m venv .venv`
