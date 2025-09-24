@@ -10,4 +10,4 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name="logout"),
     path('babies/', baby_list, name='baby-list'),
     path('babies/new/', baby_create, name='baby-create')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

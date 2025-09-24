@@ -20,4 +20,4 @@ class SignUpForm(UserCreationForm):
 class BabyForm(forms.ModelForm):
     class Meta:
         model = Baby
-        fields = ['name']
+        fields = ['name', 'image']

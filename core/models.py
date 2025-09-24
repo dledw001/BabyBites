@@ -12,7 +12,12 @@ class Baby(models.Model):
         db_index=True,
     )
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)     #required
+    #date_of_birth = models.DateTimeField()     #required
+    
+    image = models.ImageField(upload_to='profile_images/')  #optional
+
+    #known_allergies                            #optional
 
     created_at = models.DateTimeField(default=timezone.now, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
