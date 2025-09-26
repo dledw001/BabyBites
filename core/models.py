@@ -15,7 +15,11 @@ class Baby(models.Model):
     name = models.CharField(max_length=100)     #required
     #date_of_birth = models.DateTimeField()     #required
     
-    image = models.ImageField(upload_to='profile_images/')  #optional
+    image = models.ImageField(
+        upload_to='profile_images/',
+        blank=True,
+        null=True
+    )  #optional
 
     #known_allergies                            #optional
 
