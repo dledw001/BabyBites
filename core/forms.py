@@ -2,7 +2,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from django.utils.safestring import mark_safe
-from .models import Baby
+from .models import Baby, Allergy
+
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -18,6 +19,12 @@ class SignUpForm(UserCreationForm):
         fields = ("username", "email", "password1", "password2")
 
 class BabyForm(forms.ModelForm):
+    allergies = forms.ModelMultipleChoiceField(
+        queryset=Allergy.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple
+    )
+
     class Meta:
         model = Baby
-        fields = ['name', 'image']
+        fields = ['name', 'date_of_birth', 'image', 'allergies']

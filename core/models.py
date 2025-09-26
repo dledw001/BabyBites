@@ -1,7 +1,17 @@
 import uuid
+import datetime
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
+
+class Allergy(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
 
 class Baby(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -12,16 +22,14 @@ class Baby(models.Model):
         db_index=True,
     )
 
-    name = models.CharField(max_length=100)     #required
-    #date_of_birth = models.DateTimeField()     #required
-    
-    image = models.ImageField(
-        upload_to='profile_images/',
-        blank=True,
-        null=True
-    )  #optional
+    #required fields
+    name = models.CharField(max_length=100)
+    date_of_birth = models.DateTimeField(default=datetime.date.today)
 
-    #known_allergies                            #optional
+    #optional fields
+    image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
+
+    allergies = models.ManyToManyField(Allergy, blank=True, related_name='allergies')
 
     created_at = models.DateTimeField(default=timezone.now, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
@@ -32,3 +40,4 @@ class Baby(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.owner.username})"
+

@@ -48,11 +48,12 @@ def baby_list(request):
 @login_required
 def baby_create(request):
     if request.method == "POST":
-        form = BabyForm(request.POST)
+        form = BabyForm(request.POST, request.FILES)
         if form.is_valid():
             baby = form.save(commit=False)
             baby.owner = request.user
             baby.save()
+            form.save_m2m()
             return redirect("baby-list")
     else:
         form = BabyForm()
