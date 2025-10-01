@@ -72,3 +72,13 @@ def baby_edit(request, baby_id):
         form = BabyForm(instance=baby)
 
     return render(request, "baby_form.html", {"form": form, "baby": baby})
+
+@login_required
+def baby_delete(request, baby_id):
+    baby = get_object_or_404(Baby, id=baby_id, owner=request.user)
+
+    if request.method == "POST":
+        baby.delete()
+        return redirect("baby-list")
+
+    return render(request, "baby_confirm_delete.html", {"baby": baby})

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Delete Baby Profile{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mb-4">Delete Baby Profile</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+            <div class="p-4 border rounded bg-white shadow-sm">
+                <p class="mb-4">Are you sure you want to delete profile for {{ baby.name }}?</p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger w-100 mb-2">Delete</button>
+                </form>
+
+                <a href="{% url 'baby-list' %}" class="btn btn-secondary w-100">Cancel</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -13,7 +13,9 @@
                 {% for baby in babies %}
                     <li>
                         {{ baby.name }}{% if baby.date_of_birth %} - {{ baby.date_of_birth|date:"m/d/Y" }}{% endif %}
-                        <a href="{% url 'baby-edit' baby.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'baby-edit' baby.id %}" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="{% url 'baby-delete' baby.id %}" class="btn btn-danger btn-sm">Delete</a>
+
                     </li>
                 {% empty %}
                     <li>No profiles yet. Make one?</li>
