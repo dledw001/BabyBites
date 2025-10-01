@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -58,3 +58,17 @@ def baby_create(request):
     else:
         form = BabyForm()
     return render(request, "baby_form.html", {"form": form})
+
+@login_required
+def baby_edit(request, baby_id):
+    baby = get_object_or_404(Baby, id=baby_id, owner=request.user)
+
+    if request.method == "POST":
+        form = BabyForm(request.POST, request.FILES, instance=baby)
+        if form.is_valid():
+            form.save()
+            return redirect("baby-list")
+    else:
+        form = BabyForm(instance=baby)
+
+    return render(request, "baby_form.html", {"form": form, "baby": baby})

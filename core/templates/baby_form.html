@@ -1,9 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Create a Baby Profile{% endblock %}
+{% block title %}
+    {% if baby %}Edit Baby Profile
+    {% else %}Create a Baby Profile
+    {% endif %}
+{% endblock %}
 
 {% block content %}
+    {% if baby %}
+    <h1 class="text-center mb-4">Edit Baby Profile</h1>
+    {% else %}
     <h1 class="text-center mb-4">Create a Baby Profile</h1>
-
+    {% endif %}
     <div class="row justify-content-center">
         <div class="col-12 col-sm-8 col-md-6 col-lg-4">
             <form method="post" enctype="multipart/form-data" novalidate class="p-4 border rounded bg-white shadow-sm">

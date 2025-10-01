@@ -11,7 +11,10 @@
                             <a href="/babies/new">Create a Baby Profile</a>
                     </li>
                 {% for baby in babies %}
-                    <li>{{ baby.name }}{% if baby.date_of_birth %} - {{ baby.date_of_birth }}{% endif %}</li>
+                    <li>
+                        {{ baby.name }}{% if baby.date_of_birth %} - {{ baby.date_of_birth|date:"m/d/Y" }}{% endif %}
+                        <a href="{% url 'baby-edit' baby.id %}" class="btn btn-primary">Edit</a>
+                    </li>
                 {% empty %}
                     <li>No profiles yet. Make one?</li>
                 {% endfor %}
