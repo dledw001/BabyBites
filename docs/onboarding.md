@@ -19,13 +19,16 @@
 7. setup database
    `python manage.py migrate`
 
-8. create a superuser account
+8. populate allergies
+    `python manage.py loaddata allergies.json`
+
+9. create a superuser account
     `python manage.py createsuperuser`
 
-9. launch the backend server
+10. launch the backend server
     `python manage.py runserver 0.0.0.0:8080`   
 
-10. go to localhost:8080 in a web browser
+11. go to localhost:8080 in a web browser
     - you can log into the app with the user you just created
     - you can also log into /admin
     - i find it helpful to use the private browsing or incognito option to avoid caching issues
