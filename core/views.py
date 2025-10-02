@@ -82,3 +82,7 @@ def baby_delete(request, baby_id):
         return redirect("baby-list")
 
     return render(request, "baby_confirm_delete.html", {"baby": baby})
+
+@login_required
+def resources(request):
+    return render(request, "resources.html")
