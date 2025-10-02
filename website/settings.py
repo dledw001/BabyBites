@@ -11,17 +11,20 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-<<<<<<< Updated upstream:website/settings.py
-=======
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
 environ.Env.read_env(BASE_DIR / ".env")
 
-DEBUG = env("DEBUG")
-USDA_API_KEY = env("USDA_API_KEY", default=None) 
->>>>>>> Stashed changes:backend/settings.py
+DEBUG = env("DEBUG", default=True)
+USDA_API_KEY = env("USDA_API_KEY", default=None)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -45,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
      "users",
+     
 ]
 
 MIDDLEWARE = [
