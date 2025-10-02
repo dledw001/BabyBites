@@ -15,14 +15,13 @@
 
 /* Dark stars for light background */
 .stars span {
-    position: absolute;
-    border-radius: 50%;
-    background: #333; /* dark gray star */
-    opacity: 0.8;
-    width: 3px;
-    height: 3px;
+    width: 1px;         /* smaller size */
+    height: 1px;        /* smaller size */
+    border-radius: 50%; /* keep round */
+    background: #333;   /* dark star for light background */
+    box-shadow: 0 0 2px #333, 0 0 4px #555; /* glow effect */
+    opacity: 0.9;
     animation: twinkle 3s infinite ease-in-out;
-    box-shadow: 0 0 3px #333; /* glow effect to make stars visible */
 }
 
 /* Different color variations */
