@@ -1,2 +1,7 @@
 **/.DS_Store
+<<<<<<< Updated upstream
+=======
+db.sqlite3
+**/__pycache__/*
+>>>>>>> Stashed changes
 .env
