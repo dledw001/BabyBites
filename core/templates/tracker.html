@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Food Tracker{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Food Tracker</h1>
+
+    <!-- Form for adding food entries -->
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Optional: Add a new food item -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        New Food Item (Optional)
+                    </div>
+                    <div class="card-body">
+                        {{ food_form.as_p }}
+                    </div>
+                </div>
+
+                <!-- Food entry form -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Food Entry
+                    </div>
+                    <div class="card-body">
+                        {{ entry_form.as_p }}
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">Save Entry</button>
+                    <a href="/dashboard/" class="btn btn-secondary">Back to Dashboard</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Display recent food entries -->
+    {% if food_entries %}
+        <div class="row justify-content-center mt-5">
+            <div class="col-12 col-md-8">
+                <h3>Your Recent Food Entries</h3>
+                <ul class="list-group">
+                    {% for entry in food_entries %}
+                        <li class="list-group-item">
+                            {{ entry.food.name }} - {{ entry.portion_size }}g
+                            {% if entry.notes %} ({{ entry.notes }}) {% endif %}
+                            <span class="text-muted float-end">{{ entry.date }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

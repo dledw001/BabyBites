@@ -51,7 +51,7 @@ class FoodItem(models.Model):
         return self.name
 
 class FoodEntry(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    baby = models.ForeignKey('Baby', on_delete=models.CASCADE, related_name='food_entries')
     food = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
     portion_size = models.FloatField(help_text="Portion size in grams")
     date = models.DateField(auto_now_add=True)
