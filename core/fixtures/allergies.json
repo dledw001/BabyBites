@@ -1,0 +1,11 @@
+[
+  {"model": "core.allergy", "pk": 1, "fields": {"name": "Milk"}},
+  {"model": "core.allergy", "pk": 2, "fields": {"name": "Egg"}},
+  {"model": "core.allergy", "pk": 3, "fields": {"name": "Peanut"}},
+  {"model": "core.allergy", "pk": 4, "fields": {"name": "Tree Nut"}},
+  {"model": "core.allergy", "pk": 5, "fields": {"name": "Soy"}},
+  {"model": "core.allergy", "pk": 6, "fields": {"name": "Wheat"}},
+  {"model": "core.allergy", "pk": 7, "fields": {"name": "Fish"}},
+  {"model": "core.allergy", "pk": 8, "fields": {"name": "Shellfish"}},
+  {"model": "core.allergy", "pk": 9, "fields": {"name": "Sesame"}}
+]

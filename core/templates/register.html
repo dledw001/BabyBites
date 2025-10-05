@@ -13,7 +13,7 @@
             {% endif %}
 
             <div class="mb-3">
-                <label for="id_username" class="form-label">Username</label>
+                <label for="id_username" class="form-label">Username*</label>
                 <input type="text" name="username" autofocus
                 class="form-control{% if form.username.errors %} is-invalid{% endif %}"
                 id="id_username" value="{{ form.username.value|default_if_none:'' }}">
@@ -23,7 +23,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="id_email" class="form-label">Email</label>
+                <label for="id_email" class="form-label">Email*</label>
                 <input type="text" name="email"
                 class="form-control{% if form.email.errors %} is-invalid{% endif %}"
                 id="id_email" value="{{ form.email.value|default_if_none:'' }}">
@@ -33,7 +33,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="id_password1" class="form-label">Password</label>
+                <label for="id_password1" class="form-label">Password*</label>
                 <input type="password" name="password1"
                 class="form-control{% if form.password1.errors %} is-invalid{% endif %}"
                 id="id_password1" value="{{ form.password1.value|default_if_none:'' }}">
@@ -43,7 +43,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="id_password2" class="form-label">Confirm Password</label>
+                <label for="id_password2" class="form-label">Confirm Password*</label>
                 <input type="password" name="password2"
                 class="form-control{% if form.password2.errors %} is-invalid{% endif %}"
                 id="is_password2" value="{{ form.password2.value|default_if_none:'' }}">
