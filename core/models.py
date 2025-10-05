@@ -41,10 +41,11 @@ class Baby(models.Model):
     def __str__(self):
         return f"{self.name} ({self.owner.username})"
 
-"""
 class FoodItem(models.Model):
     name = models.CharField(max_length=127)
     category = models.CharField(max_length=127, blank=True)
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -56,6 +57,8 @@ class FoodEntry(models.Model):
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
     notes = models.TextField(blank=True)
+    class Meta:
+        ordering = ['-date', '-time']
 
     def __str__(self):
-"""
+        return f"{self.food.name} for {self.baby.name} on {self.date} at {self.time}"
