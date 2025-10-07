@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from .forms import SignUpForm, BabyForm, FoodItemForm, FoodEntryForm
-from .models import Baby, FoodEntry
+from .models import Baby, FoodEntry, FoodItem
 
 # if user is not logged in, show log in screen, otherwise redirect to dashboard
 def home(request):
@@ -133,17 +133,17 @@ def tracker(request):
         food_form = FoodItemForm(request.POST, prefix='food')
         entry_form = FoodEntryForm(request.POST, prefix='entry', user=request.user)
 
-        if food_form.is_valid():
-            food_item = food_form.save()
-        else:
-            food_item = None
-
         if entry_form.is_valid():
             food_entry = entry_form.save(commit=False)
             food_entry.user = request.user
 
-            if food_item:
+            # Handle food input intelligently
+            if food_form.is_valid() and food_form.cleaned_data.get('name'):
+                name = food_form.cleaned_data['name'].strip()
+                food_item, _ = FoodItem.objects.get_or_create(name__iexact=name, defaults={'name': name})
                 food_entry.food = food_item
+            elif entry_form.cleaned_data.get('food'):
+                food_entry.food = entry_form.cleaned_data['food']
 
             food_entry.save()
             return redirect("tracker")
@@ -155,6 +155,7 @@ def tracker(request):
     
     context = {
         'food_form': food_form,
-        'entry_form': entry_form
+        'entry_form': entry_form,
+        'food_entries': food_entries
     }
     return render(request, 'tracker.html', context)

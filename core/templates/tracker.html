@@ -43,20 +43,42 @@
     <!-- Display recent food entries -->
     {% if food_entries %}
         <div class="row justify-content-center mt-5">
-            <div class="col-12 col-md-8">
-                <h3>Your Recent Food Entries</h3>
-                <ul class="list-group">
-                    {% for entry in food_entries %}
-                        <li class="list-group-item">
-                            {{ entry.food.name }} - {{ entry.portion_size }}g
-                            {% if entry.notes %} ({{ entry.notes }}) {% endif %}
-                            <span class="text-muted float-end">{{ entry.date }}</span>
-                        </li>
-                    {% endfor %}
-                </ul>
+            <div class="col-12 col-md-10">
+                <h3 class="mb-4 text-center">Your Recent Food Entries</h3>
+
+                {% regroup food_entries by baby as baby_groups %}
+
+                {% for group in baby_groups %}
+                    <div class="card bg-warning-subtle mb-4 rounded-3 shadow-sm">
+                        <div class="card-header fw-bold">
+                            {{ group.grouper.name }}
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table mb-0 align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Food</th>
+                                        <th>Portion (oz / fl oz)</th>
+                                        <th>Notes</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for entry in group.list %}
+                                        <tr>
+                                            <td>{{ entry.food.name }}</td>
+                                            <td>{{ entry.portion_size }}</td>
+                                            <td>{% if entry.notes %}{{ entry.notes }}{% else %}-{% endif %}</td>
+                                            <td>{{ entry.date|date:"M. j, Y" }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     {% endif %}
-
 </div>
 {% endblock %}
