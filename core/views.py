@@ -159,3 +159,7 @@ def tracker(request):
         'food_entries': food_entries
     }
     return render(request, 'tracker.html', context)
+
+@login_required
+def resources(request):
+    return render(request, "resources.html")
