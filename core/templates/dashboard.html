@@ -3,24 +3,22 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-    <h1 class="text-center mb-4">BabyBites </br>DASHBOARD </h1>
-    <p class="text-center mt-3 mb-0">
-    <br><br>
-        Link to <a href="/babies/">Profiles</a>
-    <br><br>
-        Link to <a href="/tracker/">Tracker</a>
-    <br><br>
-    Link to Resources
-    <br><br>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="p-4 border rounded bg-white shadow-sm text-center">
+                <h1 class="mb-4">Welcome, {{ user.username }}!</h1>
+                <p class="text-muted mb-4">
+                    Access different parts of your dashboard using the links below.
+                </p>
 
-    <!--
-    <div class="row justify-content-center mt-4">
-        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-            <form method="post" action="{% url 'logout' %}" class="p-4 border rounded bg-white shadow-sm">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger w-100">Log Out</button>
-            </form>
+                <div class="d-grid gap-3">
+                    <a href="/babies/" class="btn btn-primary w-100">Profiles</a>
+                    <a href="/tracker/" class="btn btn-success w-100">Tracker</a>
+                    <a href="#" class="btn btn-info w-100">Resources</a>
+                </div>
+            </div>
         </div>
     </div>
-    -->
+</div>
 {% endblock %}
