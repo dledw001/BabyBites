@@ -84,8 +84,6 @@ def baby_delete(request, baby_id):
     return render(request, "baby_confirm_delete.html", {"baby": baby})
 
 @login_required
-<<<<<<< HEAD
-=======
 def baby_list(request):
     babies = Baby.objects.filter(owner=request.user)
     return render(request, 'baby_list.html', {'babies': babies})
@@ -163,6 +161,5 @@ def tracker(request):
     return render(request, 'tracker.html', context)
 
 @login_required
->>>>>>> origin/main
 def resources(request):
     return render(request, "resources.html")

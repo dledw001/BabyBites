@@ -18,12 +18,8 @@ urlpatterns = [
     path('babies/new/', baby_create, name='baby-create'),
     path('babies/<uuid:baby_id>/edit', baby_edit, name='baby-edit'),
     path('babies/<uuid:baby_id>/delete/', baby_delete, name='baby-delete'),
-<<<<<<< HEAD
-    path('resources/', views.resources, name="resources")
-=======
     path('tracker/', views.tracker, name='tracker'),
 
     path('resources/', views.resources, name='resources')
->>>>>>> origin/main
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
