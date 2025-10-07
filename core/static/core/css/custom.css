@@ -2,6 +2,39 @@
     background-color: #FFFFBB;
 }
 
+/* Stars container */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;          /* stay behind content */
+    pointer-events: none; /* clicks pass through stars */
+}
+
+/* Dark stars for light background */
+.stars span {
+    width: 1px;         /* smaller size */
+    height: 1px;        /* smaller size */
+    border-radius: 50%; /* keep round */
+    background: #333;   /* dark star for light background */
+    box-shadow: 0 0 2px #333, 0 0 4px #555; /* glow effect */
+    opacity: 0.9;
+    animation: twinkle 3s infinite ease-in-out;
+}
+
+/* Different color variations */
+.stars span:nth-child(3n) { background: #333; }      /* dark gray */
+.stars span:nth-child(3n+1) { background: #555; }    /* medium gray */
+.stars span:nth-child(3n+2) { background: #000; }    /* black */
+
+/* Twinkle animation */
+@keyframes twinkle {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.2; }
+}
+
 .babybites-title {
     font-family: "Sour Gummy", sans-serif;
     text-align: center;

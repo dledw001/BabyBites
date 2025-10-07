@@ -4,6 +4,8 @@ from django import forms
 from django.utils.safestring import mark_safe
 from .models import Baby, Allergy, FoodItem, FoodEntry
 
+from .models import Baby, Allergy
+
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -17,6 +19,7 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ("username", "email", "password1", "password2")
+
 
 class BabyForm(forms.ModelForm):
     allergies = forms.ModelMultipleChoiceField(
