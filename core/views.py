@@ -137,7 +137,7 @@ def tracker(request):
             food_entry = entry_form.save(commit=False)
             food_entry.user = request.user
 
-            # Handle food input intelligently
+            # Handle food input to avoid duplicates
             if food_form.is_valid() and food_form.cleaned_data.get('name'):
                 name = food_form.cleaned_data['name'].strip()
                 food_item, _ = FoodItem.objects.get_or_create(name__iexact=name, defaults={'name': name})
