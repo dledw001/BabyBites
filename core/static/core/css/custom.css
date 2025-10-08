@@ -2,14 +2,34 @@
     background-color: #FFFFBB;
 }
 
-.babybites-title {
-    font-family: "Sour Gummy", sans-serif;
-    text-align: center;
-    font-size: calc(2rem + 4vw);
-    color: #1693DB;
-}
+  /* Header */
+  .bb-title{
+      font-family:"Grandstander",cursive;
+      font-weight:800;
+      line-height:1;
+      color:#74cfe6;
+      text-align:center;
+  }
 
-.babybites-slogan {
-    font-family: "Yrsa", sans-serif;
-    text-align: center;
+  .bb-title .top{font-size:4.2rem; display:block;}
+  .bb-title .bottom{font-size:4.2rem; display: block;}
+
+  /* Tiles */
+  .tile{
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    min-height:240px; border-radius:18px; box-shadow:0 10px 18px rgba(0,0,0,.12);
+    font-family:"Grandstander",cursive; font-weight:800; font-size:42px; color:#000; text-decoration:none;
+  }
+  .tile.peach{background:#f6b7a6;}
+  .tile.lav{background:#dbc3d5;}
+  .tile.green{background:#d7f5b8;}
+  .tile.blue{background:#dbeafe;}
+  .tile.resources{background:#cfcfbe; min-height:96px; font-size:36px;}
+
+  /* Mobile tweak so large text fits nicely */
+@media (max-width:720px){
+  .bb-title .top{font-size:3.2rem;}
+  .bb-title .bottom{font-size:3.2rem;}
+  .tile{min-height:170px; font-size:34px;}
+  .tile.resources{min-height:80px; font-size:28px;}
 }
