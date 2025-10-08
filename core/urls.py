@@ -20,6 +20,7 @@ urlpatterns = [
     path('babies/<uuid:baby_id>/delete/', baby_delete, name='baby-delete'),
     path('tracker/', views.tracker, name='tracker'),
 
-    path('resources/', views.resources, name='resources')
+    path('resources/', views.resources, name='resources'),
+    path('report/', views.generate_report_view, name='generate_report_view'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

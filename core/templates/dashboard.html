@@ -14,7 +14,10 @@
                 <div class="d-grid gap-3">
                     <a href="/babies/" class="btn btn-primary w-100">Profiles</a>
                     <a href="/tracker/" class="btn btn-success w-100">Tracker</a>
-                    <a href="/report/" class="btn btn-warning w-100">Daily Report</a>
+                    <form method="post" action="{% url 'generate_report_view' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-warning w-100">Daily Report</button>
+                    </form>
                     <a href="/resources/" class="btn btn-info w-100">Resources</a>
                 </div>
             </div>
