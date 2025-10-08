@@ -8,20 +8,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@700;800&display=swap" rel="stylesheet">
 
 <style>
-  .bb-wrap{max-width:980px;margin:32px auto}
+  :root{ --teal:#74cfe6; --ink:#000; }
+  .bb-wrap{ max-width:980px; margin:32px auto; }
+  /* Title stays teal; everything else will be black */
   .bb-title{
-    font-family:"Grandstander", cursive; font-weight:800;
-    text-align:center; line-height:1.1; margin-bottom:22px
+    font-family:"Grandstander",cursive; font-weight:800;
+    text-align:center; line-height:1.05; margin-bottom:24px;
+    color:var(--teal); font-size:3.2rem;
+  }
+  /* Wrap your tiles/links in .bb-content so all non-title text is black + bigger */
+  .bb-content, .bb-content *{
+    font-family:"Grandstander",cursive; color:var(--ink) !important;
   }
   .tile{
     display:flex; align-items:center; justify-content:center;
-    min-height:190px; border-radius:16px; text-align:center;
-    text-decoration:none; color:#1f1f1f; box-shadow:0 10px 18px rgba(0,0,0,.12);
-    font-family:"Grandstander", cursive; font-weight:800; font-size:2rem;
+    min-height:220px; border-radius:18px; text-align:center; text-decoration:none;
+    box-shadow:0 10px 18px rgba(0,0,0,.12); font-weight:800; font-size:2.2rem;
   }
+  .tile:link, .tile:visited{ color:var(--ink); text-decoration:none; }
   .peach{background:#f6b7a6;} .lavender{background:#dbc3d5;}
   .green{background:#d7f5b8;} .gray{background:#dfe6e6;}
-  .resources{background:#cfcfbe; min-height:90px; font-size:1.6rem;}
+  .resources{background:#cfcfbe; min-height:100px; font-size:1.8rem;}
+  @media (max-width:720px){
+    .bb-title{ font-size:2.4rem; }
+    .tile{ min-height:170px; font-size:1.9rem; }
+    .resources{ min-height:88px; font-size:1.6rem; }
+  }
 </style>
 
 <div class="container bb-wrap">
@@ -29,21 +41,24 @@
     <span style="color:#74cfe6; font-size:2.2rem; display:block;">BabyBites</span>
     <span style="color:#74cfe6; font-size:3rem;  display:block;">DASHBOARD</span>
   </h1>
-    <div class="row g-4">
-        <div class="col-12 col-md-6">
-            <a href="/babies/" class="title peach">BABY</br>PROFILE</a>
-        </div>
-        <div class="col-12 col-md-6">
-            <a href="/tracker/" class="title lavender">FOOD</br>TRACKER</a>
-        </div>
-        <div class="col-12 col-md-6">
-            <a href="" class="">Food</br>Database</a>
-        </div>
-        <div class="col-12 col-md-6">
-            <a href="" class="">Daily</br>Reports</a>
-        </div>
-        <div class="col-12">
-            <a href="/resources/" class="btn btn-info w-100">Resources</a>
+
+    <div class="bb-content">
+        <div class="row g-4">
+            <div class="col-12 col-md-6">
+                <a href="/babies/" class="title peach">BABY</br>PROFILE</a>
+            </div>
+            <div class="col-12 col-md-6">
+                <a href="/tracker/" class="title lavender">FOOD</br>TRACKER</a>
+            </div>
+            <div class="col-12 col-md-6">
+                <a href="" class="">Food</br>Database</a>
+            </div>
+            <div class="col-12 col-md-6">
+                <a href="" class="">Daily</br>Reports</a>
+            </div>
+            <div class="col-12">
+                <a href="/resources/" class="btn btn-info w-100">Resources</a>
+            </div>
         </div>
     </div>
 </div>
