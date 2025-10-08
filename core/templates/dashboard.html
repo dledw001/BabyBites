@@ -18,29 +18,36 @@
   }
   /* Wrap your tiles/links in .bb-content so all non-title text is black + bigger */
   .bb-content, .bb-content *{
-    font-family:"Grandstander",cursive; color:var(--ink) !important;
+      font-family:"Grandstander",cursive; color:var(--ink) !important;
   }
   .bb-title{
-  font-family:"Grandstander", cursive;
-  font-weight:800;
-  text-align:center;
-  line-height:1.0;
-  margin-bottom:24px;
+      font-family:"Grandstander", cursive;
+      font-weight:800;
+      text-align:center;
+      line-height:1.0;
+      margin-bottom:24px;
   }
   .bb-title .top{
-  color:#74cfe6;
-  font-size:3rem;     /* was ~2.2rem */
-  display:block;
+      color:#74cfe6;
+      font-size:3rem;
+      display:block;
   }
   .bb-title .bottom{
-  color:#74cfe6;
-  font-size:4.2rem;   /* was ~3rem */
-  display:block;
+      color:#74cfe6;
+      font-size:4.2rem;
+      display:block;
   }
   .tile:link, .tile:visited{ color:var(--ink); text-decoration:none; }
   .peach{background:#f6b7a6;} .lavender{background:#dbc3d5;}
   .green{background:#d7f5b8;} .gray{background:#dfe6e6;}
-  .resources{background:#cfcfbe; min-height:100px; font-size:1.8rem;}
+
+  .resources{
+      background:#cfcfbe;
+      min-height:100px;
+      font-size:1.8rem;
+      color:#000
+  }
+
   @media (max-width:720px){
   .bb-title .top{ font-size:2.3rem; }
   .bb-title .bottom{ font-size:3.2rem; }
@@ -68,7 +75,7 @@
                 <a href="" class="">Daily</br>Reports</a>
             </div>
             <div class="col-12">
-                <a href="/resources/" class="btn btn-info w-100">Resources</a>
+                <a href="/resources/" class="title resources">Resources</a>
             </div>
         </div>
     </div>
