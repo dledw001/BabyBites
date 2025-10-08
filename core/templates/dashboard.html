@@ -1,34 +1,15 @@
 {% extends "base.html" %}
-{% load static %}
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@700;800&display=swap" rel="stylesheet">
+<div class="container my-4">
 
-<style>
-  :root{ --teal:#74cfe6; --ink:#000; --bg:#fff8bf;
-         --peach:#f6b7a6; --lav:#dbc3d5; --green:#d7f5b8; --blue:#dbeafe; --res:#cfcfbe; }
-  body{ background:var(--bg); }
-
-  @media (max-width:720px){
-    .bb-title .top{ font-size:3.2rem; }
-    .bb-title .bottom{ font-size:3.2rem; }
-    .tile{ min-height:170px; font-size:34px; }
-    .tile.resources{ min-height:80px; font-size:28px; }
-  }
-</style>
-
-<div class="container py-3 position-relative">
-
-  <!-- title -->
-  <h1 class="bb-title text-center my-3">
-    <span class="top d-block">BabyBites</span>
-    <span class="bottom d-block">DASHBOARD</span>
+  <h1 class="bb-title mb-3">
+    <span class="top">BabyBites</span>
+    <span class="bottom">DASHBOARD</span>
   </h1>
 
-  <!-- tiles -->
-  <div class="row g-4 mt-2">
+  <div class="row g-4">
     <div class="col-12 col-md-6">
       <a href="/babies/" class="tile peach">BABY<br>PROFILE(S)</a>
     </div>
