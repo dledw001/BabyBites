@@ -20,26 +20,37 @@
   .bb-content, .bb-content *{
     font-family:"Grandstander",cursive; color:var(--ink) !important;
   }
-  .tile{
-    display:flex; align-items:center; justify-content:center;
-    min-height:220px; border-radius:18px; text-align:center; text-decoration:none;
-    box-shadow:0 10px 18px rgba(0,0,0,.12); font-weight:800; font-size:2.2rem;
+  .bb-title{
+  font-family:"Grandstander", cursive;
+  font-weight:800;
+  text-align:center;
+  line-height:1.0;
+  margin-bottom:24px;
+  }
+  .bb-title .top{
+  color:#74cfe6;
+  font-size:3rem;     /* was ~2.2rem */
+  display:block;
+  }
+  .bb-title .bottom{
+  color:#74cfe6;
+  font-size:4.2rem;   /* was ~3rem */
+  display:block;
   }
   .tile:link, .tile:visited{ color:var(--ink); text-decoration:none; }
   .peach{background:#f6b7a6;} .lavender{background:#dbc3d5;}
   .green{background:#d7f5b8;} .gray{background:#dfe6e6;}
   .resources{background:#cfcfbe; min-height:100px; font-size:1.8rem;}
   @media (max-width:720px){
-    .bb-title{ font-size:2.4rem; }
-    .tile{ min-height:170px; font-size:1.9rem; }
-    .resources{ min-height:88px; font-size:1.6rem; }
-  }
+  .bb-title .top{ font-size:2.3rem; }
+  .bb-title .bottom{ font-size:3.2rem; }
+}
 </style>
 
 <div class="container bb-wrap">
   <h1 class="bb-title">
-    <span style="color:#74cfe6; font-size:2.2rem; display:block;">BabyBites</span>
-    <span style="color:#74cfe6; font-size:3rem;  display:block;">DASHBOARD</span>
+      <span class="top">BabyBites</span>
+      <span class="bottom">DASHBOARD</span>
   </h1>
 
     <div class="bb-content">
