@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🍎 USDA Food Search</title>
+  <style>
+    body {
+      font-family: "Helvetica", sans-serif;
+      background-color: #f9f9f9;
+      padding: 40px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #222;
+      margin-bottom: 30px;
+    }
+    form {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    input {
+      width: 300px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px 0 0 8px;
+      outline: none;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .food-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .food-card h2 {
+      margin: 0;
+      color: #222;
+    }
+    .add-btn {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      text-decoration: none;
+    }
+    .add-btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>🍎 USDA Food Search</h1>
+
+  <form method="get">
+    <input type="text" name="query" placeholder="Search food..." value="{{ request.GET.query }}">
+    <button type="submit">Search</button>
+  </form>
+
+  {% if foods %}
+    <h3>Results</h3>
+    {% for food in foods %}
+      <div class="food-card">
+        <h2>{{ food.description }}</h2>
+        <p><strong>FDC ID:</strong> {{ food.fdcId }}</p>
+
+        <p><strong>Protein:</strong> {{ food.nutrients_display.protein }} g</p>
+        <p><strong>Fats:</strong> {{ food.nutrients_display.fats }} g</p>
+        <p><strong>Carbs:</strong> {{ food.nutrients_display.carbs }} g</p>
+        <p><strong>Calories:</strong> {{ food.nutrients_display.calories }} kcal</p>
+
+        <form method="post" action="{% url 'add_usda_food' %}">
+          {% csrf_token %}
+          <input type="hidden" name="name" value="{{ food.description }}">
+          <input type="hidden" name="protein" value="{{ food.nutrients_display.protein }}">
+          <input type="hidden" name="fats" value="{{ food.nutrients_display.fats }}">
+          <input type="hidden" name="carbs" value="{{ food.nutrients_display.carbs }}">
+          <input type="hidden" name="calories" value="{{ food.nutrients_display.calories }}">
+          <button class="add-btn" type="submit">Add to My Foods</button>
+        </form>
+      </div>
+    {% endfor %}
+  {% endif %}
+</body>
+</html>

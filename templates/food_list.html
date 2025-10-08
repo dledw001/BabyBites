@@ -1,0 +1,6 @@
+<h2>Food Items</h2>
+<ul>
+  {% for food in foods %}
+    <li>{{ food.name }} - {{ food.calories }} cal ({{ food.category.name }})</li>
+  {% endfor %}
+</ul>

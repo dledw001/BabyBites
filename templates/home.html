@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BabyBites Home</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9fafb;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover {
+            background-color: #43a047;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to BabyBites 👶</h1>
+    <p>Track your meals, view nutrition, and stay healthy!</p>
+
+    <nav>
+        <ul>
+            <li><a href="{% url 'signup' %}">🧍‍♀️ Sign Up</a></li>
+            <li><a href="{% url 'my_foods' %}">🍽️ My Foods</a></li>
+            <li><a href="{% url 'add_food' %}">➕ Add Food</a></li>
+            <li><a href="{% url 'usdaapi' %}">🔍 Search USDA Foods</a></li>
+        </ul>
+    </nav>
+
+    <footer>© 2025 BabyBites</footer>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<h1>My Foods</h1>
+<ul>
+  {% for food in foods %}
+    <li>{{ food.name }} ({{ food.category.name }}) - {{ food.calories }} cal</li>
+  {% empty %}
+    <li>No foods logged yet.</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'add_food' %}">Add another</a>
