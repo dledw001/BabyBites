@@ -1,25 +1,31 @@
 {% extends "base.html" %}
-
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-8 col-lg-6">
-            <div class="p-4 border rounded bg-white shadow-sm text-center">
-                <h1 class="mb-4">BabyBites <br/>DASHBOARD</h1>
-                <p class="text-muted mb-4">
-                </p>
+<div class="container my-4">
 
-                <div class="d-grid gap-3">
-                    <a href="/babies/" class="btn btn-primary w-100">Baby Profile</a>
-                    <a href="/tracker/" class="btn btn-success w-100">Food Tracker</a>
-                    <a href="" class="">Food Database</a>
-                    <a href="" class="">Daily Reports</a>
-                    <a href="/resources/" class="btn btn-info w-100">Resources</a>
-                </div>
-            </div>
-        </div>
+  <h1 class="bb-title mb-3">
+    <span class="top">BabyBites</span>
+    <span class="bottom">DASHBOARD</span>
+  </h1>
+
+  <div class="row g-4">
+    <div class="col-12 col-md-6">
+      <a href="/babies/" class="tile peach">BABY<br>PROFILE(S)</a>
     </div>
+    <div class="col-12 col-md-6">
+      <a href="/tracker/" class="tile lav">FOOD<br>TRACKER</a>
+    </div>
+    <div class="col-12 col-md-6">
+      <a href="/database/" class="tile green">FOOD<br>DATABASE</a>
+    </div>
+    <div class="col-12 col-md-6">
+      <a href="/dailyreports/" class="tile blue">DAILY<br>REPORTS</a>
+    </div>
+    <div class="col-12">
+      <a href="/resources/" class="tile resources">RESOURCES</a>
+    </div>
+  </div>
 </div>
+
 {% endblock %}
