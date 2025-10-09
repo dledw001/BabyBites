@@ -30,12 +30,13 @@ BabyBites provides parents and caregivers with expert-backed resources, meal pre
 
 ## Labs
   - <a href="./website/labs.html#Lab-1-Outline">Lab 1 Outline</a>
-  - <a href="./website/Lab 1 - V1 (pdfs)/Asia_Acosta_Lab_1.pdf">Asia Acosta Lab 1 Version 1 (PDF)</a>
-  - <a href="./website/Lab 1 - V1 (pdfs)/Cameron_Williams_Lab_1.pdf">Cameron Williams Lab 1 Version 1 (PDF)</a>
-  - <a href="./website/Lab 1 - V1 (pdfs)/Daniel_Ledwith_Lab_1.pdf">Daniel Ledwith Lab 1 Version 1 (PDF)</a>
-  - <a href="./website/Lab 1 - V1 (pdfs)/Diogo_Silva_Lab_1.pdf">Diogo Silva Lab 1 Version 1 (PDF)</a>
-  - <a href="./website/Lab 1 - V1 (pdfs)/Dominique_Willis_Lab_1.pdf">Dominique Willis Lab 1 Version 1 (PDF)</a>
-  - <a href="./website/Lab 1 - V1 (pdfs)/Martin_Salisbury_Lab_1.pdf">Martin Salisbury Lab 1 Version 1 (PDF)</a>
+  ### Lab 1 Version 1 (PDFs)
+  - <a href="./website/Lab 1 - V1 (pdfs)/Asia_Acosta_Lab_1.pdf">Asia Acosta</a>
+  - <a href="./website/Lab 1 - V1 (pdfs)/Cameron_Williams_Lab_1.pdf">Cameron Williams</a>
+  - <a href="./website/Lab 1 - V1 (pdfs)/Daniel_Ledwith_Lab_1.pdf">Daniel Ledwith</a>
+  - <a href="./website/Lab 1 - V1 (pdfs)/Diogo_Silva_Lab_1.pdf">Diogo Silva</a>
+  - <a href="./website/Lab 1 - V1 (pdfs)/Dominique_Willis_Lab_1.pdf">Dominique Willis</a>
+  - <a href="./website/Lab 1 - V1 (pdfs)/Martin_Salisbury_Lab_1.pdf">Martin Salisbury</a>
 
 
 ## Resources  
