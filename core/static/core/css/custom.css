@@ -2,31 +2,36 @@
     background-color: #FFFFBB;
 }
 
-  /* Header */
-  .bb-title{
-      font-family:"Grandstander";
-      font-weight:800;
-      line-height:1;
-      color:#74cfe6;
-      text-align:center;
-  }
+/*bb logo*/
+.bb-logo {
+    width: 56px;
+    height: 56px;
+}
 
-  .bb-title .top{font-size:4.2rem; display:block;}
-  .bb-title .bottom{font-size:4.2rem; display: block;}
+/* Header */
+.bb-title{
+    font-family:"Grandstander";
+    font-weight:800;
+    line-height:1;
+    color:#74cfe6;
+    text-align:center;
+}
+.bb-title .top{font-size:4.2rem; display:block;}
+.bb-title .bottom{font-size:4.2rem; display: block;}
 
-  /* Tiles */
-  .tile{
+/* Dashboard Tiles */
+.tile{
     display:flex; align-items:center; justify-content:center; text-align:center;
     min-height:240px; border-radius:18px; box-shadow:0 10px 18px rgba(0,0,0,.12);
     font-family:"Grandstander"; font-weight:800; font-size:42px; color:#000; text-decoration:none;
-  }
+}
   .tile.peach{background:#f6b7a6;}
   .tile.lav{background:#dbc3d5;}
   .tile.green{background:#d7f5b8;}
   .tile.blue{background:#dbeafe;}
   .tile.resources{background:#cfcfbe; min-height:96px; font-size:36px;}
 
-  /* Mobile tweak so large text fits nicely */
+/* Mobile tweak so large text fits nicely */
 @media (max-width:720px){
   .bb-title .top{font-size:3.2rem;}
   .bb-title .bottom{font-size:3.2rem;}
