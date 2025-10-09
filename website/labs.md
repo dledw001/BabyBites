@@ -4,4 +4,6 @@
 
 # Lab 1 Version 1
 
-[Asia Acosta](Asia_Acosta_Lab_1.pdf)
+<iframe src="https://docs.google.com/document/d/e/2PACX-1vQ1quq-Rk9nYQ1TW6tOCntogU4Q27uUv0JFQQsLKAL7Pw1Vx34K0GAgSCJzIwN3QyzKpPR_9POyYz9P/pub?embedded=true" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+
