@@ -22,5 +22,7 @@ urlpatterns = [
 
     path('resources/', views.resources, name='resources'),
     path('report/', views.generate_report_view, name='generate_report_view'),
+    path('report/preview/', views.report_preview, name='report_preview'),
+    path('report/download/', views.report_image, name='report_image')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

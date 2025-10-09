@@ -1,12 +1,12 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import render, redirect, get_object_or_404, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from .forms import SignUpForm, BabyForm, FoodItemForm, FoodEntryForm
 from .models import Baby, FoodEntry, FoodItem
-from .reports import generate_report
 from django.http import HttpResponse
+from .reports import generate_report_image
 
 # if user is not logged in, show log in screen, otherwise redirect to dashboard
 def home(request):
@@ -169,5 +169,22 @@ def resources(request):
 
 @login_required
 def generate_report_view(request):
-    report = generate_report(user=request.user)
-    return HttpResponse(report, content_type="text/plain; charset=utf-8")
+    if request.method != "POST":
+        return HttpResponse(status=405)
+    return redirect('report_preview')
+
+@login_required
+def report_preview(request):
+    return render(request, 'report_preview.html')
+
+@login_required
+def report_image(request):
+    username = request.user.get_username()
+    png_bytes = generate_report_image(username)
+    display = 'attachment' if request.GET.get('download') else 'inline'
+    response = HttpResponse(png_bytes, content_type="image/png")
+    response['Content-Disposition'] = f'{display}; filename="daily_report_{username}.png"'
+    response['Cache-Control'] = 'no-store'
+    return response
+
+

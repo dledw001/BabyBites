@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container py-3 text-center">
+        <div class="d-flex gap-2 mb-3 justify-content-center">
+            <a class="btn btn-primary" href="{% url 'report_image' %}?download=1">Download PNG</a>
+            <a class="btn btn-secondary" href="{% url 'report_image' %}" target="_blank" rel="noopener">Open in new
+                tab</a>
+        </div>
+        <img src="{% url 'report_image' %}" class="img-fluid border rounded" alt="Daily Report">
+    </div>
+
+{% endblock %}
