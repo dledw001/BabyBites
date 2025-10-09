@@ -4,4 +4,4 @@
 
 # Lab 1 Version 1
 
-<iframe src="https://drive.google.com/file/d/1_RdOGDtlr-Zy36ZUisnUfES8GPVR-gSl/view" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+[Annual Report](Asia_Acosta_Lab_1.pdf)
