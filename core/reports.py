@@ -41,25 +41,27 @@ def generate_report_image(username: str) -> bytes:
 
     title = "DAILY REPORT"
     tw, th = draw.textbbox((0, 0), title, font=title_font)[2:]
-    draw.text(((W - tw) / 2, 150), title, fill=color, font=title_font)
-
-    username_string = f"{username}"
-    max_width = int(W * 0.85)
-    usw, ush = draw.textbbox((0, 0), username_string, font=user_font)[2:]
-    draw.text(((W - usw) / 2, 250), username_string, fill=color, font=user_font)
+    draw.text(((W - tw) / 2, 50), title, fill=color, font=title_font)
 
     timestamp = now().strftime("%Y-%m-%d %H:%M:%S %Z")
     meta = f"AS OF {timestamp}"
     mw, mh = draw.textbbox((0, 0), meta, font=meta_font)[2:]
-    draw.text(((W - mw) / 2, 360), meta, fill=color, font=meta_font)
+    draw.text(((W - mw) / 2, 125), meta, fill=color, font=meta_font)
+
+    username_string = f"{username}"
+    max_width = int(W * 0.85)
+    usw, ush = draw.textbbox((0, 0), username_string, font=user_font)[2:]
+    draw.text(((W - usw) / 2, 300), username_string, fill=color, font=user_font)
 
     profiles = count_profiles(username)
     profiles_str = f"number of profiles: {str(profiles)}"
-    draw.text(((W - mw) / 2, 450), profiles_str, fill=color, font=meta_font)
+    pw, ph = draw.textbbox((0, 0), profiles_str, font=meta_font)[2:]
+    draw.text(((W - pw) / 2, 450), profiles_str, fill=color, font=meta_font)
 
     entries = count_entries(username)
     entries_str = f"number of entries: {str(entries)}"
-    draw.text(((W - mw) / 2, 500), entries_str, fill=color, font=meta_font)
+    ew, eh = draw.textbbox((0, 0), entries_str, font=meta_font)[2:]
+    draw.text(((W - ew) / 2, 500), entries_str, fill=color, font=meta_font)
 
     pad = 24
     draw.rectangle([pad, pad, W - pad, H - pad], outline=color, width=2)
