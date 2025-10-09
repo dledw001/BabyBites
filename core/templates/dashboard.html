@@ -2,16 +2,18 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<div class="container my-4">
+<div class="container my-4 position-relative">
+  <!-- pinned logo -->
+  <div class="bb-logo position-absolute" style="left:24px; top:8px;"></div>
 
-  <h1 class="bb-title mb-3">
+  <h1 class="bb-title mb-0 text-center py-2">
     <span class="top">BabyBites</span>
     <span class="bottom">DASHBOARD</span>
   </h1>
 
   <div class="row g-4">
     <div class="col-12 col-md-6">
-      <a href="/babies/" class="tile peach">BABY<br>PROFILE(S)</a>
+      <a href="/babies/" class="tile peach">BABY<br>PROFILE</a>
     </div>
     <div class="col-12 col-md-6">
       <a href="/tracker/" class="tile lav">FOOD<br>TRACKER</a>
@@ -27,5 +29,6 @@
     </div>
   </div>
 </div>
+
 
 {% endblock %}

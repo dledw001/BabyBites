@@ -4,8 +4,11 @@
 
 /*bb logo*/
 .bb-logo {
-    width: 56px;
-    height: 56px;
+    width: 100px;
+    height: 100px;
+    background-image: url(../img/babybites-logo.png);
+    background-size: cover;
+    background-position: right;
 }
 
 /* Header */
