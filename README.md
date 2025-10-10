@@ -30,7 +30,7 @@ BabyBites provides parents and caregivers with expert-backed resources, meal pre
 
 ## Labs
   - <a href="./website/labs.html#Lab-1-Outline">Lab 1 Outline</a>
-  ### Lab 1 Version 1 (PDFs)
+### Lab 1 Version 1 (PDFs)
   - <a href="./website/Lab 1 - V1 (pdfs)/Asia_Acosta_Lab_1.pdf">Asia Acosta</a>
   - <a href="./website/Lab 1 - V1 (pdfs)/Cameron_Williams_Lab_1.pdf">Cameron Williams</a>
   - <a href="./website/Lab 1 - V1 (pdfs)/Daniel_Ledwith_Lab_1.pdf">Daniel Ledwith</a>
