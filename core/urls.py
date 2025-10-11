@@ -20,6 +20,11 @@ urlpatterns = [
     path('babies/<uuid:baby_id>/delete/', baby_delete, name='baby-delete'),
     path('tracker/', views.tracker, name='tracker'),
 
-    path('resources/', views.resources, name='resources')
+    path('resources/', views.resources, name='resources'),
+
+    path('add_food/', views.add_food, name='add_food'),
+    path('food_list/', views.food_list, name='food_list'),
+    path('usda_search/', views.usda_search, name='usda_search'),
+    path('add_usda_food/', views.add_usda_food, name='add_usda_food')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

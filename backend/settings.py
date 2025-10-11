@@ -143,3 +143,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = "home"
 LOGIN_REDIRECT_URL = "dashboard"
 LOGOUT_REDIRECT_URL = "home"
+
+USDA_API_KEY = env("USDA_API_KEY", default=None)

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Add Food{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <h1 class="bb-title text-center py-2">
+    <span class="top">BabyBites</span>
+    <span class="bottom">ADD FOOD</span>
+  </h1>
+
+  <form method="post" class="mt-4 mx-auto" style="max-width:500px;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="text-center mt-3">
+      <button type="submit" class="btn btn-success">Save Food</button>
+      <a href="{% url 'food_list' %}" class="btn btn-secondary ms-2">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

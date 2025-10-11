@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}USDA Food Search{% endblock %}
+
+{% block content %}
+<div class="container my-4 text-center">
+  <h1 class="bb-title mb-4">
+    <span class="top">BabyBites</span>
+    <span class="bottom">USDA FOOD SEARCH</span>
+  </h1>
+
+  <form method="get" action="{% url 'usda_search' %}" class="mb-4">
+    <div class="input-group justify-content-center" style="max-width: 500px; margin: 0 auto;">
+      <input 
+        type="text" 
+        name="query" 
+        value="{{ request.GET.query }}" 
+        class="form-control" 
+        placeholder="Search for a food..." 
+        required
+      >
+      <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+  </form>
+
+  {% if error %}
+    <div class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+  {% endif %}
+
+  {% if foods %}
+    <div class="food-results">
+      {% for food in foods %}
+        <div class="card shadow-sm p-3 mb-3" style="background-color: #fffbe7; border-radius: 12px; text-align: left; max-width: 600px; margin: 0 auto;">
+          <h4 style="color: #3a3a3a; font-weight: bold;">{{ food.description }}</h4>
+          <p style="margin-bottom: 4px;"><strong>FDC ID:</strong> {{ food.fdcId }}</p>
+          <p style="margin-bottom: 2px;">Calories: {{ food.calories|default:"N/A" }} kcal</p>
+          <p style="margin-bottom: 2px;">Protein: {{ food.protein|default:"N/A" }} g</p>
+          <p style="margin-bottom: 2px;">Carbs: {{ food.carbs|default:"N/A" }} g</p>
+          <p style="margin-bottom: 8px;">Fats: {{ food.fats|default:"N/A" }} g</p>
+
+          <form method="post" action="{% url 'add_usda_food' %}">
+            {% csrf_token %}
+            <input type="hidden" name="name" value="{{ food.description }}">
+            <button type="submit" class="btn btn-outline-success w-100">
+              + Add to My Foods
+            </button>
+          </form>
+        </div>
+      {% endfor %}
+    </div>
+  {% elif request.GET.query %}
+    <p class="text-muted mt-4">No results found for "{{ request.GET.query }}".</p>
+  {% endif %}
+</div>
+
+<style>
+  body {
+    background-color: #fffbd1;
+  }
+  .bb-title {
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 2rem;
+  }
+  .card button {
+    font-weight: 600;
+    border-radius: 10px;
+  }
+</style>
+{% endblock %}

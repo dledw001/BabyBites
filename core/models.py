@@ -63,5 +63,37 @@ class FoodEntry(models.Model):
     class Meta:
         ordering = ['-date', '-time']
 
+
+
     def __str__(self):
         return f"{self.food.name} for {self.baby.name} on {self.date} at {self.time}"
+    
+
+class FoodCategory(models.Model):
+    """Represents a general food group or USDA import category."""
+    name = models.CharField(max_length=100, unique=True)
+    pyramid_level = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['pyramid_level', 'name']
+
+    def __str__(self):
+        return self.name
+
+
+class UserFood(models.Model):
+    """Stores custom foods or USDA imports tied to a specific user."""
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_foods')
+    category = models.ForeignKey(FoodCategory, on_delete=models.SET_NULL, null=True, blank=True)
+    name = models.CharField(max_length=200)
+    calories = models.FloatField(default=0)
+    protein = models.FloatField(default=0)
+    carbs = models.FloatField(default=0)
+    fats = models.FloatField(default=0)
+    source = models.CharField(max_length=50, default="custom")  # "custom" or "usda"
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return f"{self.name} ({self.user.username})"

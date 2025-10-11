@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from .forms import SignUpForm, BabyForm, FoodItemForm, FoodEntryForm
 from .models import Baby, FoodEntry, FoodItem
+from django.conf import settings
+import requests
 
 # if user is not logged in, show log in screen, otherwise redirect to dashboard
 def home(request):
@@ -160,6 +164,78 @@ def tracker(request):
     }
     return render(request, 'tracker.html', context)
 
+
+
+
 @login_required
 def resources(request):
     return render(request, "resources.html")
+
+
+@login_required
+def add_food(request):
+    """ adding custom foods"""
+    if request.method == "POST":
+        form = FoodItemForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Food added successfully!")
+            return redirect("food_list")
+        
+    else:
+        form = FoodItemForm()
+    return render(request, "add_food.html", {"form": form})
+
+@login_required
+def food_list(request):
+    """listing all foods"""
+    foods = FoodItem.objects.all().order_by("name")
+    return render(request, "food_list.html", {"foods":foods})
+
+
+@login_required
+def usda_search(request):
+    import requests
+
+    query = request.GET.get("query")
+    foods = []
+
+    if query:
+        api_key = getattr(settings, "USDA_API_KEY", None)
+        if not api_key:
+            return render(request, "usda_search.html", {"error": "Missing USDA API Key"})
+
+        url = f"https://api.nal.usda.gov/fdc/v1/foods/search?query={query}&pageSize=5&api_key={api_key}"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            data = response.json()
+            for item in data.get("foods", []):
+                nutrients = {n["nutrientName"]: n["value"] for n in item.get("foodNutrients", [])}
+
+                foods.append({
+                    "description": item.get("description", "Unknown"),
+                    "fdcId": item.get("fdcId"),
+                    "calories": nutrients.get("Energy", 0),
+                    "protein": nutrients.get("Protein", 0),
+                    "carbs": nutrients.get("Carbohydrate, by difference", 0),
+                    "fats": nutrients.get("Total lipid (fat)", 0),
+                })
+        else:
+            return render(request, "usda_search.html", {"error": f"USDA API error: {response.status_code}"})
+
+    return render(request, "usda_search.html", {"foods": foods})
+
+
+@login_required
+@require_POST
+def add_usda_food(request):
+    """Save a USDA food item to the local database."""
+    name = request.POST.get("name")
+    category = "USDA Import"
+    FoodItem.objects.get_or_create(name=name, category=category)
+    messages.success(request, f"{name} added successfully!")
+    return redirect("food_list")
+
+
+
