@@ -11,7 +11,7 @@
 
     <div class="row justify-content-center mt-4">
         <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-            <form method="post" class="p-4 border rounded bg-white shadow-sm">
+            <form method="post" class="p-4 shadow-sm bb-login-card">
                 {% csrf_token %}
 
                 {% if form.non_field_errors %}
@@ -38,7 +38,7 @@
                 {% endif %}
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">Log In</button>
+            <button type="submit" class="btn w-100" style="background:#000; border-color:#000; color:#fff;">Log In</button>
             
             <p class="text-center mt-3 mb-0">
                 Don't have an account?<br>

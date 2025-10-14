@@ -41,14 +41,3 @@
   .tile{min-height:170px; font-size:34px;}
   .tile.resources{min-height:80px; font-size:28px;}
 }
-
-/* Black login button */
-.btn-bb-black{
-  background:#111;
-  border-color:#111;
-}
-.btn-bb-black:hover,
-.btn-bb-black:focus{
-  background:#000;
-  border-color:#000;
-}
