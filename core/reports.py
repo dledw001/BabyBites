@@ -5,11 +5,20 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
 import os
+from django.db.models import Sum
 
 from core.models import Baby, FoodEntry
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FONT_DIR = os.path.join(BASE_DIR, "static", "core", "fonts")
+
+def load_fonts():
+    styled_path = os.path.join(FONT_DIR, "Grandstander-Bold.ttf")
+    styled_font = ImageFont.truetype(styled_path, 72)
+    user_font = ImageFont.truetype(styled_path, 48)
+    meta_font = ImageFont.truetype(styled_path, 32)
+    info_font = ImageFont.truetype(styled_path, 16)
+    return styled_font, user_font, meta_font, info_font
 
 def count_profiles(username: str) -> int:
     return (
@@ -21,13 +30,12 @@ def count_entries(username: str) -> int:
         FoodEntry.objects.filter(baby__owner__username=username).count()
     )
 
-def load_fonts():
-    styled_path = os.path.join(FONT_DIR, "Grandstander-Bold.ttf")
-    styled_font = ImageFont.truetype(styled_path, 72)
-    user_font = ImageFont.truetype(styled_path, 48)
-    meta_font = ImageFont.truetype(styled_path, 32)
-    return styled_font, user_font, meta_font
-
+def sum_portion_size(username: str) -> int:
+    return (
+        FoodEntry.objects.filter(baby__owner__username=username).aggregate(
+            sum=Sum("portion_size")
+        )["sum"]
+    )
 
 def generate_report_image(username: str) -> bytes:
     W, H = 630, 815
@@ -37,7 +45,7 @@ def generate_report_image(username: str) -> bytes:
     image = Image.new("RGB", (W, H), bg_color)
     draw = ImageDraw.Draw(image)
 
-    title_font, user_font, meta_font = load_fonts()
+    title_font, user_font, meta_font, info_font = load_fonts()
 
     title = "DAILY REPORT"
     tw, th = draw.textbbox((0, 0), title, font=title_font)[2:]
@@ -62,6 +70,15 @@ def generate_report_image(username: str) -> bytes:
     entries_str = f"number of entries: {str(entries)}"
     ew, eh = draw.textbbox((0, 0), entries_str, font=meta_font)[2:]
     draw.text(((W - ew) / 2, 500), entries_str, fill=color, font=meta_font)
+
+    total_mass = sum_portion_size(username)
+    mass_str = f"total mass consumed: {str(total_mass)}g"
+    ew, eh = draw.textbbox((0, 0), mass_str, font=meta_font)[2:]
+    draw.text(((W - ew) / 2, 550), mass_str, fill=color, font=meta_font)
+
+    info_str = f"will have this + more for just one profile once food model is complete"
+    ew, eh = draw.textbbox((0, 0), info_str, font=info_font)[2:]
+    draw.text(((W - ew) / 2, 650), info_str, fill=color, font=info_font)
 
     pad = 24
     draw.rectangle([pad, pad, W - pad, H - pad], outline=color, width=2)
