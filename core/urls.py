@@ -25,6 +25,10 @@ urlpatterns = [
     path('add_food/', views.add_food, name='add_food'),
     path('food_list/', views.food_list, name='food_list'),
     path('usda_search/', views.usda_search, name='usda_search'),
-    path('add_usda_food/', views.add_usda_food, name='add_usda_food')
+    path('add_usda_food/', views.add_usda_food, name='add_usda_food'),
+
+    path('report/', views.generate_report_view, name='generate_report_view'),
+    path('report/preview/', views.report_preview, name='report_preview'),
+    path('report/download/', views.report_image, name='report_image'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
