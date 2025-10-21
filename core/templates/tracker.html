@@ -14,13 +14,49 @@
             <form method="post">
                 {% csrf_token %}
 
+
                 <!-- Food entry form -->
                 <div class="card mb-3">
                     <div class="card-header">
                         Food Entry
                     </div>
                     <div class="card-body">
-                        {{ entry_form.as_p }}
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">{{ entry_form.baby.label }}</label>
+                        <div class="col-sm-9">
+                        {{ entry_form.baby }}
+                        {% if entry_form.baby.errors %} <div class="text-danger small">{{ entry_form.baby.errors }}</div> {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">{{ entry_form.food.label }}</label>
+                        <div class="col-sm-9">
+                        {{ entry_form.food }}
+                        {% if entry_form.food.errors %} <div class="text-danger small">{{ entry_form.food.errors }}</div> {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Portion Size + Unit (side-by-side) -->
+                    <div class="mb-3 row align-items-center">
+                        <label class="col-sm-3 col-form-label">Portion size</label>
+                        <div class="col-sm-5">
+                        {{ entry_form.portion_size }}
+                        {% if entry_form.portion_size.errors %} <div class="text-danger small">{{ entry_form.portion_size.errors }}</div> {% endif %}
+                        </div>
+                        <div class="col-sm-4">
+                        {{ entry_form.portion_unit }}
+                        {% if entry_form.portion_unit.errors %} <div class="text-danger small">{{ entry_form.portion_unit.errors }}</div> {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">{{ entry_form.notes.label }}</label>
+                        <div class="col-sm-9">
+                        {{ entry_form.notes }}
+                        {% if entry_form.notes.errors %} <div class="text-danger small">{{ entry_form.notes.errors }}</div> {% endif %}
+                        </div>
+                    </div>
                     </div>
                 </div>
 
