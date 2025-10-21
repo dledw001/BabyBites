@@ -50,7 +50,7 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>Food</th>
-                                        <th>Portion (oz / fl oz)</th>
+                                        <th>Portion</th>
                                         <th>Notes</th>
                                         <th>Date</th>
                                     </tr>
@@ -58,10 +58,12 @@
                                 <tbody>
                                     {% for entry in group.list %}
                                         <tr>
-                                            <td>{{ entry.food.name }}</td>
-                                            <td>{{ entry.portion_size }}</td>
-                                            <td>{% if entry.notes %}{{ entry.notes }}{% else %}-{% endif %}</td>
-                                            <td>{{ entry.date|date:"M. j, Y" }}</td>
+                                            <tr>
+                                                <td>{{ entry.food.name }}</td>
+                                                <td>{{ entry.portion_size }} {{ entry.portion_unit }}</td>
+                                                <td>{% if entry.notes %}{{ entry.notes }}{% else %}-{% endif %}</td>
+                                                <td>{{ entry.date|date:"M. j, Y" }}</td>
+                                            </tr>
                                         </tr>
                                     {% endfor %}
                                 </tbody>
