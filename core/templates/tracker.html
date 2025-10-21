@@ -14,16 +14,6 @@
             <form method="post">
                 {% csrf_token %}
 
-                <!-- Optional: Add a new food item -->
-                <div class="card mb-3">
-                    <div class="card-header">
-                        New Food Item (Optional)
-                    </div>
-                    <div class="card-body">
-                        {{ food_form.as_p }}
-                    </div>
-                </div>
-
                 <!-- Food entry form -->
                 <div class="card mb-3">
                     <div class="card-header">
