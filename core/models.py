@@ -56,7 +56,19 @@ class FoodItem(models.Model):
 class FoodEntry(models.Model):
     baby = models.ForeignKey('Baby', on_delete=models.CASCADE, related_name='food_entries')
     food = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
-    portion_size = models.FloatField(help_text="Portion size in grams")
+    """Modified original to have choice of units, rather than help-text with static unit."""
+    portion_size = models.FloatField()
+    PORTION_UNITS = [
+    ('oz', 'oz'),
+    ('fl oz', 'fl oz'),
+    ('g', 'g'),
+    ('ml', 'ml'),
+    ]
+    portion_unit = models.CharField(
+        max_length=10,
+        choices=PORTION_UNITS,
+        default='g'
+    )
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
     notes = models.TextField(blank=True)
