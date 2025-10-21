@@ -3,11 +3,17 @@
 {% block title %}BabyBites{% endblock %}
 
 {% block content %}
-<!-- pinned logo -->
-    <div class="bb-logo position-absolute" style="left:24px; top:8px;"></div>
+<div class="container my-4">
+    <div class="d-flex align-items-center gap-3 flex-column flex-sm-row">
+        <div class="bb-logo"></div>
 
-    <h1 class="babybites-title">BabyBites</h1>
-    <h5 class="babybites-slogan">Introducing Solids, One Bite at a Time.</h5>
+        <div class="d-inline-block text-start">
+            <h1 class="m-0 bb-title" style="font-size:4.6rem; line-height:1;">BabyBites</h1>
+            <h5 class="mt-1 mb-0 babybites-slogan" style="font-size:1.05rem; line-height:1.25; max-width:100%;">
+                Introducing Solids, One Bite at a Time.
+            </h5>
+        </div>
+    </div>
 
     <div class="row justify-content-center mt-4">
         <div class="col-12 col-sm-8 col-md-6 col-lg-4">
@@ -48,4 +54,5 @@
             </form>
         </div>
     </div>
+</div>
 {% endblock %}

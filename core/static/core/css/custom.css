@@ -40,3 +40,6 @@
   .tile{min-height:170px; font-size:34px;}
   .tile.resources{min-height:80px; font-size:28px;}
 }
+@media (max-width:576px){
+  .bb-logo{width:72px; height:72px;}
+}
