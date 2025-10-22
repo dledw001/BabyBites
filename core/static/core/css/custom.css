@@ -21,14 +21,6 @@
 .bb-title .top{font-size:4.2rem; display:block;}
 .bb-title .bottom{font-size:4.2rem; display: block;}
 
-.bb-login {
-    font-family:"Grandstander";
-    font-weight:800;
-    line-height:1;
-    color:#76E2EA;
-    text-align:left;
-}
-
 /* Dashboard Tiles */
 .tile{
     display:flex; align-items:center; justify-content:center; text-align:center;
