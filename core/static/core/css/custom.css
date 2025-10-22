@@ -11,7 +11,7 @@
 }
 
 /* Header */
-.bb-title{
+.bb-title {
     font-family:"Grandstander";
     font-weight:800;
     line-height:1;
@@ -21,9 +21,12 @@
 .bb-title .top{font-size:4.2rem; display:block;}
 .bb-title .bottom{font-size:4.2rem; display: block;}
 
-/* When you want bb-title left-aligned */
-.bb-title.left {
-    text-align: left;
+.bb-login {
+    font-family:"Grandstander";
+    font-weight:800;
+    line-height:1;
+    color:#76E2EA;
+    text-align:left;
 }
 
 /* Dashboard Tiles */
