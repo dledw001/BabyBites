@@ -29,37 +29,39 @@
 <body class="babybites-body">
 
 <!-- Navbar on left for desktop-->
-<nav class="bb-leftnav d-none d-md-flex flex-column bg-light border-end position-fixed top-0 start-0 vh-100 p-3">
-    <div class="bb-logo-tile mb-3 d-flex align-items-center justify-content-center">
-        {% load static %}
-        <img src="{% static 'core/img/babybites-logo.png' %}" alt="BabyBites logo" class="bb-logo-img">
-    </div>
-    <h4 class="mb-4 text-primary">BabyBites</h4>
-    <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-            <a href="{% url 'dashboard' %}" class="nav-link {% if request.path == '/' %}active{% endif %}">
-                <i class="bi bi-house-door me-2"></i> DASHBOARD
-            </a>
-        </li>
-        <li>
-            <a href="{% url 'tracker' %}" class="nav-link {% if 'tracker' in request.path %}active{% endif %}">
-                <i class="bi bi-journal-text me-2"></i> FOOD TRACKER
-            </a>
-        </li>
-        <li>
-            <a href="{% url 'report_preview' %}"
-               class="nav-link {% if 'report_preview' in request.path %}active{% endif %}">
-                <i class="bi bi-graph-up me-2"></i> DAILY REPORT
-            </a>
-        </li>
-    </ul>
-    {% if user.is_authenticated %}
-        <form method="post" action="{% url 'logout' %}" class="p-4 border rounded bg-white shadow-sm">
-            {% csrf_token %}
-            <button type="submit">Log Out</button>
-        </form>
-    {% endif %}
-</nav>
+{% if request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'dashboard' %}
+    <nav class="bb-leftnav d-none d-md-flex flex-column bg-light border-end position-fixed top-0 start-0 vh-100 p-3">
+        <div class="bb-logo-tile mb-3 d-flex align-items-center justify-content-center">
+            {% load static %}
+            <img src="{% static 'core/img/babybites-logo.png' %}" alt="BabyBites logo" class="bb-logo-img">
+        </div>
+        <h4 class="mb-4 text-primary">BabyBites</h4>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="{% url 'dashboard' %}" class="nav-link {% if request.path == '/' %}active{% endif %}">
+                    <i class="bi bi-house-door me-2"></i> DASHBOARD
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'tracker' %}" class="nav-link {% if 'tracker' in request.path %}active{% endif %}">
+                    <i class="bi bi-journal-text me-2"></i> FOOD TRACKER
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'report_preview' %}"
+                   class="nav-link {% if 'report_preview' in request.path %}active{% endif %}">
+                    <i class="bi bi-graph-up me-2"></i> DAILY REPORT
+                </a>
+            </li>
+        </ul>
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}" class="p-4 border rounded bg-white shadow-sm">
+                {% csrf_token %}
+                <button type="submit">Log Out</button>
+            </form>
+        {% endif %}
+    </nav>
+{% endif %}
 
 <!-- Navbar on bottom for mobile-->
 {% if request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'dashboard' %}
@@ -82,13 +84,13 @@
     {% endblock %}
     <footer class="text-center mt-3 mb-0">
         {% if user.is_authenticated %}
-        <form id="logout-form" method="post" action="{% url 'logout' %}" style="display:inline;">
-        {% csrf_token %}
-        <a href="#" onclick="document.getElementById('logout-form').submit(); return false;"
-           class="text-decoration-none fw-bold">
-            Log Out
-        </a>
-        </form>
+            <form id="logout-form" method="post" action="{% url 'logout' %}" style="display:inline;">
+                {% csrf_token %}
+                <a href="#" onclick="document.getElementById('logout-form').submit(); return false;"
+                   class="text-decoration-none fw-bold">
+                    Log Out
+                </a>
+            </form>
         {% endif %}
         <p class="text-center mt-3 mb-0">
             Check out the project on <a href="https://github.com/dledw001/BabyBites">GitHub</a>!
