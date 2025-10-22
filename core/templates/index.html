@@ -4,12 +4,13 @@
 
 {% block content %}
 <div class="container my-4">
-    <div class="d-flex align-items-center gap-3 flex-column flex-sm-row">
-        <div class="bb-logo"></div>
+    <div class="d-flex align-items-center gap-3 flex-row flex-nowrap w-100">
+        <div class="bb-logo flex-shrink-0"></div>
 
-        <div class="d-inline-block text-start">
-            <h1 class="m-0 bb-title" style="font-size:4.6rem; line-height:1;">BabyBites</h1>
-            <h5 class="mt-1 mb-0 babybites-slogan" style="font-size:1.05rem; line-height:1.25; max-width:100%;">
+        <div class="text-start flex-grow-1" style="min-width:0;">
+            <h1 class="m-0 bb-title left">BabyBites</h1>
+            <h5 class="mt-1 mb-0 babybites-slogan"
+                style="font-size:clamp(0.9rem, 2.2vw, 1.1rem); line-height:1.25; overflow-wrap:anywhere;">
                 Introducing Solids, One Bite at a Time.
             </h5>
         </div>

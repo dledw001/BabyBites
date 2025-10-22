@@ -21,6 +21,11 @@
 .bb-title .top{font-size:4.2rem; display:block;}
 .bb-title .bottom{font-size:4.2rem; display: block;}
 
+/* When you want bb-title left-aligned */
+.bb-title.left {
+    text-align: left;
+}
+
 /* Dashboard Tiles */
 .tile{
     display:flex; align-items:center; justify-content:center; text-align:center;
