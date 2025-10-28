@@ -98,10 +98,10 @@ class UserFood(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_foods')
     category = models.ForeignKey(FoodCategory, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(max_length=200)
-    calories = models.FloatField(default=0)
-    protein = models.FloatField(default=0)
-    carbs = models.FloatField(default=0)
-    fats = models.FloatField(default=0)
+    calories = models.FloatField(default=0,  help_text= "per 100g")
+    protein = models.FloatField(default=0, help_text= "per 100g")
+    carbs = models.FloatField(default=0, help_text= "per 100g")
+    fats = models.FloatField(default=0, help_text= "per 100g")
     source = models.CharField(max_length=50, default="custom")  # "custom" or "usda"
 
     class Meta:

@@ -34,11 +34,17 @@
       {% for food in foods %}
         <div class="card shadow-sm p-3 mb-3" style="background-color: #fffbe7; border-radius: 12px; text-align: left; max-width: 600px; margin: 0 auto;">
           <h4 style="color: #3a3a3a; font-weight: bold;">{{ food.description }}</h4>
-          <p style="margin-bottom: 4px;"><strong>FDC ID:</strong> {{ food.fdcId }}</p>
-          <p style="margin-bottom: 2px;">Calories: {{ food.calories|default:"N/A" }} kcal</p>
-          <p style="margin-bottom: 2px;">Protein: {{ food.protein|default:"N/A" }} g</p>
-          <p style="margin-bottom: 2px;">Carbs: {{ food.carbs|default:"N/A" }} g</p>
-          <p style="margin-bottom: 8px;">Fats: {{ food.fats|default:"N/A" }} g</p>
+          <p><strong>FDC ID:</strong> {{ food.fdcId }}</p>
+
+          <p style="margin-bottom: 4px;">
+            <strong>Nutrition (per 100 g):</strong>
+          </p>
+          <ul style="margin-top: 0; margin-bottom: 8px; list-style: none; padding-left: 0;">
+            <li>Calories: {{ food.calories|default:"N/A" }} kcal</li>
+            <li>Protein: {{ food.protein|default:"N/A" }} g</li>
+            <li>Carbs: {{ food.carbs|default:"N/A" }} g</li>
+            <li>Fats: {{ food.fats|default:"N/A" }} g</li>
+          </ul>
 
           <form method="post" action="{% url 'add_usda_food' %}">
             {% csrf_token %}
@@ -66,6 +72,13 @@
   .card button {
     font-weight: 600;
     border-radius: 10px;
+  }
+  ul {
+    font-size: 0.95rem;
+    color: #444;
+  }
+  ul li {
+    margin-bottom: 2px;
   }
 </style>
 {% endblock %}
