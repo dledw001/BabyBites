@@ -30,7 +30,8 @@
 
 <!-- Navbar on left for desktop-->
 {% if request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'dashboard' %}
-    <nav class="bb-leftnav d-none d-md-flex flex-column bg-light border-end position-fixed top-0 start-0 vh-100 p-3">
+    <nav class="bb-left-nav d-none d-md-flex flex-column position-fixed top-0 start-0 vh-100 p-3"
+         style="background-color: #f5a5c5; border-right: 2px solid #e48ab0;">
         <div class="bb-logo-tile mb-3 d-flex align-items-center justify-content-center">
             {% load static %}
             <img src="{% static 'core/img/babybites-logo.png' %}" alt="BabyBites logo" class="bb-logo-img">
@@ -55,9 +56,9 @@
             </li>
         </ul>
         {% if user.is_authenticated %}
-            <form method="post" action="{% url 'logout' %}" class="p-4 border rounded bg-white shadow-sm">
+            <form method="post" action="{% url 'logout' %}" class="p-2 border rounded bg-white shadow-sm">
                 {% csrf_token %}
-                <button type="submit">Log Out</button>
+                <button type="submit" class="btn btn-outline-dark w-100">Log Out</button>
             </form>
         {% endif %}
     </nav>
