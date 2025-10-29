@@ -39,6 +39,38 @@
         <h4 class="mb-4 text-primary">BabyBites</h4>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
+                {% if user.is_authenticated and profiles %}
+                    <div class="mb-3">
+                        <label class="text-white-50 small mb-1">Active Profile</label>
+                        <div class="dropdown">
+                            <button class="btn btn-light w-100 dropdown-toggle text-start" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                {% if active_profile %}
+                                    {{ active_profile.name }}
+                                {% else %}
+                                    Select profile
+                                {% endif %}
+                            </button>
+                            <ul class="dropdown-menu w-100">
+                                {% for p in profiles %}
+                                    <li>
+                                        <form method="post" action="{% url 'set-active-profile' p.id %}">
+                                            {% csrf_token %}
+                                            <button class="dropdown-item {% if active_profile and active_profile.id == p.id %}active{% endif %}"
+                                                    type="submit">
+                                                {{ p.name }}
+                                                {% if p.date_of_birth %}
+                                                    <span class="text-muted"> — {{ p.date_of_birth|date:"m/d/Y" }}</span>{% endif %}
+                                            </button>
+                                        </form>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+            </li>
+            <li class="nav-item">
                 <a href="{% url 'dashboard' %}" class="nav-link {% if request.path == '/' %}active{% endif %}">
                     <i class="bi bi-house-door me-2"></i> DASHBOARD
                 </a>
@@ -85,7 +117,7 @@
     {% endblock %}
     <footer class="text-center mt-3 mb-0">
         {% if user.is_authenticated %}
-           <form id="logout-form" method="post" action="{% url 'logout' %}" style="display:inline;">
+            <form id="logout-form" method="post" action="{% url 'logout' %}" style="display:inline;">
                 {% csrf_token %}
             </form>
         {% endif %}
@@ -96,3 +128,6 @@
 </main>
 </body>
 </html>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

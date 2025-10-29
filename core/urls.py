@@ -1,7 +1,7 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
 from . import views
-from .views import baby_list, baby_create, baby_edit, baby_delete
+from .views import baby_list, baby_create, baby_edit, baby_delete, set_active_profile
 from django.conf.urls.static import static
 from django.conf import settings
 from .views import baby_list, baby_create, baby_edit, baby_delete
@@ -30,5 +30,7 @@ urlpatterns = [
     path('report/', views.generate_report_view, name='generate_report_view'),
     path('report/preview/', views.report_preview, name='report_preview'),
     path('report/download/', views.report_image, name='report_image'),
+
+    path("babies/active/<uuid:profile_id>/", set_active_profile, name="set-active-profile"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

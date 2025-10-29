@@ -145,3 +145,8 @@ LOGIN_REDIRECT_URL = "dashboard"
 LOGOUT_REDIRECT_URL = "home"
 
 USDA_API_KEY = env("USDA_API_KEY", default=None)
+
+# Active profile selection
+TEMPLATES[0]["OPTIONS"]["context_processors"] += [
+    "core.context_processors.active_profile",
+]

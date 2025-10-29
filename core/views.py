@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render, redirect, get_object_or_404, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
@@ -10,6 +10,7 @@ from .models import Baby, FoodEntry, FoodItem
 from django.conf import settings
 import requests
 from .reports import generate_report_image
+from django.urls import reverse
 
 # if user is not logged in, show log in screen, otherwise redirect to dashboard
 def home(request):
@@ -259,5 +260,11 @@ def report_image(request):
     response['Cache-Control'] = 'no-store'
     return response
 
-
+@login_required
+def set_active_profile(request, profile_id):
+    if request.method != "POST":
+        return HttpResponseBadRequest("POST required")
+    baby = get_object_or_404(Baby, id=profile_id, owner=request.user)
+    request.session["active_profile"] = str(baby.id)
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER", reverse("dashboard")))
 
