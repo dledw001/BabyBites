@@ -38,6 +38,12 @@
             <div class="col-12">
                 <a href="/resources/" class="tile resources">RESOURCES</a>
             </div>
+            <form method="post" action="{% url 'logout' %}"
+                    class="p-2 border rounded bg-white shadow-sm d-flex justify-content-center mx-auto"
+                    style="max-width: 180px;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-dark w-100">Log Out</button>
+            </form>
         </div>
     </div>
 
