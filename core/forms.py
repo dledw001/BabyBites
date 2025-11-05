@@ -41,17 +41,18 @@ class FoodEntryForm(forms.ModelForm):
     class Meta:
         model = FoodEntry
 
-        fields = ['baby', 'food', 'portion_size', 'portion_unit', 'notes']
+        fields = ['food', 'portion_size', 'portion_unit', 'notes']
         
         """Have user input portion size as numerical input. Django will have up/down arrows for changing value."""
         widgets = {
             'portion_size': forms.NumberInput(attrs={'step': '0.01', 'class': 'form-control'}),
             'portion_unit': forms.Select(attrs={'class': 'form-select'}),
             'notes': forms.Textarea(attrs={'rows': 8, 'class': 'form-control'}),
-            'baby': forms.Select(attrs={'class': 'form-select'}),
             'food': forms.Select(attrs={'class': 'form-select'}),
         }
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user')
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
-        self.fields['baby'].queryset = Baby.objects.filter(owner=user)
+
+        if user and 'baby' in self.fields:
+            self.fields['baby'].queryset = Baby.objects.filter(owner=user)

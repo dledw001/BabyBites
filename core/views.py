@@ -11,6 +11,7 @@ from django.conf import settings
 import requests
 from .reports import generate_report_image
 from django.urls import reverse
+from django.utils.functional import cached_property
 
 # if user is not logged in, show log in screen, otherwise redirect to dashboard
 def home(request):
@@ -27,6 +28,12 @@ def home(request):
         form = AuthenticationForm()
 
     return render(request, "index.html", {"form": form})
+
+def _get_active_profile(request):
+    baby_id = request.session.get("active_profile")
+    if not baby_id or not request.user.is_authenticated:
+        return None
+    return Baby.objects.filter(id=baby_id, owner=request.user).first()
 
 @login_required
 def dashboard(request):
@@ -136,29 +143,46 @@ def baby_delete(request, baby_id):
 
 @login_required
 def tracker(request):
+    active = _get_active_profile(request)
+
     if request.method == "POST":
         food_form = FoodItemForm(request.POST, prefix='food')
         entry_form = FoodEntryForm(request.POST, prefix='entry', user=request.user)
 
         if entry_form.is_valid():
-            food_entry = entry_form.save(commit=False)
-            food_entry.user = request.user
+            entry = entry_form.save(commit=False)
 
-            # Handle food input to avoid duplicates
+            # Handle food input to avoid duplicates (case-insensitive)
             if food_form.is_valid() and food_form.cleaned_data.get('name'):
                 name = food_form.cleaned_data['name'].strip()
-                food_item, _ = FoodItem.objects.get_or_create(name__iexact=name, defaults={'name': name})
-                food_entry.food = food_item
-            elif entry_form.cleaned_data.get('food'):
-                food_entry.food = entry_form.cleaned_data['food']
+                # Prefer case-insensitive reuse if it exists
+                existing = FoodItem.objects.filter(name__iexact=name).first()
+                if existing:
+                    entry.food = existing
+                else:
+                    entry.food = FoodItem.objects.create(name=name, category=food_form.cleaned_data.get('category', '') or '')
+            else:
+                entry.food = entry_form.cleaned_data.get('food')
 
-            food_entry.save()
+            # Attach the active baby and save
+            entry.baby = active
+            entry.save()
+
+            messages.success(request, f"Saved entry for {active.name}.")
             return redirect("tracker")
     else:
         food_form = FoodItemForm(prefix='food')
         entry_form = FoodEntryForm(prefix='entry', user=request.user)
 
-    food_entries = FoodEntry.objects.filter(baby__owner=request.user).order_by('-date', '-time')[:10]
+    if active:
+        food_entries = (
+            FoodEntry.objects
+            .filter(baby=active)
+            .select_related("food", "baby")
+            .order_by('-date', '-time')[:10]
+        )
+    else:
+        food_entries = FoodEntry.objects.none()
     
     context = {
         'food_form': food_form,

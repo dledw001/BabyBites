@@ -8,6 +8,16 @@
     <span class="top">FOOD TRACKER</span>
     </h1>
 
+    {% if active_profile %}
+        <div class="alert alert-info text-center my-3">
+        Active baby: <strong>{{ active_profile.name }}</strong>
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center my-3">
+        No active baby selected. Choose one from the navigation bar to add entries.
+        </div>
+    {% endif %}
+
     <!-- Form for adding food entries -->
     <div class="row justify-content-center">
         <div class="col-12 col-sm-10 col-md-8 col-lg-6">
@@ -21,13 +31,6 @@
                         Food Entry
                     </div>
                     <div class="card-body">
-                    <div class="mb-3 row">
-                        <label class="col-sm-3 col-form-label">{{ entry_form.baby.label }}</label>
-                        <div class="col-sm-9">
-                        {{ entry_form.baby }}
-                        {% if entry_form.baby.errors %} <div class="text-danger small">{{ entry_form.baby.errors }}</div> {% endif %}
-                        </div>
-                    </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-3 col-form-label">{{ entry_form.food.label }}</label>
