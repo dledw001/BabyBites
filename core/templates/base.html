@@ -83,9 +83,21 @@
                 </a>
             </li>
             <li>
+                <a href="{% url 'food_list' %}"
+                   class="nav-link {% if 'food_list' in request.path %}active{% endif %}">
+                    <i class="bi bi-database me-2"></i> FOOD DATABASE
+                </a>
+            </li>
+            <li>
                 <a href="{% url 'report_preview' %}"
-                   class="nav-link {% if 'report_preview' in request.path %}active{% endif %}">
+                   class="nav-link {% if 'report/preview' in request.path %}active{% endif %}">
                     <i class="bi bi-graph-up me-2"></i> DAILY REPORT
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'resources' %}"
+                   class="nav-link {% if 'resources' in request.path %}active{% endif %}">
+                    <i class="bi bi-book me-2"></i> RESOURCES
                 </a>
             </li>
         </ul>

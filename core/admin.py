@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Baby, Allergy
+from .models import Baby, Allergy, FoodItem
+
 
 @admin.register(Baby)
 class BabyAdmin(admin.ModelAdmin):
@@ -8,3 +9,7 @@ class BabyAdmin(admin.ModelAdmin):
     filter_horizontal = ('allergies',)
 
 admin.site.register(Allergy)
+
+@admin.register(FoodItem)
+class FoodItemAdmin(admin.ModelAdmin):
+    list_display = ('name', 'category')
