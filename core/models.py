@@ -81,6 +81,77 @@ class FoodEntry(models.Model):
         return f"{self.food.name} for {self.baby.name} on {self.date} at {self.time}"
     
 
+PYRAMID_MAP: dict[str, int] = {
+    "Vegetables": 1,
+    "Fruits": 1,
+    "Grains & Starches": 2,
+    "Proteins": 3,             
+    "Dairy": 3,                # yogurt, cheese, milk
+    "Fats & Oils": 4,        
+    "Sweets & Processed Foods": 5,  
+}
+
+def ensure_seed_categories():
+    """
+    Create the canonical FoodCategory rows if missing.
+    Safe to call multiple times (idempotent).
+    """
+    from django.db import transaction
+    with transaction.atomic():
+        for name, level in PYRAMID_MAP.items():
+            FoodCategory.objects.get_or_create(
+                name=name,
+                defaults={"pyramid_level": level},
+            )
+
+def map_usda_to_category(usda_category: str | None, description: str | None) -> "FoodCategory | None":
+    """
+    Heuristic mapping of USDA categories/descriptions to our pyramid categories.
+    Very lightweight, easy to tweak as you see real data.
+    """
+    text = f"{usda_category or ''} {description or ''}".lower()
+
+    def pick(label: str) -> "FoodCategory":
+        level = PYRAMID_MAP.get(label, 5)
+        obj, _ = FoodCategory.objects.get_or_create(name=label, defaults={"pyramid_level": level})
+        return obj
+
+    # Vegetables
+    if any(k in text for k in ["vegetable", "veg", "broccoli", "spinach", "carrot", "kale", "lettuce", "pepper", "cabbage", "tomato"]):
+        return pick("Vegetables")
+
+    # Fruits
+    if any(k in text for k in ["fruit", "apple", "banana", "strawberry", "berries", "grape", "orange", "pear", "peach"]):
+        return pick("Fruits")
+
+    # Grains & Starches
+    if any(k in text for k in ["bread", "rice", "pasta", "oat", "cereal", "grain", "tortilla", "noodle", "quinoa", "barley", "cracker"]):
+        return pick("Grains & Starches")
+
+    # Proteins
+    if any(k in text for k in ["chicken", "beef", "pork", "turkey", "fish", "egg", "tofu", "bean", "lentil", "pea", "shrimp", "tuna", "salmon"]):
+        return pick("Proteins")
+
+    # Dairy
+    if any(k in text for k in ["milk", "yogurt", "cheese", "cottage cheese", "kefir"]):
+        return pick("Dairy")
+
+    # Fats & Oils
+    if any(k in text for k in ["oil", "butter", "olive", "avocado oil", "ghee", "shortening", "lard"]):
+        return pick("Fats & Oils")
+
+    # Sweets & Processed (default catch)
+    if any(k in text for k in ["cookie", "candy", "syrup", "brownie", "cake", "muffin", "donut", "ice cream", "sweet", "soda", "fruit snacks", "added sugar", "frosting", "sweetened"]):
+        return pick("Sweets & Processed Foods")
+
+    # If nothing matched, put it conservatively in Grains or Sweets based on hints
+    if "juice" in text or "sweet" in text or "syrup" in text:
+        return pick("Sweets & Processed Foods")
+
+    # Fallback: Grains & Starches (neutral-ish)
+    return pick("Grains & Starches")
+    
+
 class FoodCategory(models.Model):
     """Represents a general food group or USDA import category."""
     name = models.CharField(max_length=100, unique=True)
@@ -109,3 +180,27 @@ class UserFood(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.user.username})"
+
+# core/models.py
+class CatalogFood(models.Model):
+    category = models.ForeignKey('FoodCategory', on_delete=models.PROTECT, related_name='catalog_foods')
+    name = models.CharField(max_length=200, db_index=True)
+
+    # per 100 g (read-only to users)
+    calories_100g = models.FloatField(default=0)
+    protein_100g  = models.FloatField(default=0)
+    carbs_100g    = models.FloatField(default=0)
+    fats_100g     = models.FloatField(default=0)
+
+    # provenance
+    fdc_id    = models.BigIntegerField(null=True, blank=True)    # USDA id, optional
+    data_type = models.CharField(max_length=50, blank=True)      # e.g., “FNDDS”, “SR Legacy”, “Branded”
+    is_active = models.BooleanField(default=True)                # allow hiding
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['category__pyramid_level', 'name']
+
+    def __str__(self):
+        return f"{self.name} ({self.category})"

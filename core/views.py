@@ -6,12 +6,15 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from .forms import SignUpForm, BabyForm, FoodItemForm, FoodEntryForm
-from .models import Baby, FoodEntry, FoodItem
+from .models import Baby, FoodEntry, FoodItem, FoodCategory, CatalogFood, map_usda_to_category
 from django.conf import settings
 import requests
 from .reports import generate_report_image
 from django.urls import reverse
 from django.utils.functional import cached_property
+from django.contrib.admin.views.decorators import staff_member_required
+
+
 
 # if user is not logged in, show log in screen, otherwise redirect to dashboard
 def home(request):
@@ -213,56 +216,180 @@ def add_food(request):
         form = FoodItemForm()
     return render(request, "add_food.html", {"form": form})
 
-@login_required
+# views.py
+
+from django.db.models import Q
+
+@staff_member_required
 def food_list(request):
-    """listing all foods"""
-    foods = FoodItem.objects.all().order_by("name")
-    return render(request, "food_list.html", {"foods":foods})
+    q = (request.GET.get("q") or "").strip()
+    qs = FoodItem.objects.all().order_by("name")
+    if q:
+        qs = qs.filter(name__icontains=q)
+        qs = qs[:1]  # return just one row
+    foods = list(qs)
+    categories = FoodCategory.objects.order_by('pyramid_level', 'name')
+    return render(request, "food_list.html", {"foods": foods, "categories": categories, "q": q})
 
 
-@login_required
+
+@staff_member_required
+@require_POST
+def promote_fooditem_to_catalog(request, item_id):
+    """Admin action: take an existing FoodItem and add it to CatalogFood."""
+    fi = get_object_or_404(FoodItem, id=item_id)
+
+    # admin chooses a pyramid category from the form; fallback tries automatic mapping
+    cat_id = request.POST.get("category_id")
+    if cat_id:
+        category = get_object_or_404(FoodCategory, id=cat_id)
+    else:
+        category = map_usda_to_category("", fi.name) or FoodCategory.objects.get_or_create(
+            name="Misc", defaults={"pyramid_level": 3}
+        )[0]
+
+    # We don’t know exact per-100g nutrients for custom FoodItem, so store zeros (editable later)
+    CatalogFood.objects.get_or_create(
+        name=fi.name,
+        category=category,
+        defaults={
+            "calories_100g": 0,
+            "protein_100g": 0,
+            "carbs_100g": 0,
+            "fats_100g": 0,
+            "fdc_id": None,
+            "data_type": "Custom/Manual",
+        },
+    )
+    messages.success(request, f"“{fi.name}” added to catalog under “{category.name}”.")
+    return redirect("food_list")
+
+
+
+@staff_member_required  # keep it admin-only; remove if you want all users
 def usda_search(request):
-    import requests
+    query = (request.GET.get("query") or "").strip()
+    foods, error = [], None
 
-    query = request.GET.get("query")
-    foods = []
+    if not query:
+        return render(
+            request,
+            "usda_search.html",
+            {
+                "foods": foods,
+                "error": error,
+                "query": query,
+                "categories": FoodCategory.objects.order_by("pyramid_level", "name"),
+            },
+        )
 
-    if query:
-        api_key = getattr(settings, "USDA_API_KEY", None)
-        if not api_key:
-            return render(request, "usda_search.html", {"error": "Missing USDA API Key"})
+    api_key = getattr(settings, "USDA_API_KEY", None)
+    if not api_key:
+        return render(
+            request,
+            "usda_search.html",
+            {
+                "foods": [],
+                "error": "Missing USDA API Key",
+                "query": query,
+                "categories": FoodCategory.objects.order_by("pyramid_level", "name"),
+            },
+        )
 
-        url = f"https://api.nal.usda.gov/fdc/v1/foods/search?query={query}&pageSize=5&api_key={api_key}"
-        response = requests.get(url)
+    url = "https://api.nal.usda.gov/fdc/v1/foods/search"
+    params = {
+        "query": query,
+        "pageSize": 5,   # (optional) show more than 1 result
+        "api_key": api_key,
+    }
 
-        if response.status_code == 200:
-            data = response.json()
-            for item in data.get("foods", []):
-                nutrients = {n["nutrientName"]: n["value"] for n in item.get("foodNutrients", [])}
+    try:
+        resp = requests.get(url, params=params, timeout=10)
+        resp.raise_for_status()
+    except requests.RequestException as e:
+        return render(
+            request,
+            "usda_search.html",
+            {
+                "foods": [],
+                "error": f"USDA request failed: {e}",
+                "query": query,
+                "categories": FoodCategory.objects.order_by("pyramid_level", "name"),
+            },
+        )
 
-                foods.append({
-                    "description": item.get("description", "Unknown"),
-                    "fdcId": item.get("fdcId"),
-                    "calories": nutrients.get("Energy", 0),
-                    "protein": nutrients.get("Protein", 0),
-                    "carbs": nutrients.get("Carbohydrate, by difference", 0),
-                    "fats": nutrients.get("Total lipid (fat)", 0),
-                })
-        else:
-            return render(request, "usda_search.html", {"error": f"USDA API error: {response.status_code}"})
+    data = resp.json()
+    for item in data.get("foods", []) or []:
+        name_map, num_map = {}, {}
+        for n in item.get("foodNutrients", []) or []:
+            nn = (n.get("nutrientName") or "").strip().lower()
+            if nn and n.get("value") is not None:
+                name_map[nn] = float(n["value"])
+            num = str(n.get("nutrientNumber") or "").strip()
+            if num and n.get("value") is not None:
+                num_map[num] = float(n["value"])
 
-    return render(request, "usda_search.html", {"foods": foods})
+        calories = name_map.get("energy") or num_map.get("1008") or 0.0
+        protein  = name_map.get("protein") or num_map.get("1003") or 0.0
+        carbs    = name_map.get("carbohydrate, by difference") or num_map.get("1005") or 0.0
+        fats     = name_map.get("total lipid (fat)") or num_map.get("1004") or 0.0
+
+        foods.append({
+            "description": item.get("description", "Unknown"),
+            "fdcId": item.get("fdcId"),
+            "calories": calories,
+            "protein": protein,
+            "carbs": carbs,
+            "fats": fats,
+        })
+
+    return render(
+        request,
+        "usda_search.html",
+        {
+            "foods": foods,
+            "error": error,
+            "query": query,
+            "categories": FoodCategory.objects.order_by("pyramid_level", "name"),
+        },
+    )
 
 
-@login_required
+@staff_member_required
 @require_POST
 def add_usda_food(request):
-    """Save a USDA food item to the local database."""
-    name = request.POST.get("name")
-    category = "USDA Import"
-    FoodItem.objects.get_or_create(name=name, category=category)
-    messages.success(request, f"{name} added successfully!")
-    return redirect("food_list")
+    name          = (request.POST.get("name") or "").strip()
+    calories_100g = float(request.POST.get("calories_100g") or 0)
+    protein_100g  = float(request.POST.get("protein_100g") or 0)
+    carbs_100g    = float(request.POST.get("carbs_100g") or 0)
+    fats_100g     = float(request.POST.get("fats_100g") or 0)
+    fdc_id        = request.POST.get("fdc_id") or None
+    data_type     = request.POST.get("data_type") or "USDA"
+
+    category_id = request.POST.get("category_id")
+    if not category_id:
+        messages.error(request, "Please choose a pyramid category.")
+        return redirect("usda_search")
+
+    category = get_object_or_404(FoodCategory, id=category_id)
+
+    obj, created = CatalogFood.objects.update_or_create(
+        name=name,
+        category=category,
+        defaults={
+            "calories_100g": calories_100g,
+            "protein_100g":  protein_100g,
+            "carbs_100g":    carbs_100g,
+            "fats_100g":     fats_100g,
+            "fdc_id":        int(fdc_id) if fdc_id and fdc_id.isdigit() else None,
+            "data_type":     data_type,
+            "is_active":     True,
+        },
+    )
+
+    messages.success(request, f'“{obj.name}” imported to Catalog under “{category.name}”.')
+    return redirect("catalog")
+
 
 @login_required
 def generate_report_view(request):
@@ -291,4 +418,57 @@ def set_active_profile(request, profile_id):
     baby = get_object_or_404(Baby, id=profile_id, owner=request.user)
     request.session["active_profile"] = str(baby.id)
     return HttpResponseRedirect(request.META.get("HTTP_REFERER", reverse("dashboard")))
+
+
+
+from django.db.models import Prefetch, Q
+
+@login_required
+def catalog(request):
+    q = (request.GET.get("q") or "").strip()
+
+    cf_qs = CatalogFood.objects.filter(is_active=True)
+    if q:
+        cf_qs = cf_qs.filter(name__icontains=q)
+
+    cats = (
+        FoodCategory.objects
+        .order_by('pyramid_level', 'name')
+        .prefetch_related(
+            Prefetch('catalog_foods', queryset=cf_qs.order_by('name'))
+        )
+    )
+    return render(request, "catalog.html", {"categories": cats, "q": q})
+
+
+@login_required
+@require_POST
+def catalog_use_in_tracker(request):
+    active = _get_active_profile(request)
+    if not active:
+        messages.error(request, "Select an active baby profile first.")
+        return redirect("catalog")
+
+    catalog_id = request.POST.get("catalog_id")
+    portion     = float(request.POST.get("portion") or 0)
+    unit        = request.POST.get("unit") or "g"
+
+    cat_food = get_object_or_404(CatalogFood, id=catalog_id, is_active=True)
+
+    # mirror a simple FoodItem (name + category string) so existing FoodEntry works unchanged
+    fi, _ = FoodItem.objects.get_or_create(
+        name=cat_food.name,
+        defaults={"category": cat_food.category.name}
+    )
+
+    FoodEntry.objects.create(
+        baby=active,
+        food=fi,
+        portion_size=portion,
+        portion_unit=unit,
+        notes=""
+    )
+
+    messages.success(request, f"Added {cat_food.name} to {active.name}'s tracker.")
+    return redirect("tracker")
 

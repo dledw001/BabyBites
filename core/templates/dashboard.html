@@ -3,49 +3,65 @@
 
 {% block content %}
 <div class="vw-edge">
-    <div class="container-fluid px-0 py-4">
-        <div class="d-flex align-items-center justify-content-between">
-            <div class="bb-logo"></div>
+  <div class="container-fluid px-0 py-4">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="bb-logo"></div>
 
-                <h1 class="m-0 text-center flex-grow-1 bb-title">
-                    <span class="top">BabyBites</span>
-                    <span class="bottom">DASHBOARD</span>
-                </h1>
+      <h1 class="m-0 text-center flex-grow-1 bb-title">
+        <span class="top">BabyBites</span>
+        <span class="bottom">DASHBOARD</span>
+      </h1>
 
-                <div class="d-none d-sm-block" style="width:100px;height:100px;"></div>
-            </div>
-        </div>
+      <div class="d-none d-sm-block" style="width:100px;height:100px;"></div>
+    </div>
+  </div>
 
-        <div class="row g-4">
-            <div class="col-12 col-md-6">
-                <a href="/babies/" class="tile peach">BABY<br>PROFILE</a>
-            </div>
-            <div class="col-12 col-md-6">
-                <a href="/tracker/" class="tile lav">FOOD<br>TRACKER</a>
-            </div>
-            <div class="col-12 col-md-6">
-                <a href="{% url 'food_list' %}" class="tile green">FOOD<br>DATABASE</a>
-
-            </div>
-            <div class="col-12 col-md-6">
-                <a href="#" class="tile blue"
-                   onclick="document.getElementById('daily-report-form').submit(); return false;">DAILY<br>REPORTS</a>
-                <form id="daily-report-form" method="post" action="{% url 'generate_report_view' %}"
-                      style="display: none;">
-                    {% csrf_token %}
-                </form>
-            </div>
-            <div class="col-12">
-                <a href="/resources/" class="tile resources">RESOURCES</a>
-            </div>
-            <form method="post" action="{% url 'logout' %}"
-                    class="p-2 border rounded bg-white shadow-sm d-flex justify-content-center mx-auto"
-                    style="max-width: 180px;">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-outline-dark w-100">Log Out</button>
-            </form>
-        </div>
+  <div class="row g-4">
+    <!-- Baby profile -->
+    <div class="col-12 col-md-6">
+      <a href="/babies/" class="tile peach">BABY<br>PROFILE</a>
     </div>
 
+    <!-- Food tracker -->
+    <div class="col-12 col-md-6">
+      <a href="/tracker/" class="tile lav">FOOD<br>TRACKER</a>
+    </div>
 
+    <!-- Everyone sees the BabyBites Catalog -->
+    <div class="col-12 col-md-6">
+      <a href="{% url 'catalog' %}" class="tile green">BABYBITES<br>CATALOG</a>
+    </div>
+
+    <!-- Staff-only: Food Database (admin importer) -->
+    {% if user.is_staff %}
+      <div class="col-12 col-md-6">
+        <a href="{% url 'food_list' %}" class="tile yellow">FOOD<br>DATABASE</a>
+      </div>
+    {% endif %}
+
+    <!-- Daily Reports -->
+    <div class="col-12 col-md-6">
+      <a href="#" class="tile blue"
+         onclick="document.getElementById('daily-report-form').submit(); return false;">
+         DAILY<br>REPORTS
+      </a>
+      <form id="daily-report-form" method="post" action="{% url 'generate_report_view' %}" style="display:none;">
+        {% csrf_token %}
+      </form>
+    </div>
+
+    <!-- Resources -->
+    <div class="col-12">
+      <a href="/resources/" class="tile resources">RESOURCES</a>
+    </div>
+
+    <!-- Logout -->
+    <form method="post" action="{% url 'logout' %}"
+          class="p-2 border rounded bg-white shadow-sm d-flex justify-content-center mx-auto"
+          style="max-width: 180px;">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-outline-dark w-100">Log Out</button>
+    </form>
+  </div>
+</div>
 {% endblock %}

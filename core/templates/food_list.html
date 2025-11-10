@@ -1,41 +1,89 @@
 {% extends "base.html" %}
-{% block title %}Food Database{% endblock %}
+{% load static %}
+{% block title %}Food Database (Admin){% endblock %}
 
 {% block content %}
 <div class="container my-4">
-  <h1 class="bb-title text-center py-2">
-    <span class="top">BabyBites</span>
-    <span class="bottom">FOOD DATABASE</span>
-  </h1>
+  <h1 class="mb-3">Food Database <small class="text-muted">(Admin)</small></h1>
+  <p class="text-muted">
+    Admin-only page to manage custom foods and promote them into the BabyBites Catalog.
+  </p>
 
-  <div class="text-center mb-4">
-    <a href="{% url 'add_food' %}" class="btn btn-success me-2">➕ Add Custom Food</a>
-    <a href="{% url 'usda_search' %}" class="btn btn-primary">🔍 Search USDA Foods</a>
+  {% if request.user.is_staff %}
+  <!-- 🔍 USDA Search -->
+  <form method="get" action="{% url 'usda_search' %}" class="row g-2 align-items-center mb-4" role="search">
+    <div class="col-md-8">
+      <input
+        type="search"
+        name="query"
+        value="{{ request.GET.query|default_if_none:'' }}"
+        class="form-control"
+        placeholder="USDA: search one item…"
+      >
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-outline-primary w-100" type="submit">USDA Search</button>
+    </div>
+  </form>
+  {% endif %}
+
+  <!-- ➕ Add Custom Food (with macros) -->
+  <div class="card p-4 shadow-sm mb-4" style="background-color:#fffbe7; border-radius:12px;">
+    <h5 class="mb-3">Add Custom Food</h5>
+    <form method="post" action="{% url 'add_food' %}" class="row g-3 align-items-end">
+      {% csrf_token %}
+
+      <!-- Name -->
+      <div class="col-md-6 col-lg-4">
+        <label class="form-label">Name</label>
+        <input type="text" name="name" class="form-control" placeholder="e.g. Mashed Sweet Potato" required>
+      </div>
+
+      <!-- Category (string via FoodCategory names) -->
+      <div class="col-md-6 col-lg-4">
+        <label class="form-label">Category</label>
+        <select name="category" class="form-select" required>
+          {% for c in categories %}
+            <option value="{{ c.name }}">{{ c.name }} (Level {{ c.pyramid_level }})</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Calories -->
+      <div class="col-6 col-md-3 col-lg-2">
+        <label class="form-label">Calories (kcal)</label>
+        <input type="number" name="calories" step="0.1" class="form-control" placeholder="0">
+      </div>
+
+      <!-- Protein -->
+      <div class="col-6 col-md-3 col-lg-2">
+        <label class="form-label">Protein (g)</label>
+        <input type="number" name="protein" step="0.1" class="form-control" placeholder="0">
+      </div>
+
+      <!-- Carbs -->
+      <div class="col-6 col-md-3 col-lg-2">
+        <label class="form-label">Carbs (g)</label>
+        <input type="number" name="carbs" step="0.1" class="form-control" placeholder="0">
+      </div>
+
+      <!-- Fats -->
+      <div class="col-6 col-md-3 col-lg-2">
+        <label class="form-label">Fats (g)</label>
+        <input type="number" name="fats" step="0.1" class="form-control" placeholder="0">
+      </div>
+
+      <!-- Submit -->
+      <div class="col-12 mt-2">
+        <button type="submit" class="btn btn-success w-100">+ Add Food</button>
+      </div>
+    </form>
   </div>
 
-  <table class="table table-striped table-hover">
-    <thead class="table-light">
-      <tr>
-        <th>Name</th>
-        <th>Category</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for food in foods %}
-        <tr>
-          <td>{{ food.name }}</td>
-          <td>{{ food.category|default:"-" }}</td>
-        </tr>
-      {% empty %}
-        <tr>
-          <td colspan="2" class="text-center">No foods added yet.</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
-  <div class="text-center mt-3">
-    <a href="{% url 'dashboard' %}" class="btn btn-secondary">← Back to Dashboard</a>
+  <!-- Optional helper text -->
+  <div class="alert alert-info text-center shadow-sm" style="max-width:720px; margin:0 auto;">
+    Custom foods added here can be promoted to your <strong>Catalog</strong> and used in the <strong>Tracker</strong>.
+    For USDA items with manual Food Pyramid categories, use the <strong>USDA Search</strong> above.
   </div>
 </div>
 {% endblock %}
