@@ -19,7 +19,7 @@
   <div class="row g-4">
     <!-- Baby profile -->
     <div class="col-12 col-md-6">
-      <a href="/babies/" class="tile peach">BABY<br>PROFILE</a>
+      <a href="/babies/" class="tile pink">BABY<br>PROFILE</a>
     </div>
 
     <!-- Food tracker -->
@@ -35,7 +35,7 @@
     <!-- Staff-only: Food Database (admin importer) -->
     {% if user.is_staff %}
       <div class="col-12 col-md-6">
-        <a href="{% url 'food_list' %}" class="tile yellow">FOOD<br>DATABASE</a>
+        <a href="{% url 'food_list' %}" class="tile orange">FOOD<br>DATABASE</a>
       </div>
     {% endif %}
 
@@ -43,7 +43,7 @@
     <div class="col-12 col-md-6">
       <a href="#" class="tile blue"
          onclick="document.getElementById('daily-report-form').submit(); return false;">
-         DAILY<br>REPORTS
+         DAILY REPORTS
       </a>
       <form id="daily-report-form" method="post" action="{% url 'generate_report_view' %}" style="display:none;">
         {% csrf_token %}
@@ -51,7 +51,7 @@
     </div>
 
     <!-- Resources -->
-    <div class="col-12">
+    <div class="col-12 col-md-6">
       <a href="/resources/" class="tile resources">RESOURCES</a>
     </div>
 
