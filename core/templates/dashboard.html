@@ -27,18 +27,6 @@
       <a href="/tracker/" class="tile lav">FOOD<br>TRACKER</a>
     </div>
 
-    <!-- Everyone sees the BabyBites Catalog -->
-    <div class="col-12 col-md-6">
-      <a href="{% url 'catalog' %}" class="tile green">BabyBites<br>CATALOG</a>
-    </div>
-
-    <!-- Staff-only: Food Database (admin importer) -->
-    {% if user.is_staff %}
-      <div class="col-12 col-md-6">
-        <a href="{% url 'food_list' %}" class="tile orange">FOOD<br>DATABASE</a>
-      </div>
-    {% endif %}
-
     <!-- Daily Reports -->
     <div class="col-12 col-md-6">
       <a href="#" class="tile blue"
