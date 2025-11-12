@@ -35,7 +35,7 @@
     <div class="bb-logo-tile mb-3 d-flex align-items-center justify-content-center">
         <img src="{% static 'core/img/babybites-logo.png' %}" alt="BabyBites logo" class="bb-logo-img">
     </div>
-    <h4 class="mb-4 text-primary">BabyBites</h4>
+    <h4 class="mb-4 w-100 text-center text-primary" style="font-family:'Grandstander',cursive !important; font-weight:800;">BabyBites</h4>
 
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
@@ -89,7 +89,7 @@
     {% if user.is_authenticated %}
     <form method="post" action="{% url 'logout' %}" class="p-2 border rounded bg-white shadow-sm">
         {% csrf_token %}
-        <button type="submit" class="btn btn-outline-dark w-100">Log Out</button>
+        <button type="submit" class="btn btn-outline-dark w-100">LOG OUT</button>
     </form>
     {% endif %}
 </nav>
@@ -99,10 +99,19 @@
 {% if request.resolver_match and request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'dashboard' %}
 <nav class="bb-bottom-nav d-md-none fixed-bottom">
     <div class="bb-nav-container">
-        <a href="{% url 'tracker' %}" class="bb-nav-item">Food Tracker</a>
-        <a href="{% url 'food_list' %}" class="bb-nav-item">Food DB</a>
-        <a href="{% url 'catalog' %}" class="bb-nav-item">Catalog</a>
-        <a href="{% url 'report_preview' %}" class="bb-nav-item">Reports</a>
+        <a href="{% url 'dashboard' %}" class="bb-nav-item">DASHBOARD</a>
+        <a href="{% url 'tracker' %}" class="bb-nav-item">FOOD TRACKER</a>
+        <a href="{% url 'food_list' %}" class="bb-nav-item">FOOD DATABASE</a>
+        <a href="{% url 'catalog' %}" class="bb-nav-item">BabyBites CATALOG</a>
+        <a href="{% url 'report_preview' %}" class="bb-nav-item">DAILY REPORTS</a>
+        <a href="{% url 'resources' %}" class="bb-nav-item">RESOURCES</a>
+
+        <!-- logout circle -->
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="bb-nav-item logout border-0">LOG OUT</button>
+      </form>
+
     </div>
 </nav>
 {% endif %}
@@ -111,11 +120,6 @@
 <main class="container my-4">
     {% block content %}{% endblock %}
     <footer class="text-center mt-3 mb-0">
-        {% if user.is_authenticated %}
-        <form id="logout-form" method="post" action="{% url 'logout' %}" style="display:inline;">
-            {% csrf_token %}
-        </form>
-        {% endif %}
         <p class="text-center mt-3 mb-0">
             Check out the project on <a href="https://github.com/dledw001/BabyBites">GitHub</a>!
         </p>

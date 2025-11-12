@@ -91,7 +91,23 @@
     line-height: 1;
     transition: transform 0.1s ease-in-out; }
 
-/* Desktop left nav */
-.bb-left-nav{
+/* Force Grandstander + centered text inside the sidebar */
+.bb-left-nav {
+  font-family: 'Grandstander', cursive !important;
+  font-weight: 800 !important;
+  text-align: center !important;
+}
 
+/* Make the heading itself center nicely and use Grandstander */
+.bb-left-nav h4 {
+  font-family: 'Grandstander', cursive !important;
+  font-weight: 800 !important;
+  text-align: center !important;
+  width: 100%;
+  color: #000; /* optional — pick your color */
+}
+
+/* Keep Bootstrap icons working */
+.bb-left-nav .bi {
+  font-family: "bootstrap-icons" !important;
 }
