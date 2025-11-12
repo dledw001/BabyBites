@@ -73,12 +73,10 @@
 
         <li><a href="{% url 'dashboard' %}" class="nav-link {% if request.path == '/dashboard/' %}active{% endif %}">
             <i class="bi bi-house-door me-2"></i> DASHBOARD</a></li>
+        <li><a href="{% url 'baby-list' %}" class="nav-link {% if 'babies' in request.path %}active{% endif %}">
+            <i class="bi bi-person-heart me-2"></i> BABY PROFILE</a></li>
         <li><a href="{% url 'tracker' %}" class="nav-link {% if 'tracker' in request.path %}active{% endif %}">
             <i class="bi bi-journal-text me-2"></i> FOOD TRACKER</a></li>
-        <li><a href="{% url 'food_list' %}" class="nav-link {% if 'food_list' in request.path %}active{% endif %}">
-            <i class="bi bi-database me-2"></i> FOOD DATABASE</a></li>
-        <li><a href="{% url 'catalog' %}" class="nav-link {% if 'catalog' in request.path %}active{% endif %}">
-            <i class="bi bi-grid me-2"></i> BabyBites CATALOG</a></li>
         <li><a href="{% url 'report_preview' %}" class="nav-link {% if 'report/preview' in request.path %}active{% endif %}">
             <i class="bi bi-graph-up me-2"></i> DAILY REPORTS</a></li>
         <li><a href="{% url 'resources' %}" class="nav-link {% if 'resources' in request.path %}active{% endif %}">
@@ -99,9 +97,8 @@
 <nav class="bb-bottom-nav d-md-none fixed-bottom">
     <div class="bb-nav-container">
         <a href="{% url 'dashboard' %}" class="bb-nav-item">DASHBOARD</a>
+        <a href="{% url 'baby-list' %}" class="bb-nav-item">BABY PROFILE</a>
         <a href="{% url 'tracker' %}" class="bb-nav-item">FOOD TRACKER</a>
-        <a href="{% url 'food_list' %}" class="bb-nav-item">FOOD DATABASE</a>
-        <a href="{% url 'catalog' %}" class="bb-nav-item">BabyBites CATALOG</a>
         <a href="{% url 'report_preview' %}" class="bb-nav-item">DAILY REPORTS</a>
         <a href="{% url 'resources' %}" class="bb-nav-item">RESOURCES</a>
 
