@@ -35,13 +35,12 @@
     <div class="bb-logo-tile mb-3 d-flex align-items-center justify-content-center">
         <img src="{% static 'core/img/babybites-logo.png' %}" alt="BabyBites logo" class="bb-logo-img">
     </div>
-    <h4 class="mb-4 w-100 text-center text-primary" style="font-family:'Grandstander',cursive !important; font-weight:800;">BabyBites</h4>
 
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
             {% if user.is_authenticated and profiles %}
             <div class="mb-3">
-                <label class="text-white-50 small mb-1">Active Profile</label>
+                <label class="text-white-50 mb-1 small center-text">Active Profile</label>
                 <div class="dropdown">
                     <button class="btn btn-light w-100 dropdown-toggle text-start" type="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -79,7 +78,7 @@
         <li><a href="{% url 'food_list' %}" class="nav-link {% if 'food_list' in request.path %}active{% endif %}">
             <i class="bi bi-database me-2"></i> FOOD DATABASE</a></li>
         <li><a href="{% url 'catalog' %}" class="nav-link {% if 'catalog' in request.path %}active{% endif %}">
-            <i class="bi bi-grid me-2"></i> BABYBITES CATALOG</a></li>
+            <i class="bi bi-grid me-2"></i> BabyBites CATALOG</a></li>
         <li><a href="{% url 'report_preview' %}" class="nav-link {% if 'report/preview' in request.path %}active{% endif %}">
             <i class="bi bi-graph-up me-2"></i> DAILY REPORTS</a></li>
         <li><a href="{% url 'resources' %}" class="nav-link {% if 'resources' in request.path %}active{% endif %}">
