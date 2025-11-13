@@ -1,3 +1,4 @@
+/*yellow background*/
 .babybites-body {
     background-color: #FFFFBB;
 }
@@ -11,7 +12,7 @@
     background-position: right;
 }
 
-/* Header titles*/
+/*Header titles*/
 .bb-title{
     font-family:"Grandstander";
     font-weight:800;
@@ -108,32 +109,3 @@
   color: black;
 }
 
-/* Footer */
-footer {
-  position: fixed;
-  bottom: 10px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  background: none;
-  padding: 0;
-  font-family: 'Grandstander', cursive;
-  font-weight: 600;
-  transition: all 0.3s ease-in-out; /* smooth reposition when resizing */
-}
-
-/* When sidebar is visible (desktop) */
-@media (min-width: 768px) {
-  footer {
-    left: 220px;           /* shift to align with content area */
-    width: calc(100% - 220px); /* subtract sidebar width */
-  }
-}
-
-/* When sidebar collapses or moves to bottom (mobile) */
-@media (max-width: 767.98px) {
-  footer {
-    left: 0;
-    width: 100%;           /* full width on mobile */
-  }
-}

@@ -4,23 +4,29 @@
 
 {% block content %}
 <div class="vw-edge">
-    <div class="container-fluid px-0 py-4">
-        <div class="d-flex align-items-center flex-row flex-nowrap w-100 gap-2">
-            <div class="bb-logo flex-shrink-0 ms-0"></div>
+  <div class="container-fluid px-0 py-4">
+    <div class="d-flex align-items-center flex-row flex-nowrap w-100 gap-2">
+      <div class="bb-logo flex-shrink-0 ms-0"></div>
 
-            <div class="text-start flex-grow-1 min-w-0">
-                <h1 class="m-0 display-1" style="color:#76E2EA; font-family:Grandstander; font-weight:800; line-height:1;">
-                    BabyBites
-                </h1>
-                <h5 class="mt-1 mb-0 babybites-slogan">
-                    Introducing Solids, One Bite at a Time.
-                </h5>
-            </div>
+      <div class="text-start flex-grow-1 min-w-0">
+        <div style="display:inline-block">
+          <h1 class="m-0 display-1"
+              style="color:#76E2EA; font-family:Grandstander; font-weight:800; line-height:1; white-space:nowrap;">
+            BabyBites
+          </h1>
+          <h5 class="mt-1 mb-0"
+              style="color:#878F8D; font-family:Grandstander; font-weight:700;
+              white-space:nowrap; font-size:clamp(1rem,2vw+0.5rem,1.5rem);">
+            Introducing Solids, One Bite at a Time.
+          </h5>
         </div>
+      </div>
     </div>
+  </div>
+</div>
 
     <div class="row justify-content-center mt-4">
-        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+        <div class="col-14 col-sm-10 col-md-8 col-lg-6">
             <form method="post" class="p-4 border-0 rounded" style="background:#76E2EA;">
                 {% csrf_token %}
 
@@ -29,6 +35,9 @@
                 {% endif %}
 
             <div class="mb-3">
+                <h2 class="text-center" style="font-weight:800; color:black; margin-bottom:1rem;">
+                    Login
+                </h2>
                 <label for="id_username" class="form-label">Username</label>
                 <input type="text" name="username" autofocus
                     class="form-control{% if form.username.errors %} is-invalid{% endif %}"

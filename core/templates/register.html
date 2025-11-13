@@ -2,10 +2,14 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<h1 class="text-center mb-4">Create an Account</h1>
+<h1 class="mb-0 text-center py-2 display-1"
+    style="font-family:'Grandstander', cursive; font-weight:800; line-height:1; color:#76E2EA;">
+    CREATE AN ACCOUNT
+</h1>
 
-<div class="row justify-content-center">
-    <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+<div class="container-fluid px-0 py-4">
+    <div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
         <form method="post" class="p-4 border rounded bg-white shadow-sm">
             {% csrf_token %}
 
@@ -72,5 +76,6 @@
             </p>
         </form>
     </div>
+</div>
 </div>
 {% endblock %}
