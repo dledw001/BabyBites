@@ -109,3 +109,70 @@
   color: black;
 }
 
+.bb-avatar-button {
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+
+/* Avatar circle (main button) */
+.bb-avatar-img-circle,
+.bb-avatar-fallback-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px #f5a5c5;
+}
+
+.bb-avatar-img-circle {
+    object-fit: cover;
+}
+
+.bb-avatar-fallback-circle {
+    font-family: 'Grandstander', cursive;
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: #f5a5c5;
+}
+
+/* Small avatars in dropdown */
+.bb-avatar-img-circle-sm,
+.bb-avatar-fallback-circle-sm {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.bb-avatar-img-circle-sm {
+    object-fit: cover;
+}
+
+.bb-avatar-fallback-circle-sm {
+    font-family: 'Grandstander', cursive;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: #f5a5c5;
+}
+
+.bb-avatar-button:hover .bb-avatar-img-circle,
+.bb-avatar-button:hover .bb-avatar-fallback-circle {
+    box-shadow: 0 0 0 3px #ffffff;
+    cursor: pointer;
+}
+
+.bb-mobile-avatar {
+    position: fixed;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 1080; /* above content and bottom nav */
+}
