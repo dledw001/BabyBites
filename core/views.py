@@ -13,8 +13,8 @@ from .reports import generate_report_image
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.contrib.admin.views.decorators import staff_member_required
-
-
+import datetime
+from django.utils import timezone
 
 # if user is not logged in, show log in screen, otherwise redirect to dashboard
 def home(request):
@@ -399,16 +399,48 @@ def generate_report_view(request):
 
 @login_required
 def report_preview(request):
-    return render(request, 'report_preview.html')
+    active = _get_active_profile(request)
+    if not active:
+        messages.error(request, "Select an active baby profile first.")
+        return redirect("baby-list")
+
+    date_str = request.GET.get("date")
+    if date_str:
+        try:
+            report_date = datetime.date.fromisoformat(date_str)
+        except ValueError:
+            report_date = timezone.localdate()
+    else:
+        report_date = timezone.localdate()
+
+    context = {
+        "active_profile": active,
+        "report_date": report_date,
+    }
+    return render(request, "report_preview.html", context)
 
 @login_required
 def report_image(request):
-    username = request.user.get_username()
-    png_bytes = generate_report_image(username)
-    display = 'attachment' if request.GET.get('download') else 'inline'
+    active = _get_active_profile(request)
+    if not active:
+        return HttpResponseBadRequest("No active baby profile selected.")
+
+    date_str = request.GET.get("date")
+    if date_str:
+        try:
+            report_date = datetime.date.fromisoformat(date_str)
+        except ValueError:
+            report_date = timezone.localdate()
+    else:
+        report_date = timezone.localdate()
+
+    png_bytes = generate_report_image(active, report_date)
+    display = "attachment" if request.GET.get("download") else "inline"
+
     response = HttpResponse(png_bytes, content_type="image/png")
-    response['Content-Disposition'] = f'{display}; filename="daily_report_{username}.png"'
-    response['Cache-Control'] = 'no-store'
+    filename = f"daily_report_{active.name}_{report_date}.png".replace(" ", "_")
+    response["Content-Disposition"] = f'{display}; filename="{filename}"'
+    response["Cache-Control"] = "no-store"
     return response
 
 @login_required

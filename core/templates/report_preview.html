@@ -2,17 +2,66 @@
 
 {% block content %}
 <h1 class="bb-title mb-0 text-center py-2">
-    <span class="top">DAILY REPORTS</span>
+    <span class="top">DAILY REPORT</span>
 </h1>
 
 <div class="row justify-content-center content-center">
   <div class="col-12 col-lg-8 text-center">
-    <div class="d-flex justify-content-center gap-2 mb-3">
-      <a class="btn btn-primary" href="{% url 'report_image' %}?download=1">Download PNG</a>
-      <a class="btn btn-secondary" href="{% url 'report_image' %}" target="_blank" rel="noopener">Open in new tab</a>
-    </div>
 
-    <img src="{% url 'report_image' %}" class="img-fluid mx-auto d-block border rounded" alt="Daily Report">
+    {% if not active_profile %}
+      <div class="alert alert-warning mt-3">
+        Please select an active baby profile from the profile menu to view a daily report.
+      </div>
+    {% else %}
+
+      <p class="mt-3 mb-2">
+        Active profile:
+        <strong>{{ active_profile.name }}</strong>
+        {% if active_profile.date_of_birth %}
+          <span class="text-muted">
+            (DOB {{ active_profile.date_of_birth|date:"m/d/Y" }})
+          </span>
+        {% endif %}
+      </p>
+
+      <form method="get" class="d-flex flex-wrap justify-content-center align-items-end gap-2 mb-3">
+        <div>
+          <label for="id_report_date" class="form-label mb-0 fw-semibold">Report date</label>
+          <input
+            type="date"
+            id="id_report_date"
+            name="date"
+            class="form-control"
+            value="{{ report_date|date:'Y-m-d' }}"
+          >
+        </div>
+        <div>
+          <button type="submit" class="btn btn-primary mt-2 mt-sm-0">
+            Update
+          </button>
+        </div>
+      </form>
+
+      <div class="d-flex justify-content-center gap-2 mb-3">
+        <a class="btn btn-primary"
+           href="{% url 'report_image' %}?date={{ report_date|date:'Y-m-d' }}&download=1">
+          Download PNG
+        </a>
+        <a class="btn btn-secondary"
+           href="{% url 'report_image' %}?date={{ report_date|date:'Y-m-d' }}"
+           target="_blank"
+           rel="noopener">
+          Open in new tab
+        </a>
+      </div>
+
+      <img
+        src="{% url 'report_image' %}?date={{ report_date|date:'Y-m-d' }}"
+        class="img-fluid mx-auto d-block border rounded"
+        alt="Daily Report for {{ active_profile.name }} on {{ report_date|date:'M d, Y' }}"
+      >
+
+    {% endif %}
   </div>
 </div>
 
