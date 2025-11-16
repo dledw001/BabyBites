@@ -15,6 +15,7 @@ from django.utils.functional import cached_property
 from django.contrib.admin.views.decorators import staff_member_required
 import datetime
 from django.utils import timezone
+import random
 
 # if user is not logged in, show log in screen, otherwise redirect to dashboard
 def home(request):
@@ -69,11 +70,15 @@ def baby_create(request):
         if form.is_valid():
             baby = form.save(commit=False)
             baby.owner = request.user
+
+            _apply_avatar_priority(baby, form)
+
             baby.save()
             form.save_m2m()
             return redirect("baby-list")
     else:
         form = BabyForm()
+
     return render(request, "baby_form.html", {"form": form})
 
 @login_required
@@ -83,7 +88,12 @@ def baby_edit(request, baby_id):
     if request.method == "POST":
         form = BabyForm(request.POST, request.FILES, instance=baby)
         if form.is_valid():
-            form.save()
+            baby = form.save(commit=False)
+
+            _apply_avatar_priority(baby, form)
+
+            baby.save()
+            form.save_m2m()
             return redirect("baby-list")
     else:
         form = BabyForm(instance=baby)
@@ -104,45 +114,6 @@ def baby_delete(request, baby_id):
 def baby_list(request):
     babies = Baby.objects.filter(owner=request.user)
     return render(request, 'baby_list.html', {'babies': babies})
-
-@login_required
-def baby_create(request):
-    if request.method == "POST":
-        form = BabyForm(request.POST, request.FILES)
-        if form.is_valid():
-            baby = form.save(commit=False)
-            baby.owner = request.user
-            baby.save()
-            form.save_m2m()
-            return redirect("baby-list")
-    else:
-        form = BabyForm()
-    return render(request, "baby_form.html", {"form": form})
-
-@login_required
-def baby_edit(request, baby_id):
-    baby = get_object_or_404(Baby, id=baby_id, owner=request.user)
-
-    if request.method == "POST":
-        form = BabyForm(request.POST, request.FILES, instance=baby)
-        if form.is_valid():
-            form.save()
-            return redirect("baby-list")
-    else:
-        form = BabyForm(instance=baby)
-
-    return render(request, "baby_form.html", {"form": form, "baby": baby})
-
-@login_required
-def baby_delete(request, baby_id):
-    baby = get_object_or_404(Baby, id=baby_id, owner=request.user)
-
-    if request.method == "POST":
-        baby.delete()
-        return redirect("baby-list")
-
-    return render(request, "baby_confirm_delete.html", {"baby": baby})
-
 
 @login_required
 def tracker(request):
@@ -504,3 +475,16 @@ def catalog_use_in_tracker(request):
     messages.success(request, f"Added {cat_food.name} to {active.name}'s tracker.")
     return redirect("tracker")
 
+def _apply_avatar_priority(baby, form):
+    if baby.image:
+        baby.stock_avatar = ""
+        return
+
+    chosen = form.cleaned_data.get("stock_avatar") or ""
+    if chosen:
+        baby.stock_avatar = chosen
+        return
+
+    choices = [c[0] for c in BabyForm.STOCK_AVATAR_CHOICES]
+    if choices:
+        baby.stock_avatar = random.choice(choices)

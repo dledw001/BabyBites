@@ -37,18 +37,18 @@
                         type="button"
                         data-bs-toggle="dropdown"
                         aria-expanded="false">
-                    {% if active_profile and active_profile.image %}
-                        <img src="{{ active_profile.image.url }}"
-                             alt="{{ active_profile.name }}"
-                             class="bb-avatar-img-circle">
-                    {% else %}
-                        <span class="bb-avatar-fallback-circle">
-                            {% if active_profile %}
+                    {% if active_profile %}
+                        {% if active_profile.image or active_profile.stock_avatar %}
+                            <img src="{{ active_profile.avatar_url }}"
+                                 alt="{{ active_profile.name }}"
+                                 class="bb-avatar-img-circle">
+                        {% else %}
+                            <span class="bb-avatar-fallback-circle">
                                 {{ active_profile.name|first|upper }}
-                            {% else %}
-                                +
-                            {% endif %}
-                        </span>
+                            </span>
+                        {% endif %}
+                    {% else %}
+                        <span class="bb-avatar-fallback-circle">+</span>
                     {% endif %}
                 </button>
 
@@ -61,8 +61,8 @@
                                         class="dropdown-item d-flex align-items-center {% if active_profile and active_profile.id == p.id %}active{% endif %}"
                                         type="submit">
 
-                                    {% if p.image %}
-                                        <img src="{{ p.image.url }}"
+                                    {% if p.image or p.stock_avatar %}
+                                        <img src="{{ p.avatar_url }}"
                                              class="bb-avatar-img-circle-sm me-2"
                                              alt="{{ p.name }}">
                                     {% else %}
@@ -113,27 +113,32 @@
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
                 {% if user.is_authenticated and profiles %}
-                    <div class="mb-3 text-center">
-                        <label class="text-white-50 mb-1 small center-text">Active Profile</label>
+                    <div class="mb-4 text-center">
+
+                        <!-- Label ABOVE avatar -->
+                        <label class="text-white-50 small d-block mb-2">Active Profile</label>
+
                         <div class="dropdown d-inline-block">
                             <button class="bb-avatar-button"
                                     type="button"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false">
-                                {% if active_profile and active_profile.image %}
-                                    <img src="{{ active_profile.image.url }}"
-                                         alt="{{ active_profile.name }}"
-                                         class="bb-avatar-img-circle">
+
+                                {% if active_profile %}
+                                    {% if active_profile.image or active_profile.stock_avatar %}
+                                        <img src="{{ active_profile.avatar_url }}"
+                                             alt="{{ active_profile.name }}"
+                                             class="bb-avatar-img-circle">
+                                    {% else %}
+                                        <span class="bb-avatar-fallback-circle">
+                        {{ active_profile.name|first|upper }}
+                    </span>
+                                    {% endif %}
                                 {% else %}
-                                    <span class="bb-avatar-fallback-circle">
-                                        {% if active_profile %}
-                                            {{ active_profile.name|first|upper }}
-                                        {% else %}
-                                            +
-                                        {% endif %}
-                                    </span>
+                                    <span class="bb-avatar-fallback-circle">+</span>
                                 {% endif %}
                             </button>
+
                             <ul class="dropdown-menu dropdown-menu-start mt-2">
                                 {% for p in profiles %}
                                     <li>
@@ -141,8 +146,9 @@
                                             {% csrf_token %}
                                             <button class="dropdown-item d-flex align-items-center {% if active_profile and active_profile.id == p.id %}active{% endif %}"
                                                     type="submit">
-                                                {% if p.image %}
-                                                    <img src="{{ p.image.url }}"
+
+                                                {% if p.image or p.stock_avatar %}
+                                                    <img src="{{ p.avatar_url }}"
                                                          class="bb-avatar-img-circle-sm me-2"
                                                          alt="{{ p.name }}">
                                                 {% else %}
@@ -150,16 +156,16 @@
                                                         {{ p.name|first|upper }}
                                                     </span>
                                                 {% endif %}
+
                                                 <div class="text-start">
-                                                    <div class="fw-semibold">
-                                                        {{ p.name }}
-                                                    </div>
+                                                    <div class="fw-semibold">{{ p.name }}</div>
                                                     {% if p.date_of_birth %}
                                                         <div class="small text-muted">
                                                             {{ p.date_of_birth|date:"m/d/Y" }}
                                                         </div>
                                                     {% endif %}
                                                 </div>
+
                                             </button>
                                         </form>
                                     </li>

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
     {% if baby %}Edit Baby Profile
     {% else %}Create a Baby Profile
@@ -7,9 +8,9 @@
 
 {% block content %}
     {% if baby %}
-    <h1 class="text-center mb-4">Edit Baby Profile</h1>
+        <h1 class="text-center mb-4">Edit Baby Profile</h1>
     {% else %}
-    <h1 class="text-center mb-4">Create a Baby Profile</h1>
+        <h1 class="text-center mb-4">Create a Baby Profile</h1>
     {% endif %}
     <div class="row justify-content-center">
         <div class="col-12 col-sm-8 col-md-6 col-lg-4">
@@ -25,7 +26,7 @@
                            class="form-control{% if form.name.errors %} is-invalid{% endif %}"
                            id="id_name" value="{{ form.name.value|default_if_none:'' }}">
                     {% if form.name.errors %}
-                        <div class="invalid-feedback d-block">{{ form.username.errors|striptags }}</div>
+                        <div class="invalid-feedback d-block">{{ form.name.errors|striptags }}</div>
                     {% endif %}
                 </div>
 
@@ -33,7 +34,8 @@
                     <label for="id_date_of_birth" class="form-label">Date of Birth*</label>
                     <input type="date" name="date_of_birth"
                            class="form-control{% if form.date_of_birth.errors %} is-invalid{% endif %}"
-                           id="id_date_of_birth" value="{% if form.date_of_birth.value %}{{ form.date_of_birth.value|date:'Y-m-d' }}{% endif %}">
+                           id="id_date_of_birth" value="
+                            {% if form.date_of_birth.value %}{{ form.date_of_birth.value|date:'Y-m-d' }}{% endif %}">
 
                     {% if form.date_of_birth.errors %}
                         <div class="invalid-feedback d-block">{{ form.date_of_birth.errors|striptags }}</div>
@@ -46,7 +48,7 @@
                            class="form-control{% if form.image.errors %} is-invalid{% endif %}"
                            accept="image/*">
                     {% if form.image.errors %}
-                        <div class="invalid-feedback d-block">{{ form.image.errors|striptags }}
+                        <div class="invalid-feedback d-block">{{ form.image.errors|striptags }}</div>
                     {% endif %}
 
                     {% if form.instance.pk and form.instance.image %}
@@ -55,34 +57,91 @@
                         </div>
                     {% endif %}
                     <div class="form-text">PNG/JPG, a few MB max.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_stock_avatar" class="form-label">Or choose a stock avatar</label>
+
+                    <select name="stock_avatar" id="id_stock_avatar" class="form-select">
+                        <option value="" data-img="" {% if not form.stock_avatar.value %}selected{% endif %}>
+                            Random (default)
+                        </option>
+
+                        {% for value, label in form.fields.stock_avatar.choices %}
+                            {% if value %}
+                                <option value="{{ value }}"
+                                        data-img="{% static value %}"
+                                        {% if form.stock_avatar.value == value %}selected{% endif %}>
+                                    {{ label }}
+                                </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+
+                    <div class="mt-3 text-center" id="stock-avatar-preview-wrapper" style="display:none;">
+                        <img id="stock-avatar-preview"
+                             src=""
+                             alt="Avatar preview"
+                             class="img-fluid rounded-circle"
+                             style="max-width: 120px;">
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Known Allergies</label>
-                        <p>
-                            <a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse"
-                               href="#allergyCollapse" role="button" aria-expanded="false"
-                               aria-controls="allergyCollapse">
-                                Show/Hide Allergies
-                            </a>
-                        </p>
-                        <div class="collapse" id="allergyCollapse">
-                            <div class="card card-body">
-                                {{ form.allergies }}
-                            </div>
-                            <div class="form-text">If none apply, leave unchecked</div>
-                        </div>
+                    <div class="form-text">
+                        If you upload a photo, it will override your stock avatar selection.
                     </div>
+                </div>
 
-                    <button type="submit" class="btn btn-outline-dark w-100">Save</button>
-                    {% if baby %}
-                        <a href="{% url 'baby-delete' baby.id %}" class="btn btn-danger w-100 mt-2">Delete Profile</a>
-                    {% endif %}
-                    <p class="text-center mt-3 mb-0">
-                        Change your mind?<br>
-                        <a href="{% url 'home' %}">Return to Dashboard</a>
+                <div class="mb-3">
+                    <label class="form-label">Known Allergies</label>
+                    <p>
+                        <a class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse"
+                           href="#allergyCollapse" role="button" aria-expanded="false"
+                           aria-controls="allergyCollapse">
+                            Show/Hide Allergies
+                        </a>
                     </p>
+                    <div class="collapse" id="allergyCollapse">
+                        <div class="card card-body">
+                            {{ form.allergies }}
+                        </div>
+                        <div class="form-text">If none apply, leave unchecked</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-outline-dark w-100">Save</button>
+                {% if baby %}
+                    <a href="{% url 'baby-delete' baby.id %}" class="btn btn-danger w-100 mt-2">Delete Profile</a>
+                {% endif %}
+                <p class="text-center mt-3 mb-0">
+                    Change your mind?<br>
+                    <a href="{% url 'home' %}">Return to Dashboard</a>
+                </p>
             </form>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const select = document.getElementById("id_stock_avatar");
+            const wrapper = document.getElementById("stock-avatar-preview-wrapper");
+            const img = document.getElementById("stock-avatar-preview");
+
+            if (!select || !wrapper || !img) return;
+
+            function updatePreview() {
+                const opt = select.options[select.selectedIndex];
+                const url = opt.getAttribute("data-img");
+
+                if (url) {
+                    img.src = url;
+                    wrapper.style.display = "block";
+                } else {
+                    img.src = "";
+                    wrapper.style.display = "none";
+                }
+            }
+
+            select.addEventListener("change", updatePreview);
+            updatePreview();
+        });
+    </script>
 {% endblock %}

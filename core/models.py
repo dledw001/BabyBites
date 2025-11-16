@@ -5,6 +5,7 @@ import datetime
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
+from django.templatetags.static import static
 
 class Allergy(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -31,6 +32,8 @@ class Baby(models.Model):
     #optional fields
     image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
 
+    stock_avatar = models.CharField(max_length=255, blank=True)
+
     allergies = models.ManyToManyField(Allergy, blank=True, related_name='allergies')
 
     created_at = models.DateTimeField(default=timezone.now, editable=False)
@@ -42,6 +45,16 @@ class Baby(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.owner.username})"
+
+    @property
+    def avatar_url(self):
+        if self.image:
+            return self.image.url
+
+        if self.stock_avatar:
+            return static(self.stock_avatar)
+
+        return static("core/img/stock-avatars/tomato.png")
     
 
 class FoodItem(models.Model):

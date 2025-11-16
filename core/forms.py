@@ -26,9 +26,20 @@ class BabyForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple
     )
 
+    STOCK_AVATAR_BASE = "core/img/stock-avatars"
+    STOCK_AVATAR_CHOICES = [
+        (f"{STOCK_AVATAR_BASE}/apple.png", "Apple"),
+        (f"{STOCK_AVATAR_BASE}/banana.png", "Banana"),
+    ]
+
+    stock_avatar = forms.ChoiceField(
+        required=False,
+        choices=[("", "Random (default)")] + STOCK_AVATAR_CHOICES,
+    )
+
     class Meta:
         model = Baby
-        fields = ['name', 'date_of_birth', 'image', 'allergies']
+        fields = ['name', 'date_of_birth', 'image', 'stock_avatar', 'allergies']
 
 
 class FoodItemForm(forms.ModelForm):
