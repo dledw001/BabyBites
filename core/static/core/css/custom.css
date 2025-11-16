@@ -54,12 +54,10 @@
     min-height:240px; border-radius:18px; box-shadow:0 10px 18px rgba(0,0,0,.12);
     font-family:"Grandstander"; font-weight:800; font-size:42px; color:#000; text-decoration:none;
 }
-  .tile.pink{background:#ffcbe1;}
+  .tile.pink{background:#f7c8e2;}
   .tile.lav{background:#dcccec;}
-  .tile.green{background:#d7f5b8;}
-  .tile.orange{background:#ffdab4;}
+  .tile.green{background:#cae8bd;}
   .tile.blue{background:#cbe6ff;}
-  .tile.resources{background:#e6e6e6;}
 
 /* Mobile tweak so large text fits nicely */
 @media (max-width:720px){
