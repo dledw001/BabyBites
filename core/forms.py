@@ -30,6 +30,23 @@ class BabyForm(forms.ModelForm):
     STOCK_AVATAR_CHOICES = [
         (f"{STOCK_AVATAR_BASE}/apple.png", "Apple"),
         (f"{STOCK_AVATAR_BASE}/banana.png", "Banana"),
+        (f"{STOCK_AVATAR_BASE}/berry.png", "Berry"),
+        (f"{STOCK_AVATAR_BASE}/blueberry.png", "Blueberry"),
+        (f"{STOCK_AVATAR_BASE}/carrot.png", "Carrot"),
+        (f"{STOCK_AVATAR_BASE}/cherry.png", "Cherry"),
+        (f"{STOCK_AVATAR_BASE}/chilepepper.png", "Chili Pepper"),
+        (f"{STOCK_AVATAR_BASE}/garlic.png", "Garlic"),
+        (f"{STOCK_AVATAR_BASE}/greenbellpepper.png", "Green Bell Pepper"),
+        (f"{STOCK_AVATAR_BASE}/lettuce.png", "Lettuce"),
+        (f"{STOCK_AVATAR_BASE}/mushroom.png", "Mushroom"),
+        (f"{STOCK_AVATAR_BASE}/orange.png", "Orange"),
+        (f"{STOCK_AVATAR_BASE}/pear.png", "Pear"),
+        (f"{STOCK_AVATAR_BASE}/pickle.png", "Pickle"),
+        (f"{STOCK_AVATAR_BASE}/potato.png", "Potato"),
+        (f"{STOCK_AVATAR_BASE}/strawberry.png", "Strawberry"),
+        (f"{STOCK_AVATAR_BASE}/tomato.png", "Tomato"),
+        (f"{STOCK_AVATAR_BASE}/watermelon.png", "Watermelon"),
+        (f"{STOCK_AVATAR_BASE}/yellowbellpepper.png", "Yellow Bell Pepper"),
     ]
 
     stock_avatar = forms.ChoiceField(
