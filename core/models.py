@@ -98,16 +98,17 @@ PYRAMID_MAP: dict[str, int] = {
     "Vegetables": 1,
     "Fruits": 1,
     "Grains & Starches": 2,
-    "Proteins": 3,             
-    "Dairy": 3,                # yogurt, cheese, milk
-    "Fats & Oils": 4,        
-    "Sweets & Processed Foods": 5,  
+    "Proteins": 3,
+    "Dairy": 3,
+    "Fats & Oils": 4,
+    "Sweets & Processed Foods": 5,
 }
+
 
 def ensure_seed_categories():
     """
-    Create the canonical FoodCategory rows if missing.
-    Safe to call multiple times (idempotent).
+    Safe auto-create of the default categories.
+    Runs without breaking anything.
     """
     from django.db import transaction
     with transaction.atomic():
@@ -117,10 +118,11 @@ def ensure_seed_categories():
                 defaults={"pyramid_level": level},
             )
 
+
 def map_usda_to_category(usda_category: str | None, description: str | None) -> "FoodCategory | None":
     """
-    Heuristic mapping of USDA categories/descriptions to our pyramid categories.
-    Very lightweight, easy to tweak as you see real data.
+    Light heuristic text-matching to place USDA foods into a category.
+    Still works perfectly even without showing the numbers in frontend.
     """
     text = f"{usda_category or ''} {description or ''}".lower()
 
@@ -129,64 +131,90 @@ def map_usda_to_category(usda_category: str | None, description: str | None) -> 
         obj, _ = FoodCategory.objects.get_or_create(name=label, defaults={"pyramid_level": level})
         return obj
 
-    # Vegetables
-    if any(k in text for k in ["vegetable", "veg", "broccoli", "spinach", "carrot", "kale", "lettuce", "pepper", "cabbage", "tomato"]):
+    # Veg
+    if any(k in text for k in [
+        "vegetable", "veg", "broccoli", "spinach", "carrot", "kale",
+        "lettuce", "pepper", "cabbage", "tomato"
+    ]):
         return pick("Vegetables")
 
     # Fruits
-    if any(k in text for k in ["fruit", "apple", "banana", "strawberry", "berries", "grape", "orange", "pear", "peach"]):
+    if any(k in text for k in [
+        "fruit", "apple", "banana", "strawberry", "berries", "grape",
+        "orange", "pear", "peach"
+    ]):
         return pick("Fruits")
 
-    # Grains & Starches
-    if any(k in text for k in ["bread", "rice", "pasta", "oat", "cereal", "grain", "tortilla", "noodle", "quinoa", "barley", "cracker"]):
+    # Grains
+    if any(k in text for k in [
+        "bread", "rice", "pasta", "oat", "cereal", "grain", "tortilla",
+        "noodle", "quinoa", "barley", "cracker"
+    ]):
         return pick("Grains & Starches")
 
-    # Proteins
-    if any(k in text for k in ["chicken", "beef", "pork", "turkey", "fish", "egg", "tofu", "bean", "lentil", "pea", "shrimp", "tuna", "salmon"]):
+    # Protein
+    if any(k in text for k in [
+        "chicken", "beef", "pork", "turkey", "fish", "egg", "tofu",
+        "bean", "lentil", "pea", "shrimp", "tuna", "salmon"
+    ]):
         return pick("Proteins")
 
     # Dairy
-    if any(k in text for k in ["milk", "yogurt", "cheese", "cottage cheese", "kefir"]):
+    if any(k in text for k in [
+        "milk", "yogurt", "cheese", "cottage cheese", "kefir"
+    ]):
         return pick("Dairy")
 
-    # Fats & Oils
-    if any(k in text for k in ["oil", "butter", "olive", "avocado oil", "ghee", "shortening", "lard"]):
+    # Fats
+    if any(k in text for k in [
+        "oil", "butter", "olive", "avocado oil", "ghee", "shortening", "lard"
+    ]):
         return pick("Fats & Oils")
 
-    # Sweets & Processed (default catch)
-    if any(k in text for k in ["cookie", "candy", "syrup", "brownie", "cake", "muffin", "donut", "ice cream", "sweet", "soda", "fruit snacks", "added sugar", "frosting", "sweetened"]):
+    # Sweets
+    if any(k in text for k in [
+        "cookie", "candy", "syrup", "brownie", "cake", "muffin",
+        "donut", "ice cream", "sweet", "soda", "fruit snacks",
+        "added sugar", "frosting", "sweetened"
+    ]):
         return pick("Sweets & Processed Foods")
 
-    # If nothing matched, put it conservatively in Grains or Sweets based on hints
+    # Juice-ish default
     if "juice" in text or "sweet" in text or "syrup" in text:
         return pick("Sweets & Processed Foods")
 
-    # Fallback: Grains & Starches (neutral-ish)
+    # Fallback
     return pick("Grains & Starches")
-    
 
+
+# -----------------------------
+# FoodCategory (groups only)
+# -----------------------------
 class FoodCategory(models.Model):
-    """Represents a general food group or USDA import category."""
     name = models.CharField(max_length=100, unique=True)
-    pyramid_level = models.IntegerField(default=0)
+    pyramid_level = models.IntegerField(default=0)   # kept but unused by UI
 
     class Meta:
-        ordering = ['pyramid_level', 'name']
+        ordering = ['name']    # ✔ no more level sorting
 
     def __str__(self):
         return self.name
 
 
+# -----------------------------
+# UserFood (per-user saved items)
+# -----------------------------
 class UserFood(models.Model):
-    """Stores custom foods or USDA imports tied to a specific user."""
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_foods')
     category = models.ForeignKey(FoodCategory, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(max_length=200)
-    calories = models.FloatField(default=0,  help_text= "per 100g")
-    protein = models.FloatField(default=0, help_text= "per 100g")
-    carbs = models.FloatField(default=0, help_text= "per 100g")
-    fats = models.FloatField(default=0, help_text= "per 100g")
-    source = models.CharField(max_length=50, default="custom")  # "custom" or "usda"
+
+    calories = models.FloatField(default=0, help_text="per 100g")
+    protein = models.FloatField(default=0, help_text="per 100g")
+    carbs = models.FloatField(default=0, help_text="per 100g")
+    fats = models.FloatField(default=0, help_text="per 100g")
+
+    source = models.CharField(max_length=50, default="custom")  # custom or USDA
 
     class Meta:
         ordering = ['name']
@@ -194,26 +222,27 @@ class UserFood(models.Model):
     def __str__(self):
         return f"{self.name} ({self.user.username})"
 
-# core/models.py
+
+# -----------------------------
+# Catalog (global food list)
+# -----------------------------
 class CatalogFood(models.Model):
-    category = models.ForeignKey('FoodCategory', on_delete=models.PROTECT, related_name='catalog_foods')
+    category = models.ForeignKey(FoodCategory, on_delete=models.PROTECT, related_name='catalog_foods')
     name = models.CharField(max_length=200, db_index=True)
 
-    # per 100 g (read-only to users)
     calories_100g = models.FloatField(default=0)
-    protein_100g  = models.FloatField(default=0)
-    carbs_100g    = models.FloatField(default=0)
-    fats_100g     = models.FloatField(default=0)
+    protein_100g = models.FloatField(default=0)
+    carbs_100g = models.FloatField(default=0)
+    fats_100g = models.FloatField(default=0)
 
-    # provenance
-    fdc_id    = models.BigIntegerField(null=True, blank=True)    # USDA id, optional
-    data_type = models.CharField(max_length=50, blank=True)      # e.g., “FNDDS”, “SR Legacy”, “Branded”
-    is_active = models.BooleanField(default=True)                # allow hiding
+    fdc_id = models.BigIntegerField(null=True, blank=True)
+    data_type = models.CharField(max_length=50, blank=True)
 
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['category__pyramid_level', 'name']
+        ordering = ['category__name', 'name']
 
     def __str__(self):
         return f"{self.name} ({self.category})"

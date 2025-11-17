@@ -4,7 +4,7 @@
 {% block title %}USDA Food Search{% endblock %}
 
 {% block content %}
-<div class="container my-4">
+<div class="content-center">
 
   <!-- Page Title -->
   <h1 class="bb-title mb-0 text-center py-2">
@@ -16,7 +16,9 @@
   {% if messages %}
     <div class="mt-3">
       {% for message in messages %}
-        <div class="alert alert-{{ message.tags|default:'info' }} mb-2">{{ message }}</div>
+        <div class="alert alert-{{ message.tags|default:'info' }} mb-2">
+          {{ message }}
+        </div>
       {% endfor %}
     </div>
   {% endif %}
@@ -24,97 +26,104 @@
   <!-- Search Bar -->
   <form method="get" action="{% url 'usda_search' %}" class="mb-4">
     <div class="input-group justify-content-center" style="max-width: 600px; margin: 0 auto;">
-      <input type="search" name="query" value="{{ query }}" class="form-control"
-             placeholder="Search USDA (e.g., banana, applesauce, sweet potato puree)…" required>
+      <input
+        type="search"
+        name="query"
+        value="{{ query }}"
+        class="form-control"
+        placeholder="Search USDA (e.g., banana, applesauce, sweet potato puree)…"
+        required
+      >
       <button class="btn btn-primary" type="submit">Search</button>
     </div>
   </form>
 
-  <!-- Error Message -->
   {% if error %}
     <div class="alert alert-danger">{{ error }}</div>
   {% endif %}
 
-  <!-- Helper note -->
   {% if query and not error %}
     <p class="text-center text-muted">
-      Results below are reported <strong>per 100 g</strong> (USDA convention). Choose a pyramid category to add to your Catalog.
+      Results below are reported <strong>per 100 g</strong> (USDA convention).  
+      Choose a food group to add to your Catalog.
     </p>
   {% endif %}
 
   <!-- Results -->
   {% if foods and not error %}
-    <div class="row g-3">
+    <div class="mt-3">
+
       {% for food in foods %}
-        <div class="col-12">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <!-- Title & FDC -->
-              <div class="d-flex justify-content-between align-items-start flex-wrap">
-                <div>
-                  <h5 class="card-title mb-1">{{ food.description }}</h5>
-                  <div class="text-muted small">FDC ID: <code>{{ food.fdcId }}</code></div>
-                </div>
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+
+            <!-- Title -->
+            <h5 class="card-title mb-1">{{ food.description }}</h5>
+            <p class="text-muted small">FDC ID: {{ food.fdcId }}</p>
+
+            <hr>
+
+            <!-- Nutrients row -->
+            <div class="row text-center mb-3">
+              <div class="col-6 col-md-3">
+                <strong>Calories</strong><br>
+                {{ food.calories|floatformat:0 }} kcal / 100 g
               </div>
-
-              <hr class="my-3">
-
-              <!-- Nutrient Snapshot (per 100 g) -->
-              <div class="row text-center">
-                <div class="col-6 col-md-3 mb-2">
-                  <div class="fw-semibold">Calories</div>
-                  <div>{{ food.calories|floatformat:0 }} kcal / 100 g</div>
-                </div>
-                <div class="col-6 col-md-3 mb-2">
-                  <div class="fw-semibold">Protein</div>
-                  <div>{{ food.protein|floatformat:2 }} g / 100 g</div>
-                </div>
-                <div class="col-6 col-md-3 mb-2">
-                  <div class="fw-semibold">Carbs</div>
-                  <div>{{ food.carbs|floatformat:2 }} g / 100 g</div>
-                </div>
-                <div class="col-6 col-md-3 mb-2">
-                  <div class="fw-semibold">Fats</div>
-                  <div>{{ food.fats|floatformat:2 }} g / 100 g</div>
-                </div>
+              <div class="col-6 col-md-3">
+                <strong>Protein</strong><br>
+                {{ food.protein|floatformat:2 }} g / 100 g
               </div>
-
-              <hr class="my-3">
-
-              <!-- Add to Catalog Form -->
-              <form method="post" action="{% url 'add_usda_food' %}" class="row g-2 align-items-end">
-                {% csrf_token %}
-
-                <!-- Hidden values posted to the server -->
-                <input type="hidden" name="name" value="{{ food.description }}">
-                <input type="hidden" name="fdc_id" value="{{ food.fdcId }}">
-                <input type="hidden" name="data_type" value="USDA">
-                <input type="hidden" name="calories_100g" value="{{ food.calories }}">
-                <input type="hidden" name="protein_100g"  value="{{ food.protein }}">
-                <input type="hidden" name="carbs_100g"    value="{{ food.carbs }}">
-                <input type="hidden" name="fats_100g"     value="{{ food.fats }}">
-
-                <div class="col-md-8">
-                  <label class="form-label">Pyramid Category</label>
-                  <select name="category_id" class="form-select" required>
-                    {% for c in categories %}
-                      <option value="{{ c.id }}">{{ c.name }} (Level {{ c.pyramid_level }})</option>
-                    {% endfor %}
-                  </select>
-                </div>
-
-                <div class="col-md-4">
-                  <button type="submit" class="btn btn-success w-100">Add to Catalog</button>
-                </div>
-              </form>
-
+              <div class="col-6 col-md-3">
+                <strong>Carbs</strong><br>
+                {{ food.carbs|floatformat:2 }} g / 100 g
+              </div>
+              <div class="col-6 col-md-3">
+                <strong>Fats</strong><br>
+                {{ food.fats|floatformat:2 }} g / 100 g
+              </div>
             </div>
+
+            <hr>
+
+            <!-- Add to Catalog form -->
+            <form method="post" action="{% url 'add_usda_food' %}" class="row g-2 align-items-end">
+              {% csrf_token %}
+
+              <!-- Hidden fields -->
+              <input type="hidden" name="name"          value="{{ food.description }}">
+              <input type="hidden" name="fdc_id"        value="{{ food.fdcId }}">
+              <input type="hidden" name="data_type"     value="USDA">
+              <input type="hidden" name="calories_100g" value="{{ food.calories }}">
+              <input type="hidden" name="protein_100g"  value="{{ food.protein }}">
+              <input type="hidden" name="carbs_100g"    value="{{ food.carbs }}">
+              <input type="hidden" name="fats_100g"     value="{{ food.fats }}">
+
+              <div class="col-md-8">
+                <label class="form-label">Food Group</label>
+                <select name="category_id" class="form-select" required>
+                  {% for c in categories %}
+                    <option value="{{ c.id }}">{{ c.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <button type="submit" class="btn btn-success w-100">
+                  Add to Catalog
+                </button>
+              </div>
+            </form>
+
           </div>
         </div>
       {% endfor %}
+
     </div>
+
   {% elif query and not error %}
-    <p class="text-center text-muted mt-4">No USDA results for “{{ query }}”. Try another term.</p>
+    <p class="text-center text-muted mt-4">
+      No USDA results for “{{ query }}”. Try another food.
+    </p>
   {% endif %}
 
 </div>

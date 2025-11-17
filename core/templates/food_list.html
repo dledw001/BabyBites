@@ -3,17 +3,22 @@
 {% block title %}Food Database (Admin){% endblock %}
 
 {% block content %}
-<div class="content-center">
-    <h1 class="bb-title mb-0 text-center py-2">
-    <span class="top">FOOD DATABASE</span><small class="text-muted">(Admin)</small>
-    </h1>
-  <p class="text-muted">
+<div class="container mt-4">
+  <h1 class="bb-title mb-0 text-center py-2">
+    <span class="top">FOOD DATABASE</span>
+    <small class="text-muted" style="font-size:0.6em;"> (Admin)</small>
+  </h1>
+
+  <p class="text-muted text-center mb-3">
     Admin-only page to manage custom foods and promote them into the BabyBites Catalog.
   </p>
 
   {% if request.user.is_staff %}
-  <!-- 🔍 USDA Search -->
-  <form method="get" action="{% url 'usda_search' %}" class="row g-2 align-items-center mb-4" role="search">
+  <!-- USDA Search -->
+  <form method="get"
+        action="{% url 'usda_search' %}"
+        class="row g-2 align-items-center mb-4 justify-content-center"
+        role="search">
     <div class="col-md-8">
       <input
         type="search"
@@ -23,15 +28,15 @@
         placeholder="USDA: search one item…"
       >
     </div>
-    <div class="col-md-4">
+    <div class="col-md-2">
       <button class="btn btn-outline-primary w-100" type="submit">USDA Search</button>
     </div>
   </form>
   {% endif %}
 
   <!-- ➕ Add Custom Food (with macros) -->
-  <div class="card p-4 shadow-sm mb-4" style="background-color:#fffbe7; border-radius:12px;">
-    <h5 class="mb-3">Add Custom Food</h5>
+  <div class="card p-4 shadow-sm mb-4" style="background-color:#fffbe7; border-radius:12px; max-width:900px; margin:0 auto;">
+    <h5 class="mb-3 text-center">Add Custom Food</h5>
     <form method="post" action="{% url 'add_food' %}" class="row g-3 align-items-end">
       {% csrf_token %}
 
@@ -41,12 +46,12 @@
         <input type="text" name="name" class="form-control" placeholder="e.g. Mashed Sweet Potato" required>
       </div>
 
-      <!-- Category (string via FoodCategory names) -->
+      <!-- Category (just names, no level numbers) -->
       <div class="col-md-6 col-lg-4">
         <label class="form-label">Category</label>
         <select name="category" class="form-select" required>
           {% for c in categories %}
-            <option value="{{ c.name }}">{{ c.name }} (Level {{ c.pyramid_level }})</option>
+            <option value="{{ c.name }}">{{ c.name }}</option>
           {% endfor %}
         </select>
       </div>
@@ -83,9 +88,10 @@
   </div>
 
   <!-- Optional helper text -->
-  <div class="alert alert-info text-center shadow-sm" style="max-width:720px; margin:0 auto;">
+  <div class="alert alert-info text-center shadow-sm"
+       style="max-width:720px; margin:0 auto;">
     Custom foods added here can be promoted to your <strong>Catalog</strong> and used in the <strong>Tracker</strong>.
-    For USDA items with manual Food Pyramid categories, use the <strong>USDA Search</strong> above.
+    For USDA items with manual food categories, use the <strong>USDA Search</strong> above.
   </div>
 </div>
 {% endblock %}

@@ -4,62 +4,61 @@
 {% block title %}BabyBites Catalog{% endblock %}
 
 {% block content %}
-    <h1 class="bb-title mb-0 text-center py-2">
+  <h1 class="bb-title mb-0 text-center py-2">
     <span class="top">BabyBites CATALOG</span>
-    </h1>
-<div class="content-center">
-  <p class="text-muted text-center mb-4">
-    Browse healthy, curated foods from the BabyBites Pyramid Database.
-  </p>
+  </h1>
 
-  <!-- 🔍 Catalog Search -->
-  <form method="get" class="row g-2 align-items-center mb-4 justify-content-center">
-    <div class="col-md-8">
-      <input type="search" name="q" value="{{ q }}" class="form-control"
-             placeholder="Search catalog foods...">
-    </div>
-    <div class="col-md-2">
-      <button class="btn btn-primary w-100" type="submit">Search</button>
-    </div>
-  </form>
+  <div class="content-center">
+    <p class="text-muted text-center mb-4">
+      Browse healthy, curated foods from the BabyBites Pyramid Database.
+    </p>
 
-  <!-- 🥗 Catalog by Pyramid Level -->
-  {% for c in categories %}
-    {% if c.catalog_foods.all %}
-      <div class="card shadow-sm mb-4">
-        <div class="card-header bg-light">
-          <h4 class="mb-0">
-            {{ c.name }} 
-            <small class="text-muted">(Level {{ c.pyramid_level }})</small>
-          </h4>
-        </div>
-
-        <div class="card-body">
-          {% for food in c.catalog_foods.all %}
-            <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-              <div>
-                <strong>{{ food.name }}</strong>
-                <small class="text-muted d-block">
-                  {{ food.data_type|default:"Manual Entry" }}
-                </small>
-              </div>
-              <div>
-                <form method="post" action="{% url 'catalog_use_in_tracker' %}" class="d-flex gap-2 align-items-center">
-                  {% csrf_token %}
-                  <input type="hidden" name="catalog_id" value="{{ food.id }}">
-                  <!-- Portion/unit removed for now -->
-                  <button type="submit" class="btn btn-sm btn-success">Add to Tracker</button>
-                </form>
-              </div>
-            </div>
-          {% empty %}
-            <p class="text-muted mb-0">No foods found in this category.</p>
-          {% endfor %}
-        </div>
+    <!-- Search -->
+    <form method="get" class="row g-2 align-items-center mb-4 justify-content-center">
+      <div class="col-md-8">
+        <input type="search" name="q" value="{{ q }}" class="form-control"
+               placeholder="Search catalog foods...">
       </div>
-    {% endif %}
-  {% empty %}
-    <p class="text-center text-muted mt-5">No catalog items available yet.</p>
-  {% endfor %}
-</div>
+      <div class="col-md-2">
+        <button class="btn btn-primary w-100" type="submit">Search</button>
+      </div>
+    </form>
+
+    <!-- Catalog by Category -->
+    {% for c in categories %}
+      {% if c.catalog_foods.all %}
+        <div class="card shadow-sm mb-4">
+          <div class="card-header bg-light">
+            <h4 class="mb-0">{{ c.name }}</h4>
+          </div>
+
+          <div class="card-body">
+            {% for food in c.catalog_foods.all %}
+              <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                <div>
+                  <strong>{{ food.name }}</strong>
+                  <small class="text-muted d-block">
+                    {{ food.data_type|default:"Manual Entry" }}
+                  </small>
+                </div>
+
+                <!--  No portion inputs, only button -->
+                <div>
+                  <form method="post"
+                        action="{% url 'catalog_use_in_tracker' %}"
+                        class="d-flex gap-2 align-items-center">
+                    {% csrf_token %}
+                    <input type="hidden" name="catalog_id" value="{{ food.id }}">
+                    <button type="submit" class="btn btn-sm btn-success">
+                      Add to Tracker
+                    </button>
+                  </form>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
 {% endblock %}

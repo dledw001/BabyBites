@@ -453,26 +453,22 @@ def catalog_use_in_tracker(request):
         return redirect("catalog")
 
     catalog_id = request.POST.get("catalog_id")
-    portion     = float(request.POST.get("portion") or 0)
-    unit        = request.POST.get("unit") or "g"
+    if not catalog_id:
+        messages.error(request, "Missing catalog item.")
+        return redirect("catalog")
 
     cat_food = get_object_or_404(CatalogFood, id=catalog_id, is_active=True)
 
-    # mirror a simple FoodItem (name + category string) so existing FoodEntry works unchanged
-    fi, _ = FoodItem.objects.get_or_create(
+    
+    FoodItem.objects.get_or_create(
         name=cat_food.name,
-        defaults={"category": cat_food.category.name}
+        defaults={"category": cat_food.category.name},
     )
 
-    FoodEntry.objects.create(
-        baby=active,
-        food=fi,
-        portion_size=portion,
-        portion_unit=unit,
-        notes=""
+    messages.success(
+        request,
+        f'"{cat_food.name}" is now available in the Food dropdown on the tracker.'
     )
-
-    messages.success(request, f"Added {cat_food.name} to {active.name}'s tracker.")
     return redirect("tracker")
 
 def _apply_avatar_priority(baby, form):
@@ -488,3 +484,56 @@ def _apply_avatar_priority(baby, form):
     choices = [c[0] for c in BabyForm.STOCK_AVATAR_CHOICES]
     if choices:
         baby.stock_avatar = random.choice(choices)
+def add_custom_catalog_food(request):
+    """
+    Any logged-in user can add a custom food into the Catalog.
+    Foods are global for now and store per-100g nutrition.
+    """
+    name = (request.POST.get("name") or "").strip()
+    category_id = request.POST.get("category_id")
+
+    if not name or not category_id:
+        messages.error(request, "Please provide both a name and a category.")
+        return redirect("catalog")
+
+    category = get_object_or_404(FoodCategory, id=category_id)
+
+    # helper to safely parse floats, default 0
+    def as_float(field_name: str) -> float:
+        raw = request.POST.get(field_name)
+        try:
+            return float(raw) if raw not in (None, "",) else 0.0
+        except ValueError:
+            return 0.0
+
+    calories_100g = as_float("calories_100g")
+    protein_100g  = as_float("protein_100g")
+    carbs_100g    = as_float("carbs_100g")
+    fats_100g     = as_float("fats_100g")
+
+    obj, created = CatalogFood.objects.update_or_create(
+        name=name,
+        category=category,
+        defaults={
+            "calories_100g": calories_100g,
+            "protein_100g":  protein_100g,
+            "carbs_100g":    carbs_100g,
+            "fats_100g":     fats_100g,
+            "fdc_id":        None,
+            "data_type":     "Custom/Manual",
+            "is_active":     True,
+        },
+    )
+
+    if created:
+        messages.success(
+            request,
+            f'“{obj.name}” added to Catalog under “{category.name}”.'
+        )
+    else:
+        messages.info(
+            request,
+            f'“{obj.name}” in “{category.name}” was updated with your values.'
+        )
+
+    return redirect("catalog")
