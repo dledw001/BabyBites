@@ -4,61 +4,150 @@
 {% block title %}BabyBites Catalog{% endblock %}
 
 {% block content %}
+<div class="content-center">
+
+  <!-- 💜 Page Title -->
   <h1 class="bb-title mb-0 text-center py-2">
-    <span class="top">BabyBites CATALOG</span>
+    <span class="top">BabyBites</span>
+    <span class="bottom">CATALOG</span>
   </h1>
 
-  <div class="content-center">
-    <p class="text-muted text-center mb-4">
-      Browse healthy, curated foods from the BabyBites Pyramid Database.
-    </p>
+  <p class="text-muted text-center mb-4">
+    Browse healthy, curated foods from the BabyBites food pyramid, or add your own.
+  </p>
 
-    <!-- Search -->
-    <form method="get" class="row g-2 align-items-center mb-4 justify-content-center">
-      <div class="col-md-8">
-        <input type="search" name="q" value="{{ q }}" class="form-control"
-               placeholder="Search catalog foods...">
+  <!-- 🔁 Flash Messages -->
+  {% if messages %}
+    <div class="mt-2" style="max-width: 900px; margin: 0 auto;">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags|default:'info' }} mb-2">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- ➕ Add Custom Food (goes straight into Catalog + Tracker dropdown) -->
+  <div class="card p-4 shadow-sm mb-4"
+       style="background-color:#fffbe7; border-radius:12px; max-width:900px; margin:0 auto;">
+    <h5 class="mb-3 text-center">Add Custom Food to Catalog</h5>
+
+    <form method="post" action="{% url 'catalog_add_custom' %}" class="row g-3 align-items-end">
+      {% csrf_token %}
+
+      <!-- Name -->
+      <div class="col-md-6 col-lg-4">
+        <label class="form-label">Name</label>
+        <input type="text"
+               name="name"
+               class="form-control"
+               placeholder="e.g. Mashed Sweet Potato"
+               required>
       </div>
-      <div class="col-md-2">
-        <button class="btn btn-primary w-100" type="submit">Search</button>
+
+      <!-- Category (FoodCategory by id) -->
+      <div class="col-md-6 col-lg-4">
+        <label class="form-label">Category</label>
+        <select name="category_id" class="form-select" required>
+          {% for c in categories %}
+            <option value="{{ c.id }}">{{ c.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Calories -->
+      <div class="col-6 col-md-3 col-lg-2">
+        <label class="form-label">Calories (kcal / 100 g)</label>
+        <input type="number" name="calories_100g" step="0.1" class="form-control" placeholder="0">
+      </div>
+
+      <!-- Protein -->
+      <div class="col-6 col-md-3 col-lg-2">
+        <label class="form-label">Protein (g / 100 g)</label>
+        <input type="number" name="protein_100g" step="0.1" class="form-control" placeholder="0">
+      </div>
+
+      <!-- Carbs -->
+      <div class="col-6 col-md-3 col-lg-2">
+        <label class="form-label">Carbs (g / 100 g)</label>
+        <input type="number" name="carbs_100g" step="0.1" class="form-control" placeholder="0">
+      </div>
+
+      <!-- Fats -->
+      <div class="col-6 col-md-3 col-lg-2">
+        <label class="form-label">Fats (g / 100 g)</label>
+        <input type="number" name="fats_100g" step="0.1" class="form-control" placeholder="0">
+      </div>
+
+      <!-- Submit -->
+      <div class="col-12 mt-2">
+        <button type="submit" class="btn btn-success w-100">
+          + Add to Catalog & Tracker
+        </button>
       </div>
     </form>
 
-    <!-- Catalog by Category -->
-    {% for c in categories %}
-      {% if c.catalog_foods.all %}
-        <div class="card shadow-sm mb-4">
-          <div class="card-header bg-light">
-            <h4 class="mb-0">{{ c.name }}</h4>
-          </div>
-
-          <div class="card-body">
-            {% for food in c.catalog_foods.all %}
-              <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-                <div>
-                  <strong>{{ food.name }}</strong>
-                  <small class="text-muted d-block">
-                    {{ food.data_type|default:"Manual Entry" }}
-                  </small>
-                </div>
-
-                <!--  No portion inputs, only button -->
-                <div>
-                  <form method="post"
-                        action="{% url 'catalog_use_in_tracker' %}"
-                        class="d-flex gap-2 align-items-center">
-                    {% csrf_token %}
-                    <input type="hidden" name="catalog_id" value="{{ food.id }}">
-                    <button type="submit" class="btn btn-sm btn-success">
-                      Add to Tracker
-                    </button>
-                  </form>
-                </div>
-              </div>
-            {% endfor %}
-          </div>
-        </div>
-      {% endif %}
-    {% endfor %}
+    <p class="text-muted small mt-3 mb-0 text-center">
+      Custom foods saved here appear under their category below and in the Tracker’s food dropdown.
+    </p>
   </div>
+
+  <!-- 🔍 Catalog Search -->
+  <div style="max-width: 900px; margin: 0 auto;">
+    <form method="get" class="row g-2 align-items-center mb-4 justify-content-center">
+      <div class="col-md-8">
+        <input type="search"
+               name="q"
+               value="{{ q }}"
+               class="form-control"
+               placeholder="Search catalog foods...">
+      </div>
+      <div class="col-md-4 col-lg-3">
+        <button class="btn btn-primary w-100" type="submit">Search</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 🥗 Catalog by Category -->
+  {% for c in categories %}
+    {% if c.catalog_foods.all %}
+      <div class="card shadow-sm mb-4" style="max-width: 900px; margin: 0 auto;">
+        <div class="card-header bg-light">
+          <h4 class="mb-0">{{ c.name }}</h4>
+        </div>
+
+        <div class="card-body">
+          {% for food in c.catalog_foods.all %}
+            <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+              <div>
+                <strong>{{ food.name }}</strong>
+                <small class="text-muted d-block">
+                  {{ food.data_type|default:"Manual Entry" }}
+                </small>
+              </div>
+              <div>
+                <form method="post"
+                      action="{% url 'catalog_use_in_tracker' %}"
+                      class="d-flex flex-wrap gap-2 align-items-center">
+                  {% csrf_token %}
+                  <input type="hidden" name="catalog_id" value="{{ food.id }}">
+                  <button type="submit" class="btn btn-sm btn-success">
+                    Add to Tracker
+                  </button>
+                </form>
+              </div>
+            </div>
+          {% empty %}
+            <p class="text-muted mb-0">No foods found in this category.</p>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% empty %}
+    <p class="text-center text-muted mt-5">
+      No catalog items available yet. Try adding a custom food above.
+    </p>
+  {% endfor %}
+
+</div>
 {% endblock %}

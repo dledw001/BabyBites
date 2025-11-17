@@ -484,10 +484,14 @@ def _apply_avatar_priority(baby, form):
     choices = [c[0] for c in BabyForm.STOCK_AVATAR_CHOICES]
     if choices:
         baby.stock_avatar = random.choice(choices)
+
+@login_required
+@require_POST
 def add_custom_catalog_food(request):
     """
     Any logged-in user can add a custom food into the Catalog.
     Foods are global for now and store per-100g nutrition.
+    Also mirrors into FoodItem so it shows up in the Tracker dropdown.
     """
     name = (request.POST.get("name") or "").strip()
     category_id = request.POST.get("category_id")
@@ -511,6 +515,7 @@ def add_custom_catalog_food(request):
     carbs_100g    = as_float("carbs_100g")
     fats_100g     = as_float("fats_100g")
 
+    # 1️⃣ Save / update in CatalogFood (for nutrition + pyramid)
     obj, created = CatalogFood.objects.update_or_create(
         name=name,
         category=category,
@@ -525,15 +530,21 @@ def add_custom_catalog_food(request):
         },
     )
 
+    # 2️⃣ Mirror into FoodItem so it appears in the Tracker dropdown
+    FoodItem.objects.get_or_create(
+        name=obj.name,
+        defaults={"category": obj.category.name},
+    )
+
     if created:
         messages.success(
             request,
-            f'“{obj.name}” added to Catalog under “{category.name}”.'
+            f'“{obj.name}” added to Catalog and Tracker dropdown under “{category.name}”.'
         )
     else:
         messages.info(
             request,
-            f'“{obj.name}” in “{category.name}” was updated with your values.'
+            f'“{obj.name}” in “{category.name}” was updated and is available in the Tracker dropdown.'
         )
 
     return redirect("catalog")

@@ -32,7 +32,7 @@ urlpatterns = [
     path('catalog/use/', views.catalog_use_in_tracker, name='catalog_use_in_tracker'),
     path('food/promote/<int:item_id>/', views.promote_fooditem_to_catalog, name='promote_fooditem_to_catalog'),
     path('food/<int:item_id>/promote/', views.promote_fooditem_to_catalog, name='promote_to_catalog'),
-    path('catalog/add-custom/', views.add_custom_catalog_food, name='add_custom_catalog_food'),
+    path('catalog/add-custom/', views.add_custom_catalog_food, name='catalog_add_custom'),
 
 
     path('report/', views.generate_report_view, name='generate_report_view'),
