@@ -190,6 +190,13 @@
                 <i class="bi bi-book me-2"></i> RESOURCES</a></li>
         </ul>
 
+        <!-- ADMIN DB Access -->
+        {% if request.user.is_staff %}
+            <form method="get" action="{% url 'usda_search' %}" class="p-2 border rounded bg-white shadow-sm mb-2">
+                <button type="submit" class="btn btn-outline-dark w-100">ADMIN DB</button>
+            </form>
+        {% endif %}
+
         {% if user.is_authenticated %}
             <form method="post" action="{% url 'logout' %}" class="p-2 border rounded bg-white shadow-sm">
                 {% csrf_token %}
