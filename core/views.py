@@ -9,6 +9,7 @@ from .forms import SignUpForm, BabyForm, FoodItemForm, FoodEntryForm
 from .models import Baby, FoodEntry, FoodItem, FoodCategory, CatalogFood, map_usda_to_category
 from django.conf import settings
 import requests
+from django.db.models import Prefetch, Q
 from .reports import generate_report_image
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -16,6 +17,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 import datetime
 from django.utils import timezone
 import random
+import json
+from pathlib import Path
 
 # if user is not logged in, show log in screen, otherwise redirect to dashboard
 def home(request):
@@ -38,6 +41,15 @@ def _get_active_profile(request):
     if not baby_id or not request.user.is_authenticated:
         return None
     return Baby.objects.filter(id=baby_id, owner=request.user).first()
+
+def _load_allergen_map():
+    json_path = Path(settings.BASE_DIR) / 'core' / 'static' / 'core' / 'data' / 'allergens_map.json'
+    if json_path.exists():
+        try:
+            return json.loads(json_path.read_text(encoding='utf-8'))
+        except Exception:
+            return {}
+    return {}
 
 @login_required
 def dashboard(request):
@@ -120,6 +132,9 @@ def tracker(request):
     active = _get_active_profile(request)
 
     if request.method == "POST":
+        if not active:
+            messages.error(request, "Please select an active baby from the top navigation before saving an entry.")
+            return redirect("tracker")
         food_form = FoodItemForm(request.POST, prefix='food')
         entry_form = FoodEntryForm(request.POST, prefix='entry', user=request.user)
 
@@ -155,17 +170,18 @@ def tracker(request):
             .select_related("food", "baby")
             .order_by('-date', '-time')[:10]
         )
+        baby_allergies = list(active.allergies.values_list('name', flat=True))
     else:
         food_entries = FoodEntry.objects.none()
+        baby_allergies = []
     
     context = {
         'food_form': food_form,
         'entry_form': entry_form,
-        'food_entries': food_entries
+        'food_entries': food_entries,
+        'baby_allergies': baby_allergies,
     }
     return render(request, 'tracker.html', context)
-
-
 
 
 @login_required
@@ -187,9 +203,6 @@ def add_food(request):
         form = FoodItemForm()
     return render(request, "add_food.html", {"form": form})
 
-# views.py
-
-from django.db.models import Q
 
 @staff_member_required
 def food_list(request):
@@ -201,7 +214,6 @@ def food_list(request):
     foods = list(qs)
     categories = FoodCategory.objects.order_by('pyramid_level', 'name')
     return render(request, "food_list.html", {"foods": foods, "categories": categories, "q": q})
-
 
 
 @staff_member_required
@@ -234,7 +246,6 @@ def promote_fooditem_to_catalog(request, item_id):
     )
     messages.success(request, f"“{fi.name}” added to catalog under “{category.name}”.")
     return redirect("food_list")
-
 
 
 @staff_member_required  # keep it admin-only; remove if you want all users
@@ -390,6 +401,7 @@ def report_preview(request):
     }
     return render(request, "report_preview.html", context)
 
+
 @login_required
 def report_image(request):
     active = _get_active_profile(request)
@@ -422,9 +434,6 @@ def set_active_profile(request, profile_id):
     request.session["active_profile"] = str(baby.id)
     return HttpResponseRedirect(request.META.get("HTTP_REFERER", reverse("dashboard")))
 
-
-
-from django.db.models import Prefetch, Q
 
 @login_required
 def catalog(request):
@@ -484,6 +493,7 @@ def _apply_avatar_priority(baby, form):
     choices = [c[0] for c in BabyForm.STOCK_AVATAR_CHOICES]
     if choices:
         baby.stock_avatar = random.choice(choices)
+
 
 @login_required
 @require_POST

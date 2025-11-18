@@ -1,0 +1,44 @@
+{
+  "PEANUT BUTTER": ["Peanuts"],
+  "SNICKERS": ["Peanuts"],
+
+  "MILK": ["Milk"],
+
+  "YOGURT": ["Dairy"],
+  "WHOLE MILK": ["Dairy"],
+  "CHEDDAR CHEESE": ["Dairy"],
+  "COTTAGE CHEESE": ["Dairy"],
+
+  "SCRAMBLED EGGS": ["Eggs"],
+  "BOILED EGG": ["Eggs"],
+  "PANCAKES": ["Eggs", "Wheat", "Dairy", "Gluten"],
+
+  "BREAD (WHEAT)": ["Wheat", "Gluten"],
+  "PASTA": ["Wheat", "Gluten"],
+  "CEREAL (WHEAT-BASED)": ["Wheat", "Gluten"],
+  "OATMEAL (STANDARD)": ["Gluten"],
+
+  "SOY SAUCE": ["Soy", "Wheat", "Gluten"],
+  "TOFU": ["Soy"],
+  "EDAMAME": ["Soy"],
+
+  "ALMOND BUTTER": ["Tree Nuts"],
+  "CASHEW BUTTER": ["Tree Nuts"],
+  "PESTO (WITH PINE NUTS)": ["Tree Nuts"],
+
+  "FISH STICKS": ["Fish", "Wheat", "Gluten"],
+  "SALMON (COOKED)": ["Fish"],
+  "TUNA (CANNED)": ["Fish"],
+
+  "SHRIMP": ["Shellfish"],
+  "CRAB": ["Shellfish"],
+
+  "HUMMUS (TAHINI)": ["Sesame"],
+  "SESAME OIL": ["Sesame"],
+
+  "CHICKEN NUGGETS": ["Wheat", "Gluten"],
+  "MAC AND CHEESE": ["Wheat", "Gluten", "Dairy"],
+
+  "GRANOLA BAR (MIXED)": ["Tree Nuts", "Peanuts", "Wheat", "Gluten", "Soy", "Sesame"],
+  "CHOCOLATE CHIP COOKIE": ["Dairy", "Wheat", "Gluten", "Eggs", "Soy"]
+}

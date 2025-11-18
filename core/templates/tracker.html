@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Food Tracker{% endblock %}
 
@@ -8,13 +9,37 @@
     <span class="top">FOOD TRACKER</span>
     </h1>
 
+    {% if active_profile %}
+        <script>
+            window.BABY_ALLERGIES = {{ baby_allergies|safe }}
+            console.log("BABY_ALLERGIES from template:", window.BABY_ALLERGIES);
+        </script>
+    {% else %}
+        <script>
+            window.BABY_ALLERGIES = [];
+            console.log("BABY_ALLERGIES from template: (none)", window.BABY_ALLERGIES);
+        </script>
+    {% endif %}
+
 <div class="content-center">
     {% if active_profile %}
-    <div class="mb-0 text-center py-2">
+    <div class="text-center my-3">
         <div style="display:inline-block; background-color:#76E2EA; color:#000;
-                padding:8px 16px; border-radius:10px; font-weight:600;
-                box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+                    padding:8px 16px; border-radius:10px; font-weight:600;
+                    box-shadow:0 2px 4px rgba(0,0,0,0.1);">
             {{ active_profile.name }}
+            <br>
+            <!--- This section is commented out to preserve troubleshooting allergy checks-->
+            <!--
+            <span class="small">
+                Allergies:
+                {% for a in active_profile.allergies.all %}
+                    {{ a.name }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    none
+                {% endfor %}
+            </span>
+            -->
         </div>
     </div>
 
@@ -41,6 +66,8 @@
                         Food Entry
                     </div>
                     <div class="card-body">
+
+                    <div id="allergen-alert" class="alert alert-danger d-none" role="alert"></div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-3 col-form-label">{{ entry_form.food.label }}</label>
@@ -125,4 +152,72 @@
     {% endif %}
 </div>
 </div>
+
+<script>
+(function() {
+    var alertBox = document.getElementById('allergen-alert');
+    var foodSelect = document.getElementById('{{ entry_form.food.id_for_label }}');
+    var allergenMapUrl = "{% static 'core/data/allergens_map.json' %}";
+    var babyAllergies = (window.BABY_ALLERGIES || []).map(function(s) {
+        return s.toLowerCase();
+    });
+
+    if (!alertBox || !foodSelect) {
+        return;
+    }
+
+    var FOOD_ALLERGENS = null;
+
+    function setAlert(hits) {
+        if (!hits || hits.length === 0) {
+            alertBox.classList.add('d-none');
+            alertBox.innerHTML = '';
+            return;
+        }
+        alertBox.classList.remove('d-none');
+
+        var badges = hits.map(function(a) {
+            return '<span class="badge text-bg-light me-1">' + a + '</span>';
+        }).join(' ');
+
+        alertBox.innerHTML =
+            '<strong>Warning!</strong> The selected food may contain ' +
+            (hits.length === 1 ? 'this allergen' : 'these allergens') +
+            badges;
+    }
+
+    function checkFood() {
+        if (!FOOD_ALLERGENS) return;
+
+        var opt = foodSelect.options[foodSelect.selectedIndex];
+        var selectedText = (opt ? opt.text : '').toLowerCase();
+
+        var allergens = (FOOD_ALLERGENS[selectedText] || []).map(function(a) {
+            return a.toLowerCase();
+        });
+
+        var hits = allergens.filter(function(a) {
+            return babyAllergies.indexOf(a) !== -1;
+        });
+
+        setAlert(hits);
+    }
+
+    fetch(allergenMapUrl, {cache: 'no-store'})
+        .then(function(r) { return r.json(); })
+        .then(function(json) {
+            FOOD_ALLERGENS = {};
+            Object.keys(json || {}).forEach(function(key) {
+                FOOD_ALLERGENS[key.toLowerCase()] = json[key];
+            });
+            checkFood();
+        })
+        .catch(function(err) {
+            console.warn('Allergens map load failed', err);
+        });
+
+    foodSelect.addEventListener('change', checkFood);
+})();
+</script>
+
 {% endblock %}
