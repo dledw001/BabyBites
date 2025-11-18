@@ -42,6 +42,7 @@ BabyBites provides parents and caregivers with expert-backed resources, meal pre
 ## Resources  
   - <a href="./website/references.html">References</a>
   - <a href="./website/glossary.html">Glossary</a>
+  - <a href="https://github.com/dledw001/BabyBites/wiki">Wiki</a>
 
 ## Quick Links
   - <a href="https://github.com/dledw001/BabyBites">GitHub Repository</a>
