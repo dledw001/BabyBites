@@ -31,3 +31,8 @@ class UserFoodAdmin(admin.ModelAdmin):
     list_filter = ("source", "category")
     search_fields = ("name", "user__username")
 
+@admin.register(FoodEntry)
+class FoodEntryAdmin(admin.ModelAdmin):
+    list_display = ('baby', 'food', 'portion_size', 'portion_unit', 'date', 'time')
+    list_filter = ('baby', 'food', 'portion_unit', 'date')
+    search_fields = ('baby__name', 'food__name', 'notes')

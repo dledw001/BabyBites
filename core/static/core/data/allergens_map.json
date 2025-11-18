@@ -1,6 +1,6 @@
 {
-  "PEANUT BUTTER": ["Peanuts"],
-  "SNICKERS": ["Peanuts"],
+  "PEANUT BUTTER": ["Peanut"],
+  "SNICKERS": ["Peanut"],
 
   "MILK": ["Milk"],
 
@@ -22,9 +22,9 @@
   "TOFU": ["Soy"],
   "EDAMAME": ["Soy"],
 
-  "ALMOND BUTTER": ["Tree Nuts"],
-  "CASHEW BUTTER": ["Tree Nuts"],
-  "PESTO (WITH PINE NUTS)": ["Tree Nuts"],
+  "ALMOND BUTTER": ["Tree Nut"],
+  "CASHEW BUTTER": ["Tree Nut"],
+  "PESTO (WITH PINE NUTS)": ["Tree Nut"],
 
   "FISH STICKS": ["Fish", "Wheat", "Gluten"],
   "SALMON (COOKED)": ["Fish"],
@@ -39,6 +39,6 @@
   "CHICKEN NUGGETS": ["Wheat", "Gluten"],
   "MAC AND CHEESE": ["Wheat", "Gluten", "Dairy"],
 
-  "GRANOLA BAR (MIXED)": ["Tree Nuts", "Peanuts", "Wheat", "Gluten", "Soy", "Sesame"],
+  "GRANOLA BAR (MIXED)": ["Tree Nut", "Peanut", "Wheat", "Gluten", "Soy", "Sesame"],
   "CHOCOLATE CHIP COOKIE": ["Dairy", "Wheat", "Gluten", "Eggs", "Soy"]
 }
