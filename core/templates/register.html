@@ -2,10 +2,20 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<h1 class="text-center mb-4">Create an Account</h1>
+<div class="vw-edge px-3 px-md-4">
+  <div class="container-fluid px-0 py-4">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="bb-logo"></div>
 
-<div class="row justify-content-center">
-    <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+    <h1 class="m-0 text-center flex-grow-1 bb-title">
+      <span class="top">CREATE AN ACCOUNT</span>
+    </h1>
+  </div>
+      </div>
+</div>
+
+    <div class="row justify-content-center mt-4">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
         <form method="post" class="p-4 border rounded bg-white shadow-sm">
             {% csrf_token %}
 
@@ -72,5 +82,6 @@
             </p>
         </form>
     </div>
+</div>
 </div>
 {% endblock %}

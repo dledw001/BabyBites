@@ -8,15 +8,25 @@
     <span class="top">FOOD TRACKER</span>
     </h1>
 
+<div class="content-center">
     {% if active_profile %}
-        <div class="alert alert-info text-center my-3">
-        Active baby: <strong>{{ active_profile.name }}</strong>
+    <div class="mb-0 text-center py-2">
+        <div style="display:inline-block; background-color:#76E2EA; color:#000;
+                padding:8px 16px; border-radius:10px; font-weight:600;
+                box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+            {{ active_profile.name }}
         </div>
-    {% else %}
-        <div class="alert alert-warning text-center my-3">
-        No active baby selected. Choose one from the navigation bar to add entries.
-        </div>
-    {% endif %}
+    </div>
+
+{% else %}
+<div class="text-center my-3">
+    <div style="display:inline-block; background-color:#76E2EA; color:#000;
+                padding:8px 16px; border-radius:10px; font-weight:600;
+                box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+        No active baby selected
+    </div>
+  </div>
+{% endif %}
 
     <!-- Form for adding food entries -->
     <div class="row justify-content-center">
@@ -113,5 +123,6 @@
             </div>
         </div>
     {% endif %}
+</div>
 </div>
 {% endblock %}

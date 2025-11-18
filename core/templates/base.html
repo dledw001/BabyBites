@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}BabyBites{% endblock %}</title>
 
-    <!-- Google fonts -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@700;800&display=swap" rel="stylesheet">
@@ -14,55 +14,158 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- BabyBites CSS overrides -->
+    <!-- BabyBites CSS -->
     {% load static %}
     <link href="{% static 'core/css/custom.css' %}" rel="stylesheet">
 
-    <!-- PWA Manifest for mobile -->
+    <!-- PWA Manifest -->
     <link rel="manifest" href="{% static 'manifest.webmanifest' %}">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href={% static 'core/img/apple-touch-icon.png' %}>
-
-    <!-- favicon.ico -->
+    <link rel="apple-touch-icon" href="{% static 'core/img/apple-touch-icon.png' %}">
     <link rel="icon" href="{% static 'core/img/favicon.ico' %}">
 </head>
 
 <body class="babybites-body">
 
-<!-- Navbar on left for desktop-->
-{% if request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'dashboard' %}
+<!-- TOP-RIGHT NAVBAR (Mobile) -->
+{% if request.resolver_match and request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'dashboard' %}
+    {% if user.is_authenticated and profiles %}
+        <div class="bb-mobile-avatar d-md-none">
+            <div class="dropdown">
+                <button class="bb-avatar-button"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    {% if active_profile %}
+                        {% if active_profile.image or active_profile.stock_avatar %}
+                            <img src="{{ active_profile.avatar_url }}"
+                                 alt="{{ active_profile.name }}"
+                                 class="bb-avatar-img-circle">
+                        {% else %}
+                            <span class="bb-avatar-fallback-circle">
+                                {{ active_profile.name|first|upper }}
+                            </span>
+                        {% endif %}
+                    {% else %}
+                        <span class="bb-avatar-fallback-circle">+</span>
+                    {% endif %}
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end mt-2">
+                    {% for p in profiles %}
+                        <li>
+                            <form method="post" action="{% url 'set-active-profile' p.id %}">
+                                {% csrf_token %}
+                                <button
+                                        class="dropdown-item d-flex align-items-center {% if active_profile and active_profile.id == p.id %}active{% endif %}"
+                                        type="submit">
+
+                                    {% if p.image or p.stock_avatar %}
+                                        <img src="{{ p.avatar_url }}"
+                                             class="bb-avatar-img-circle-sm me-2"
+                                             alt="{{ p.name }}">
+                                    {% else %}
+                                        <span class="bb-avatar-fallback-circle-sm me-2">
+                                            {{ p.name|first|upper }}
+                                        </span>
+                                    {% endif %}
+
+                                    <div class="text-start">
+                                        <div class="fw-semibold">{{ p.name }}</div>
+                                        {% if p.date_of_birth %}
+                                            <div class="small text-muted">
+                                                {{ p.date_of_birth|date:"m/d/Y" }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                    <!-- Logout -->
+                    {% if request.user.is_authenticated %}
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button class="dropdown-item text-danger fw-semibold" type="submit">
+                                    <i class="bi bi-box-arrow-right me-2"></i> Log Out
+                                </button>
+                            </form>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
+
+<!-- LEFT NAVBAR (Desktop) -->
+{% if request.resolver_match and request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'dashboard' and request.resolver_match.url_name != 'register' %}
     <nav class="bb-left-nav d-none d-md-flex flex-column position-fixed top-0 start-0 vh-100 p-3"
          style="background-color: #f5a5c5; border-right: 2px solid #e48ab0;">
         <div class="bb-logo-tile mb-3 d-flex align-items-center justify-content-center">
-            {% load static %}
             <img src="{% static 'core/img/babybites-logo.png' %}" alt="BabyBites logo" class="bb-logo-img">
         </div>
-        <h4 class="mb-4 text-primary">BabyBites</h4>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
                 {% if user.is_authenticated and profiles %}
-                    <div class="mb-3">
-                        <label class="text-white-50 small mb-1">Active Profile</label>
-                        <div class="dropdown">
-                            <button class="btn btn-light w-100 dropdown-toggle text-start" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="mb-4 text-center">
+
+                        <!-- Label ABOVE avatar -->
+                        <label class="text-white-50 small d-block mb-2">Active Profile</label>
+
+                        <div class="dropdown d-inline-block">
+                            <button class="bb-avatar-button"
+                                    type="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+
                                 {% if active_profile %}
-                                    {{ active_profile.name }}
+                                    {% if active_profile.image or active_profile.stock_avatar %}
+                                        <img src="{{ active_profile.avatar_url }}"
+                                             alt="{{ active_profile.name }}"
+                                             class="bb-avatar-img-circle">
+                                    {% else %}
+                                        <span class="bb-avatar-fallback-circle">
+                        {{ active_profile.name|first|upper }}
+                    </span>
+                                    {% endif %}
                                 {% else %}
-                                    Select profile
+                                    <span class="bb-avatar-fallback-circle">+</span>
                                 {% endif %}
                             </button>
-                            <ul class="dropdown-menu w-100">
+
+                            <ul class="dropdown-menu dropdown-menu-start mt-2">
                                 {% for p in profiles %}
                                     <li>
                                         <form method="post" action="{% url 'set-active-profile' p.id %}">
                                             {% csrf_token %}
-                                            <button class="dropdown-item {% if active_profile and active_profile.id == p.id %}active{% endif %}"
+                                            <button class="dropdown-item d-flex align-items-center {% if active_profile and active_profile.id == p.id %}active{% endif %}"
                                                     type="submit">
-                                                {{ p.name }}
-                                                {% if p.date_of_birth %}
-                                                    <span class="text-muted"> — {{ p.date_of_birth|date:"m/d/Y" }}</span>{% endif %}
+
+                                                {% if p.image or p.stock_avatar %}
+                                                    <img src="{{ p.avatar_url }}"
+                                                         class="bb-avatar-img-circle-sm me-2"
+                                                         alt="{{ p.name }}">
+                                                {% else %}
+                                                    <span class="bb-avatar-fallback-circle-sm me-2">
+                                                        {{ p.name|first|upper }}
+                                                    </span>
+                                                {% endif %}
+
+                                                <div class="text-start">
+                                                    <div class="fw-semibold">{{ p.name }}</div>
+                                                    {% if p.date_of_birth %}
+                                                        <div class="small text-muted">
+                                                            {{ p.date_of_birth|date:"m/d/Y" }}
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+
                                             </button>
                                         </form>
                                     </li>
@@ -72,64 +175,50 @@
                     </div>
                 {% endif %}
             </li>
-            <li class="nav-item">
-                <a href="{% url 'dashboard' %}" class="nav-link {% if request.path == '/' %}active{% endif %}">
-                    <i class="bi bi-house-door me-2"></i> DASHBOARD
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'tracker' %}" class="nav-link {% if 'tracker' in request.path %}active{% endif %}">
-                    <i class="bi bi-journal-text me-2"></i> FOOD TRACKER
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'report_preview' %}"
-                   class="nav-link {% if 'report_preview' in request.path %}active{% endif %}">
-                    <i class="bi bi-graph-up me-2"></i> DAILY REPORT
-                </a>
-            </li>
+
+            <li><a href="{% url 'dashboard' %}"
+                   class="nav-link {% if request.path == '/dashboard/' %}active{% endif %}">
+                <i class="bi bi-house-door me-2"></i> DASHBOARD</a></li>
+            <li><a href="{% url 'baby-list' %}" class="nav-link {% if 'babies' in request.path %}active{% endif %}">
+                <i class="bi bi-person-heart me-2"></i> BABY PROFILE</a></li>
+            <li><a href="{% url 'tracker' %}" class="nav-link {% if 'tracker' in request.path %}active{% endif %}">
+                <i class="bi bi-journal-text me-2"></i> FOOD TRACKER</a></li>
+            <li><a href="{% url 'report_preview' %}"
+                   class="nav-link {% if 'report/preview' in request.path %}active{% endif %}">
+                <i class="bi bi-graph-up me-2"></i> DAILY REPORTS</a></li>
+            <li><a href="{% url 'resources' %}" class="nav-link {% if 'resources' in request.path %}active{% endif %}">
+                <i class="bi bi-book me-2"></i> RESOURCES</a></li>
         </ul>
+
         {% if user.is_authenticated %}
             <form method="post" action="{% url 'logout' %}" class="p-2 border rounded bg-white shadow-sm">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-outline-dark w-100">Log Out</button>
+                <button type="submit" class="btn btn-outline-dark w-100">LOG OUT</button>
             </form>
         {% endif %}
     </nav>
 {% endif %}
 
-<!-- Navbar on bottom for mobile-->
-{% if request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'dashboard' %}
+<!-- BOTTOM NAVBAR (Mobile) -->
+{% if request.resolver_match and request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'dashboard' %}
     <nav class="bb-bottom-nav d-md-none fixed-bottom">
         <div class="bb-nav-container">
-            <a href="{% url 'tracker' %}" class="bb-nav-item">Food Tracker</a>
-            <a href="{% url 'food_list' %}" class="bb-nav-item">Food Search</a>
-            <a href="{% url 'report_preview' %}" class="bb-nav-item">Daily Reports</a>
-            <a href="{% url 'dashboard' %}" class="bb-nav-item">Baby Profile</a>
+            <a href="{% url 'dashboard' %}" class="bb-nav-item">DASHBOARD</a>
+            <a href="{% url 'baby-list' %}" class="bb-nav-item">BABY PROFILE</a>
+            <a href="{% url 'tracker' %}" class="bb-nav-item">FOOD TRACKER</a>
+            <a href="{% url 'report_preview' %}" class="bb-nav-item">DAILY REPORTS</a>
+            <a href="{% url 'resources' %}" class="bb-nav-item">RESOURCES</a>
         </div>
     </nav>
 {% endif %}
 
-<!-- Messages/Alerts -->
-<!-- maybe -->
-
-<!-- Main content -->
+<!-- MAIN CONTENT -->
 <main class="container my-4">
-    {% block content %}
-    {% endblock %}
-    <footer class="text-center mt-3 mb-0">
-        {% if user.is_authenticated %}
-            <form id="logout-form" method="post" action="{% url 'logout' %}" style="display:inline;">
-                {% csrf_token %}
-            </form>
-        {% endif %}
-        <p class="text-center mt-3 mb-0">
-            Check out the project on <a href="https://github.com/dledw001/BabyBites">GitHub</a>!
-        </p>
-    </footer>
+    {% block content %}{% endblock %}
 </main>
-</body>
-</html>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

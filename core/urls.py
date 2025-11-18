@@ -24,8 +24,16 @@ urlpatterns = [
 
     path('add_food/', views.add_food, name='add_food'),
     path('food_list/', views.food_list, name='food_list'),
+
     path('usda_search/', views.usda_search, name='usda_search'),
     path('add_usda_food/', views.add_usda_food, name='add_usda_food'),
+
+    path('catalog/', views.catalog, name='catalog'),
+    path('catalog/use/', views.catalog_use_in_tracker, name='catalog_use_in_tracker'),
+    path('food/promote/<int:item_id>/', views.promote_fooditem_to_catalog, name='promote_fooditem_to_catalog'),
+    path('food/<int:item_id>/promote/', views.promote_fooditem_to_catalog, name='promote_to_catalog'),
+    path('catalog/add-custom/', views.add_custom_catalog_food, name='catalog_add_custom'),
+
 
     path('report/', views.generate_report_view, name='generate_report_view'),
     path('report/preview/', views.report_preview, name='report_preview'),

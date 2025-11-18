@@ -1,3 +1,4 @@
+/*yellow background*/
 .babybites-body {
     background-color: #FFFFBB;
 }
@@ -11,16 +12,34 @@
     background-position: right;
 }
 
-/* Header */
+/*Header titles*/
 .bb-title{
     font-family:"Grandstander";
     font-weight:800;
     line-height:1;
     color:#76E2EA;
     text-align:center;
+    margin-left: 220px;
 }
 .bb-title .top{font-size:4.2rem; display:block;}
 .bb-title .bottom{font-size:4.2rem; display: block;}
+
+/* Sidebar visible: shift title */
+@media (min-width: 768px) {
+  .bb-title { margin-left: 220px; }  /* match sidebar width */
+}
+
+/* Sidebar hidden or moves to bottom */
+@media (max-width: 767.98px) {
+  .bb-title { margin-left: 0; }
+}
+
+/* Center form content relative to shifted title */
+@media (min-width: 768px) {
+  .content-center {
+    margin-left: 220px; /* same as .bb-title shift */
+  }
+}
 
 /* Make a section span full viewport width, even inside a padded .container */
 .vw-edge {
@@ -35,11 +54,10 @@
     min-height:240px; border-radius:18px; box-shadow:0 10px 18px rgba(0,0,0,.12);
     font-family:"Grandstander"; font-weight:800; font-size:42px; color:#000; text-decoration:none;
 }
-  .tile.peach{background:#f6b7a6;}
-  .tile.lav{background:#dbc3d5;}
-  .tile.green{background:#d7f5b8;}
-  .tile.blue{background:#dbeafe;}
-  .tile.resources{background:#cfcfbe; min-height:96px; font-size:36px;}
+  .tile.pink{background:#f7c8e2;}
+  .tile.lav{background:#dcccec;}
+  .tile.green{background:#cae8bd;}
+  .tile.blue{background:#cbe6ff;}
 
 /* Mobile tweak so large text fits nicely */
 @media (max-width:720px){
@@ -79,11 +97,80 @@
     line-height: 1;
     transition: transform 0.1s ease-in-out; }
 
-/* Desktop left nav */
-.bb-left-nav{
-
+/* Force Grandstander + centered text inside the left nav bar */
+.bb-left-nav .nav-link {
+  font-family: 'Grandstander', cursive !important;
+  font-weight: 800 !important;
+  text-align: center !important;
+  align-items: center;
+  justify-content: center;
+  color: black;
 }
 
-body {
-  padding-bottom: 100px; /* space so content isn't hidden under the bar */
+.bb-avatar-button {
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+
+/* Avatar circle (main button) */
+.bb-avatar-img-circle,
+.bb-avatar-fallback-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px #f5a5c5;
+}
+
+.bb-avatar-img-circle {
+    object-fit: cover;
+}
+
+.bb-avatar-fallback-circle {
+    font-family: 'Grandstander', cursive;
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: #f5a5c5;
+}
+
+/* Small avatars in dropdown */
+.bb-avatar-img-circle-sm,
+.bb-avatar-fallback-circle-sm {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.bb-avatar-img-circle-sm {
+    object-fit: cover;
+}
+
+.bb-avatar-fallback-circle-sm {
+    font-family: 'Grandstander', cursive;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: #f5a5c5;
+}
+
+.bb-avatar-button:hover .bb-avatar-img-circle,
+.bb-avatar-button:hover .bb-avatar-fallback-circle {
+    box-shadow: 0 0 0 3px #ffffff;
+    cursor: pointer;
+}
+
+.bb-mobile-avatar {
+    position: fixed;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 1080; /* above content and bottom nav */
 }
