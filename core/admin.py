@@ -33,6 +33,6 @@ class UserFoodAdmin(admin.ModelAdmin):
 
 @admin.register(FoodEntry)
 class FoodEntryAdmin(admin.ModelAdmin):
-    list_display = ('baby', 'food', 'portion_size', 'portion_unit', 'date', 'time')
+    list_display = ('baby', 'food', 'portion_size', 'portion_unit', 'reaction', 'date', 'time')
     list_filter = ('baby', 'food', 'portion_unit', 'date')
     search_fields = ('baby__name', 'food__name', 'notes')
