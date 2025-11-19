@@ -71,6 +71,7 @@ class FoodEntry(models.Model):
     food = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
     """Modified original to have choice of units, rather than help-text with static unit."""
     portion_size = models.FloatField()
+    
     PORTION_UNITS = [
     ('oz', 'oz'),
     ('fl oz', 'fl oz'),
@@ -81,6 +82,19 @@ class FoodEntry(models.Model):
         max_length=10,
         choices=PORTION_UNITS,
         default='g'
+    )
+    
+    REACTION_CHOICES = [
+        ('love', 'Loved it'),
+        ('happy', 'Happy'),
+        ('neutral', 'Neutral'),
+        ('sad', 'Sad'),
+        ('gross', 'Gross'),
+    ]
+    reaction = models.CharField(
+        max_length=10,
+        choices=REACTION_CHOICES,
+        blank=True
     )
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)

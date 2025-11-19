@@ -68,12 +68,13 @@ class FoodItemForm(forms.ModelForm):
 class FoodEntryForm(forms.ModelForm):
     class Meta:
         model = FoodEntry
-        fields = ['food', 'portion_size', 'portion_unit', 'notes']
+        fields = ['food', 'portion_size', 'portion_unit', 'reaction','notes']
         widgets = {
             'food': forms.Select(attrs={'class': 'form-select'}),
             'portion_size': forms.NumberInput(attrs={'step': '0.01', 'class': 'form-control'}),
             'portion_unit': forms.Select(attrs={'class': 'form-select'}),
             'notes': forms.Textarea(attrs={'rows': 8, 'class': 'form-control'}),
+            'reaction': forms.HiddenInput(),
         }
 
     def __init__(self, *args, user=None, **kwargs):
