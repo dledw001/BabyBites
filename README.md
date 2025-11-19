@@ -42,7 +42,7 @@ BabyBites provides parents and caregivers with expert-backed resources, meal pre
 - <a href="https://docs.google.com/document/d/1LeJkfJzJv_RQ9lK-yLioJJZDjFvKs8s6/edit?usp=sharing&ouid=115065288101764067097&rtpof=true&sd=true">Lab 2</a>  
 
 ### Lab 3 & Lab 4 - User Manual
-- <a href="https://github.com/dledw001/BabyBites/wiki">BabyBites Wiki</a>  
+- <a href="https://github.com/dledw001/BabyBites/wiki">Lab 3 & Lab 4 (BabyBites Wiki)</a>  
 
 ## Resources  
   - <a href="./website/references.html">References</a>
