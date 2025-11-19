@@ -71,9 +71,17 @@
 
                     <div class="mb-3 row">
                         <label class="col-sm-3 col-form-label">{{ entry_form.food.label }}</label>
-                        <div class="col-sm-9">
-                        {{ entry_form.food }}
-                        {% if entry_form.food.errors %} <div class="text-danger small">{{ entry_form.food.errors }}</div> {% endif %}
+                        <div class="col-sm-9 d-flex align-items-center gap-2">
+                            
+                            {{ entry_form.food }}
+
+                            <a href="{% url 'catalog' %}" class="btn btn-success" style="white-space: nowrap; height: 100%;"> 
+                                + Add Food
+                            </a>
+
+                            {% if entry_form.food.errors %}
+                                <div class="text-danger small">{{ entry_form.food.errors }}</div>
+                            {% endif %}
                         </div>
                     </div>
 
