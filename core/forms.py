@@ -20,6 +20,11 @@ class SignUpForm(UserCreationForm):
 
 
 class BabyForm(forms.ModelForm):
+    date_of_birth = forms.DateField(
+        widget=forms.DateInput(attrs={"type": "date"}),
+        required=True,
+    )
+
     allergies = forms.ModelMultipleChoiceField(
         queryset=Allergy.objects.all(),
         required=False,
