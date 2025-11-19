@@ -34,8 +34,8 @@
                     <label for="id_date_of_birth" class="form-label">Date of Birth*</label>
                     <input type="date" name="date_of_birth"
                            class="form-control{% if form.date_of_birth.errors %} is-invalid{% endif %}"
-                           id="id_date_of_birth" value="
-                            {% if form.date_of_birth.value %}{{ form.date_of_birth.value|date:'Y-m-d' }}{% endif %}">
+                           id="id_date_of_birth"
+                           value="{% if form.date_of_birth.value %}{{ form.date_of_birth.value|date:'Y-m-d' }}{% endif %}">
 
                     {% if form.date_of_birth.errors %}
                         <div class="invalid-feedback d-block">{{ form.date_of_birth.errors|striptags }}</div>
