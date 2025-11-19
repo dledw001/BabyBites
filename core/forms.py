@@ -83,10 +83,6 @@ class FoodEntryForm(forms.ModelForm):
         }
 
     def __init__(self, *args, user=None, **kwargs):
-        """
-        FoodItem is global in your app (no owner), so expose ALL FoodItems.
-        Remove baby scoping (baby is not a field in this form).
-        """
         super().__init__(*args, **kwargs)
         self.fields['food'].queryset = FoodItem.objects.all().order_by('name')
         # Optional: show a placeholder/empty label
