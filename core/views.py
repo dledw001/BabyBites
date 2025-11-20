@@ -5,7 +5,7 @@ from django.contrib.auth import login, update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
-from .forms import SignUpForm, BabyForm, FoodItemForm, FoodEntryForm
+from .forms import SignUpForm, BabyForm, FoodItemForm, FoodEntryForm, AccountForm
 from .models import Baby, FoodEntry, FoodItem, FoodCategory, CatalogFood, map_usda_to_category
 from django.conf import settings
 import requests
@@ -577,3 +577,30 @@ def change_password(request):
 @login_required
 def password_change_done(request):
     return render(request, "password_change_done.html")
+
+def privacy(request):
+    return render(request, "privacy.html")
+
+def terms(request):
+    return render(request, "terms.html")
+
+def about(request):
+    return render(request, "about.html")
+
+def contact(request):
+    return render(request, "contact.html")
+
+@login_required
+def account(request):
+    user = request.user
+
+    if request.method == "POST":
+        form = AccountForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Account details updated.")
+            return redirect("account")
+    else:
+        form = AccountForm(instance=user)
+
+    return render(request, "account.html", {"form": form})

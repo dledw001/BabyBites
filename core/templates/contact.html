@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Contact{% endblock %}
+{% block navbar %}{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mb-4">Contact Us</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+            <div class="p-4 border rounded bg-white shadow-sm">
+                <p class="mb-3">
+                    Have a question, found a bug, or want to suggest a feature?
+                    Reach out and we’ll get back to you as soon as we can.
+                </p>
+
+                <h5>Email</h5>
+                <p class="mb-3">
+                    The best way to reach us is through
+                    <a href="https://github.com/dledw001/BabyBites">GitHub</a>
+                </p>
+
+                <p class="text-muted small mt-4 mb-0">
+                    You can replace this page later with a full contact form or help center if needed.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

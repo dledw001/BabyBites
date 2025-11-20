@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Account Settings{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mb-4">Account Settings</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+            <form method="post" novalidate class="p-4 border rounded bg-white shadow-sm">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors|striptags }}
+                    </div>
+                {% endif %}
+
+                <div class="mb-3">
+                    <label for="id_username" class="form-label">Username*</label>
+                    <input type="text"
+                           name="{{ form.username.name }}"
+                           id="id_username"
+                           value="{{ form.username.value|default_if_none:'' }}"
+                           class="form-control{% if form.username.errors %} is-invalid{% endif %}">
+                    {% if form.username.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.username.errors|striptags }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_email" class="form-label">Email</label>
+                    <input type="email"
+                           name="{{ form.email.name }}"
+                           id="id_email"
+                           value="{{ form.email.value|default_if_none:'' }}"
+                           class="form-control{% if form.email.errors %} is-invalid{% endif %}">
+                    {% if form.email.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.email.errors|striptags }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-outline-dark w-100">
+                    Save Changes
+                </button>
+
+                <hr class="my-4">
+
+                <a href="{% url 'password_change' %}" class="btn btn-outline-secondary w-100">
+                    Change Password
+                </a>
+
+                <p class="text-center mt-3 mb-0">
+                    <a href="{% url 'dashboard' %}">Return to Dashboard</a>
+                </p>
+            </form>
+        </div>
+    </div>
+{% endblock %}

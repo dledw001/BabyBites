@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
@@ -85,5 +86,16 @@ class FoodEntryForm(forms.ModelForm):
     def __init__(self, *args, user=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['food'].queryset = FoodItem.objects.all().order_by('name')
-        # Optional: show a placeholder/empty label
         self.fields['food'].empty_label = "———"
+
+class AccountForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ("username", "email")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["username"].label = "Username"
+        self.fields["email"].label = "Email"

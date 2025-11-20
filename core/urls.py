@@ -41,7 +41,13 @@ urlpatterns = [
 
     path("babies/active/<uuid:profile_id>/", set_active_profile, name="set-active-profile"),
 
+    path("account/", views.account, name="account"),
     path("password/change/", views.change_password, name="password_change"),
     path("password/change/done/", views.password_change_done, name="password_change_done"),
+
+    path("privacy/", views.privacy, name="privacy"),
+    path("terms/", views.terms, name="terms"),
+    path("about/", views.about, name="about"),
+    path("contact/", views.contact, name="contact"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

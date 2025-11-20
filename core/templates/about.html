@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About{% endblock %}
+{% block navbar %}{% endblock %}
 
-</body>
-</html>
+{% block content %}
+    <h1 class="text-center mb-4">About BabyBites</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+            <div class="p-4 border rounded bg-white shadow-sm">
+                <p class="mb-3">
+                    BabyBites is a simple, focused app that helps parents track what their baby eats,
+                    when they eat, and how they react to new foods.
+                </p>
+
+                <h5>Why we built it</h5>
+                <p>
+                    Introducing solids can be overwhelming. BabyBites gives you a single place to log
+                    feedings, reactions, and milestones so you don’t have to juggle notes, spreadsheets,
+                    or half-remembered details.
+                </p>
+
+                <h5 class="mt-3">What BabyBites does</h5>
+                <ul>
+                    <li>Track daily feedings by food, portion size, and reaction.</li>
+                    <li>Generate simple daily reports you can review or share.</li>
+                    <li>Highlight “first time” foods and other basic milestones.</li>
+                </ul>
+
+                <h5 class="mt-3">What BabyBites is not</h5>
+                <p>
+                    BabyBites is not a medical app and does not replace your pediatrician. It’s a
+                    record-keeping tool meant to support your own judgment and conversations with
+                    healthcare professionals.
+                </p>
+
+                <h5 class="mt-3">Get in touch</h5>
+                <p>
+                    Have feedback or feature ideas? We’d love to hear from you on
+                    <a href="https://github.com/dledw001/BabyBites">GitHub</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
