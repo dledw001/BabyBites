@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
@@ -10,7 +11,7 @@ class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
     agree_privacy = forms.BooleanField(
         required=True,
-        label=mark_safe('I agree to the Privacy Policy*'),
+        label=mark_safe('I agree to the '),
         error_messages={"required": "You must agree to the Privacy Policy."},
     )
 
@@ -20,6 +21,11 @@ class SignUpForm(UserCreationForm):
 
 
 class BabyForm(forms.ModelForm):
+    date_of_birth = forms.DateField(
+        widget=forms.DateInput(attrs={"type": "date"}),
+        required=True,
+    )
+
     allergies = forms.ModelMultipleChoiceField(
         queryset=Allergy.objects.all(),
         required=False,
@@ -68,20 +74,28 @@ class FoodItemForm(forms.ModelForm):
 class FoodEntryForm(forms.ModelForm):
     class Meta:
         model = FoodEntry
-        fields = ['food', 'portion_size', 'portion_unit', 'notes']
+        fields = ['food', 'portion_size', 'portion_unit', 'reaction','notes']
         widgets = {
             'food': forms.Select(attrs={'class': 'form-select'}),
             'portion_size': forms.NumberInput(attrs={'step': '0.01', 'class': 'form-control'}),
             'portion_unit': forms.Select(attrs={'class': 'form-select'}),
             'notes': forms.Textarea(attrs={'rows': 8, 'class': 'form-control'}),
+            'reaction': forms.HiddenInput(),
         }
 
     def __init__(self, *args, user=None, **kwargs):
-        """
-        FoodItem is global in your app (no owner), so expose ALL FoodItems.
-        Remove baby scoping (baby is not a field in this form).
-        """
         super().__init__(*args, **kwargs)
         self.fields['food'].queryset = FoodItem.objects.all().order_by('name')
-        # Optional: show a placeholder/empty label
         self.fields['food'].empty_label = "———"
+
+class AccountForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ("username", "email")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["username"].label = "Username"
+        self.fields["email"].label = "Email"

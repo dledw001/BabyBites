@@ -38,11 +38,15 @@ BabyBites provides parents and caregivers with expert-backed resources, meal pre
   - <a href="./website/Lab 1 - V1 (pdfs)/Dominique_Willis_Lab_1.pdf">Dominique Willis</a>
   - <a href="./website/Lab 1 - V1 (pdfs)/Martin_Salisbury_Lab_1.pdf">Martin Salisbury</a>
 
+### Lab 2 - *still in progress*
+- <a href="https://docs.google.com/document/d/1LeJkfJzJv_RQ9lK-yLioJJZDjFvKs8s6/edit?usp=sharing&ouid=115065288101764067097&rtpof=true&sd=true">Lab 2</a>  
+
+### Lab 3 & Lab 4 - User Manual
+- <a href="https://github.com/dledw001/BabyBites/wiki">Lab 3 & Lab 4 (BabyBites Wiki)</a>  
 
 ## Resources  
   - <a href="./website/references.html">References</a>
   - <a href="./website/glossary.html">Glossary</a>
-  - <a href="https://github.com/dledw001/BabyBites/wiki">User Manual - Lab 3 & Lab 4</a>
 
 ## Quick Links
   - <a href="https://github.com/dledw001/BabyBites">GitHub Repository</a>

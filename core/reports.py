@@ -13,11 +13,13 @@ FONT_DIR = os.path.join(BASE_DIR, "static", "core", "fonts")
 
 def load_fonts():
     styled_path = os.path.join(FONT_DIR, "Grandstander-Bold.ttf")
+    emoji_path = os.path.join(FONT_DIR, "NotoColorEmoji-Regular.ttf")
     styled_font = ImageFont.truetype(styled_path, 72)
     user_font = ImageFont.truetype(styled_path, 48)
     meta_font = ImageFont.truetype(styled_path, 32)
     info_font = ImageFont.truetype(styled_path, 16)
-    return styled_font, user_font, meta_font, info_font
+    emoji_font = ImageFont.truetype(emoji_path, 16)
+    return styled_font, user_font, meta_font, info_font, emoji_font
 
 def count_entries_for_day(baby: Baby, report_date: Date) -> int:
     return FoodEntry.objects.filter(baby=baby, date=report_date).count()
@@ -38,7 +40,7 @@ def generate_report_image(baby: Baby, report_date: Date) -> bytes:
     image = Image.new("RGB", (W, H), bg_color)
     draw = ImageDraw.Draw(image)
 
-    title_font, user_font, meta_font, info_font = load_fonts()
+    title_font, user_font, meta_font, info_font, emoji_font = load_fonts()
 
     # Baby name
     baby_line = baby.name
@@ -57,6 +59,15 @@ def generate_report_image(baby: Baby, report_date: Date) -> bytes:
     section_gap = 14
     current_y = 150
 
+    # Reaction mapping table
+    reaction_map = {
+        "love": "❤️",
+        "happy": "😄",
+        "neutral": "😐",
+        "sad": "☹️",
+        "gross": "🤢",
+    }
+
     # Daily feeding log
     draw.text((left_x, current_y), "Daily feeding log", fill=color, font=meta_font)
     current_y += meta_font.size + section_gap
@@ -72,7 +83,8 @@ def generate_report_image(baby: Baby, report_date: Date) -> bytes:
         for entry in day_entries:
             food_name = getattr(entry.food, "name", str(entry.food))
             portion = entry.portion_size
-            line = f"• {food_name} — {portion:g}"
+            emoji = reaction_map.get(entry.reaction, "")
+            line = f"• {food_name} — {portion:g} — {emoji}"
             draw.text((left_x, current_y), line, fill=color, font=info_font)
             current_y += line_gap
     else:

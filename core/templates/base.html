@@ -27,7 +27,7 @@
 </head>
 
 <body class="babybites-body">
-
+{%  block navbar %}
 <!-- TOP-RIGHT NAVBAR (Mobile) -->
 {% if request.resolver_match and request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'dashboard' %}
     {% if user.is_authenticated and profiles %}
@@ -104,7 +104,7 @@
 {% endif %}
 
 <!-- LEFT NAVBAR (Desktop) -->
-{% if request.resolver_match and request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'dashboard' and request.resolver_match.url_name != 'register' %}
+{% if request.resolver_match and request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'dashboard' %}
     <nav class="bb-left-nav d-none d-md-flex flex-column position-fixed top-0 start-0 vh-100 p-3"
          style="background-color: #f5a5c5; border-right: 2px solid #e48ab0;">
         <div class="bb-logo-tile mb-3 d-flex align-items-center justify-content-center">
@@ -198,6 +198,13 @@
         {% endif %}
 
         {% if user.is_authenticated %}
+            <form method="get" action="{% url 'account' %}" class="p-2 border rounded bg-white shadow-sm mb-2">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-dark w-100">MY ACCOUNT</button>
+            </form>
+        {% endif %}
+
+        {% if user.is_authenticated %}
             <form method="post" action="{% url 'logout' %}" class="p-2 border rounded bg-white shadow-sm">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-outline-dark w-100">LOG OUT</button>
@@ -207,7 +214,7 @@
 {% endif %}
 
 <!-- BOTTOM NAVBAR (Mobile) -->
-{% if request.resolver_match and request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'dashboard' %}
+{% if request.resolver_match and request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'dashboard' and request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'privacy'%}
     <nav class="bb-bottom-nav d-md-none fixed-bottom">
         <div class="bb-nav-container">
             <a href="{% url 'dashboard' %}" class="bb-nav-item">DASHBOARD</a>
@@ -218,6 +225,7 @@
         </div>
     </nav>
 {% endif %}
+{%  endblock %}
 
 <!-- MAIN CONTENT -->
 <main class="container my-4">

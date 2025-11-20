@@ -1,5 +1,5 @@
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from django.urls import path, reverse_lazy
 from . import views
 from .views import baby_list, baby_create, baby_edit, baby_delete, set_active_profile
 from django.conf.urls.static import static
@@ -40,5 +40,14 @@ urlpatterns = [
     path('report/download/', views.report_image, name='report_image'),
 
     path("babies/active/<uuid:profile_id>/", set_active_profile, name="set-active-profile"),
+
+    path("account/", views.account, name="account"),
+    path("password/change/", views.change_password, name="password_change"),
+    path("password/change/done/", views.password_change_done, name="password_change_done"),
+
+    path("privacy/", views.privacy, name="privacy"),
+    path("terms/", views.terms, name="terms"),
+    path("about/", views.about, name="about"),
+    path("contact/", views.contact, name="contact"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

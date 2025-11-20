@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 {% block title %}Register{% endblock %}
+{% block navbar %}{% endblock %}
 
 {% block content %}
 <div class="vw-edge px-3 px-md-4">
   <div class="container-fluid px-0 py-4">
       <div class="d-flex align-items-center justify-content-between">
-        <div class="bb-logo"></div>
+        <div class="bb-logo flex-shrink-0 ms-0"></div>
 
     <h1 class="m-0 text-center flex-grow-1 bb-title">
-      <span class="top">CREATE AN ACCOUNT</span>
-    </h1>
+        <span class="top">CREATE AN ACCOUNT</span>
+      </h1>
   </div>
       </div>
 </div>
@@ -68,6 +69,9 @@
                 {% if form.agree_privacy.value %}checked{% endif %}>
             <label class="form-check-label" for="id_agree_privacy">
                 {{ form.fields.agree_privacy.label|safe }}
+                <a href="{% url 'privacy' %}" target="_blank">Privacy Policy</a>
+                and <a href="{% url 'terms' %}" target="_blank">Terms of Service</a>
+                *
             </label>
             {% if form.agree_privacy.errors %}
                 <div class="invalid-feedback d-block">{{ form.agree_privacy.errors|striptags }}</div>

@@ -55,7 +55,7 @@
 
     <!-- Form for adding food entries -->
     <div class="row justify-content-center">
-        <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+        <div class="col-14 col-sm-12 col-md-10 col-lg-8">
             <form method="post">
                 {% csrf_token %}
 
@@ -71,9 +71,17 @@
 
                     <div class="mb-3 row">
                         <label class="col-sm-3 col-form-label">{{ entry_form.food.label }}</label>
-                        <div class="col-sm-9">
-                        {{ entry_form.food }}
-                        {% if entry_form.food.errors %} <div class="text-danger small">{{ entry_form.food.errors }}</div> {% endif %}
+                        <div class="col-sm-9 d-flex align-items-center gap-2">
+                            
+                            {{ entry_form.food }}
+
+                            <a href="{% url 'catalog' %}" class="btn btn-success" style="white-space: nowrap; height: 100%;"> 
+                                + Add Food
+                            </a>
+
+                            {% if entry_form.food.errors %}
+                                <div class="text-danger small">{{ entry_form.food.errors }}</div>
+                            {% endif %}
                         </div>
                     </div>
 
@@ -91,6 +99,26 @@
                     </div>
 
                     <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">Reaction</label>
+                        <div class="col-sm-9">
+                            {{ entry_form.reaction }}  {# hidden input #}
+
+                            <div id="reaction-buttons" class="btn-group" role="group" aria-label="Reaction">
+                                <button type="button" class="btn btn-outline-secondary bb-reaction-btn" data-value="love">❤️</button>
+                                <button type="button" class="btn btn-outline-secondary bb-reaction-btn" data-value="happy">😄</button>
+                                <button type="button" class="btn btn-outline-secondary bb-reaction-btn" data-value="neutral">😐</button>
+                                <button type="button" class="btn btn-outline-secondary bb-reaction-btn" data-value="sad">☹️</button>
+                                <button type="button" class="btn btn-outline-secondary bb-reaction-btn" data-value="gross">🤢</button>
+                            </div>
+
+                            {% if entry_form.reaction.errors %}
+                                <div class="text-danger small">{{ entry_form.reaction.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">How did {{ active_profile.name }} react to this food?</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
                         <label class="col-sm-3 col-form-label">{{ entry_form.notes.label }}</label>
                         <div class="col-sm-9">
                         {{ entry_form.notes }}
@@ -102,7 +130,6 @@
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-success">Save Entry</button>
-                    <a href="/dashboard/" class="btn btn-secondary">Back to Dashboard</a>
                 </div>
             </form>
         </div>
@@ -127,6 +154,7 @@
                                     <tr>
                                         <th>Food</th>
                                         <th>Portion</th>
+                                        <th>Reaction</th>
                                         <th>Notes</th>
                                         <th>Date</th>
                                     </tr>
@@ -137,6 +165,15 @@
                                             <tr>
                                                 <td>{{ entry.food.name }}</td>
                                                 <td>{{ entry.portion_size }} {{ entry.portion_unit }}</td>
+                                                <td>
+                                                    {% if entry.reaction == 'love' %}❤️
+                                                    {% elif entry.reaction == 'happy' %}😄
+                                                    {% elif entry.reaction == 'neutral' %}😐
+                                                    {% elif entry.reaction == 'sad' %}☹️
+                                                    {% elif entry.reaction == 'gross' %}🤢
+                                                    {% else %} -
+                                                    {% endif %}
+                                                </td>
                                                 <td>{% if entry.notes %}{{ entry.notes }}{% else %}-{% endif %}</td>
                                                 <td>{{ entry.date|date:"M. j, Y" }}</td>
                                             </tr>
@@ -153,6 +190,7 @@
 </div>
 </div>
 
+<!-- Allergen alert handling -->
 <script>
 (function() {
     var alertBox = document.getElementById('allergen-alert');
@@ -218,6 +256,44 @@
 
     foodSelect.addEventListener('change', checkFood);
 })();
+</script>
+
+
+<!-- Reaction button handling -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var reactionInput = document.getElementById("{{ entry_form.reaction.id_for_label }}");
+    var buttons = document.querySelectorAll(".bb-reaction-btn");
+
+    if (!reactionInput || !buttons.length) {
+        return;
+    }
+
+    function setActiveButton(value) {
+        buttons.forEach(function(btn) {
+            if (btn.getAttribute("data-value") === value) {
+                btn.classList.add("btn-primary");
+                btn.classList.remove("btn-outline-secondary");
+            } else {
+                btn.classList.remove("btn-primary");
+                btn.classList.add("btn-outline-secondary");
+            }
+        });
+    }
+
+    // Initialize from existing value (e.g., when form re-renders with errors)
+    if (reactionInput.value) {
+        setActiveButton(reactionInput.value);
+    }
+
+    buttons.forEach(function(btn) {
+        btn.addEventListener("click", function() {
+            var val = btn.getAttribute("data-value");
+            reactionInput.value = val;
+            setActiveButton(val);
+        });
+    });
+});
 </script>
 
 {% endblock %}
