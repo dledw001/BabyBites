@@ -73,10 +73,18 @@ class FoodEntry(models.Model):
     portion_size = models.FloatField()
     
     PORTION_UNITS = [
-    ('oz', 'oz'),
-    ('fl oz', 'fl oz'),
     ('g', 'g'),
+    ('oz', 'oz'),
     ('ml', 'ml'),
+    ('cup', 'cup'),
+    ('half', 'half'),
+    ('fl oz', 'fl oz'),
+    ('piece', 'piece'),
+    ('whole', 'whole'),
+    ('serving', 'serving'),
+    ('slice', 'slice'),
+    ('tbsp', 'tbsp'),
+    ('tsp', 'tsp'),
     ]
     portion_unit = models.CharField(
         max_length=10,
