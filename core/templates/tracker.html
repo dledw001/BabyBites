@@ -289,6 +289,14 @@ document.addEventListener("DOMContentLoaded", function() {
     buttons.forEach(function(btn) {
         btn.addEventListener("click", function() {
             var val = btn.getAttribute("data-value");
+
+            //enable deselection of reaction choice
+            if (reactionInput.value === val) {
+                reactionInput.value = "";
+                setActiveButton("");
+                return;
+            }
+            
             reactionInput.value = val;
             setActiveButton(val);
         });
