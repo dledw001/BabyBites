@@ -60,11 +60,20 @@ class Baby(models.Model):
 class FoodItem(models.Model):
     name = models.CharField(max_length=127)
     category = models.CharField(max_length=127, blank=True)
+    catalog_food = models.ForeignKey(
+        "CatalogFood",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="food_items",
+    )
+
     class Meta:
         ordering = ['name']
 
     def __str__(self):
         return self.name
+
 
 class FoodEntry(models.Model):
     baby = models.ForeignKey('Baby', on_delete=models.CASCADE, related_name='food_entries')
