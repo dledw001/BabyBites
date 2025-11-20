@@ -48,6 +48,11 @@
   width: 100vw;
 }
 
+/* No sidebar → center normally */
+.no-nav .bb-title {
+    margin-left: 0 !important;
+}
+
 /* Dashboard Tiles */
 .tile{
     display:flex; align-items:center; justify-content:center; text-align:center;
