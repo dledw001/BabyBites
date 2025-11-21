@@ -3,10 +3,12 @@
 {% block title %}Account Settings{% endblock %}
 
 {% block content %}
-    <h1 class="text-center mb-4">Account Settings</h1>
+<h1 class="bb-title mb-0 text-center py-2">
+    <span class="top">Account Settings</span>
+</h1>
 
-    <div class="row justify-content-center">
-        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+    <div class="row justify-content-center content-center" style="margin-top: 40px;">
+        <div class="col-14 col-sm-10 col-md-8 col-lg-6">
             <form method="post" novalidate class="p-4 border rounded bg-white shadow-sm">
                 {% csrf_token %}
 
@@ -54,9 +56,6 @@
                     Change Password
                 </a>
 
-                <p class="text-center mt-3 mb-0">
-                    <a href="{% url 'dashboard' %}">Return to Dashboard</a>
-                </p>
             </form>
         </div>
     </div>
