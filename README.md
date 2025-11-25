@@ -30,7 +30,7 @@ BabyBites provides parents and caregivers with expert-backed resources, meal pre
 
 ## Labs
   - <a href="./website/labs.html#Lab-1-Outline">Lab 1 Outline</a>
-### Lab 1 Version 1 (PDFs)
+### Lab 1 Version 1 (Individual PDFs)
   - <a href="./website/Lab 1 - V1 (pdfs)/Asia_Acosta_Lab_1.pdf">Asia Acosta</a>
   - <a href="./website/Lab 1 - V1 (pdfs)/Cameron_Williams_Lab_1.pdf">Cameron Williams</a>
   - <a href="./website/Lab 1 - V1 (pdfs)/Daniel_Ledwith_Lab_1.pdf">Daniel Ledwith</a>
@@ -38,8 +38,16 @@ BabyBites provides parents and caregivers with expert-backed resources, meal pre
   - <a href="./website/Lab 1 - V1 (pdfs)/Dominique_Willis_Lab_1.pdf">Dominique Willis</a>
   - <a href="./website/Lab 1 - V1 (pdfs)/Martin_Salisbury_Lab_1.pdf">Martin Salisbury</a>
 
-### Lab 2 - *still in progress*
+### Lab 2 (Group)
 - <a href="https://docs.google.com/document/d/1LeJkfJzJv_RQ9lK-yLioJJZDjFvKs8s6/edit?usp=sharing&ouid=115065288101764067097&rtpof=true&sd=true">Lab 2</a>  
+
+### Lab 2 (Individual PDFs)
+  - <a href="./website/Lab 2/Asia_Acosta_Lab_2.pdf">Asia Acosta</a>
+  - <a href="./website/Lab 2/Cameron_Williams_Lab_2.pdf">Cameron Williams</a>
+  - <a href="./website/Lab 2/Daniel_Ledwith_Lab_2.pdf">Daniel Ledwith</a>
+  - <a href="./website/Lab 2/Diogo_Silva_Lab_2.pdf">Diogo Silva</a>
+  - <a href="./website/Lab 2/Dominique_Willis_Lab_2.pdf">Dominique Willis</a>
+  - <a href="./website/Lab 2/Martin_Salisbury_Lab_2.pdf">Martin Salisbury</a>
 
 ### Lab 3 & Lab 4 - User Manual
 - <a href="https://github.com/dledw001/BabyBites/wiki">Lab 3 & Lab 4 (BabyBites Wiki)</a>  
