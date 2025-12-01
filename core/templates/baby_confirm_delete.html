@@ -2,12 +2,15 @@
 {% block title %}Delete Baby Profile{% endblock %}
 
 {% block content %}
-    <h1 class="text-center mb-4">Delete Baby Profile</h1>
+    <h1 class="bb-title mb-0 text-center py-2">
+    <span class="top">Delete Baby Profile</span>
+    </h1>
 
+<div class="content-center">
     <div class="row justify-content-center">
-        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-            <div class="p-4 border rounded bg-white shadow-sm">
-                <p class="mb-4">Are you sure you want to delete profile for {{ baby.name }}?</p>
+        <div class="col-14 col-sm-12 col-md-10 col-lg-8">
+             <div class="p-4 border rounded bg-white shadow-sm">
+                <p> Are you sure you want to delete profile for {{ baby.name }}?</p>
 
                 <form method="post">
                     {% csrf_token %}
@@ -18,5 +21,5 @@
             </div>
         </div>
     </div>
-
+</div>
 {% endblock %}

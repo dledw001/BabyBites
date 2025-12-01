@@ -8,12 +8,15 @@
 
 {% block content %}
     {% if baby %}
-        <h1 class="text-center mb-4">Edit Baby Profile</h1>
+    <h1 class="bb-title mb-0 text-center py-2">
+    <span class="top">Edit Baby Profile</span>
+    </h1>
     {% else %}
         <h1 class="text-center mb-4">Create a Baby Profile</h1>
     {% endif %}
+<div class="content-center">
     <div class="row justify-content-center">
-        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+        <div class="col-14 col-sm-10 col-md-8 col-lg-6">
             <form method="post" enctype="multipart/form-data" novalidate class="p-4 border rounded bg-white shadow-sm">
                 {% csrf_token %}
                 {% if form.non_field_errors %}
@@ -112,13 +115,10 @@
                 {% if baby %}
                     <a href="{% url 'baby-delete' baby.id %}" class="btn btn-danger w-100 mt-2">Delete Profile</a>
                 {% endif %}
-                <p class="text-center mt-3 mb-0">
-                    Change your mind?<br>
-                    <a href="{% url 'home' %}">Return to Dashboard</a>
-                </p>
             </form>
         </div>
     </div>
+</div>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const select = document.getElementById("id_stock_avatar");
