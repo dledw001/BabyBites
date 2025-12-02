@@ -4,62 +4,66 @@
 {% block navbar %}{% endblock %}
 
 {% block content %}
-<div class="vw-edge px-3 px-md-4">
-  <div class="container-fluid px-3 px-md-4 py-4">
-    <div class="d-flex align-items-center justify-content-between">
-      <div class="bb-logo"></div>
+    <div class="vw-edge px-3 px-md-4">
+        <div class="container-fluid px-3 px-md-4 py-4">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="bb-logo"></div>
 
-      <h1 class="m-0 text-center flex-grow-1 bb-title">
-        <span class="top">Privacy Policy</span>
-      </h1>
+                <h1 class="m-0 text-center flex-grow-1 bb-title">
+                    <span class="top">Privacy Policy</span>
+                </h1>
 
-    <div class="d-none d-sm-block" style="width:100px;height:100px;"></div>
-    </div>
-  </div>
+                <div class="d-none d-sm-block" style="width:100px;height:100px;"></div>
+            </div>
+        </div>
 
-    <div class="row justify-content-center">
-        <div class="col-14 col-sm-12 col-md-10 col-lg-8">
-            <div class="p-4 border rounded bg-white shadow-sm">
-                <p class="mb-3">
-                    This Privacy Policy explains how BabyBites collects, uses, and protects information
-                    about you and your child when you use our service.
-                </p>
+        <div class="row justify-content-center">
+            <div class="col-14 col-sm-12 col-md-10 col-lg-8">
+                <div class="p-4 border rounded bg-white shadow-sm">
+                    <p class="mb-3">
+                        This Privacy Policy explains how BabyBites collects, uses, and protects information
+                        about you and your child when you use our service.
+                    </p>
 
-                <h5>1. Information we collect</h5>
-                <p>
-                    We collect account information (such as your email address) and baby profile data
-                    you enter into the app (such as name, date of birth, and feeding information).
-                </p>
+                    <h5>1. Information we collect</h5>
+                    <p>
+                        We collect account information (such as your email address) and baby profile data
+                        you enter into the app (such as name, date of birth, and feeding information).
+                    </p>
 
-                <h5 class="mt-3">2. How we use your information</h5>
-                <p>
-                    We use this information to provide core BabyBites features, such as tracking
-                    feedings, generating daily reports, and displaying insights in your dashboard.
-                </p>
+                    <h5 class="mt-3">2. How we use your information</h5>
+                    <p>
+                        We use this information to provide core BabyBites features, such as tracking
+                        feedings, generating daily reports, and displaying insights in your dashboard.
+                    </p>
 
-                <h5 class="mt-3">3. Data sharing</h5>
-                <p>
-                    We do not sell your data. We only share information with service providers as needed
-                    to operate the application (for example, hosting and infrastructure).
-                </p>
+                    <h5 class="mt-3">3. Data sharing</h5>
+                    <p>
+                        We do not sell your data. We only share information with service providers as needed
+                        to operate the application (for example, hosting and infrastructure).
+                    </p>
 
-                <h5 class="mt-3">4. Data retention</h5>
-                <p>
-                    We retain your data for as long as your account is active. You can request deletion
-                    of your account and associated data by contacting us.
-                </p>
+                    <h5 class="mt-3">4. Data retention</h5>
+                    <p>
+                        We retain your data for as long as your account is active. You can request deletion
+                        of your account and associated data by contacting us.
+                    </p>
 
-                <h5 class="mt-3">5. Security</h5>
-                <p>
-                    We use reasonable technical and organizational measures to protect your data, but
-                    no system is 100% secure.
-                </p>
+                    <h5 class="mt-3">5. Security</h5>
+                    <p>
+                        We use reasonable technical and organizational measures to protect your data, but
+                        no system is 100% secure.
+                    </p>
 
-                <p class="text-muted small mt-4 mb-0">
-                    This document is for informational purposes only.
-                </p>
+                    <p class="text-muted small mt-4 mb-0">
+                        This document is for informational purposes only.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="text-center mt-5 pb-4" style="font-size:0.9rem; color:#666;">
+        <a href="{% url 'home' %}" class="me-3 text-decoration-none">Go back</a>
     </div>
 {% endblock %}

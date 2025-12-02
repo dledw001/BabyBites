@@ -3,27 +3,27 @@
 {% block title %}BabyBites{% endblock %}
 
 {% block content %}
-<div class="vw-edge px-3 px-md-4">
-  <div class="container-fluid px-0 py-4">
-    <div class="d-flex align-items-center flex-row flex-nowrap w-100 gap-2">
-      <div class="bb-logo flex-shrink-0 ms-0"></div>
+    <div class="vw-edge px-3 px-md-4">
+        <div class="container-fluid px-0 py-4">
+            <div class="d-flex align-items-center flex-row flex-nowrap w-100 gap-2">
+                <div class="bb-logo flex-shrink-0 ms-0"></div>
 
-      <div class="text-start flex-grow-1 min-w-0">
-        <div style="display:inline-block">
-          <h1 class="m-0 display-1"
-              style="color:#76E2EA; font-family:Grandstander; font-weight:800; line-height:1; white-space:nowrap;">
-            BabyBites
-          </h1>
-          <h5 class="mt-1 mb-0"
-              style="color:#878F8D; font-family:Grandstander; font-weight:700;
+                <div class="text-start flex-grow-1 min-w-0">
+                    <div style="display:inline-block">
+                        <h1 class="m-0 display-1"
+                            style="color:#76E2EA; font-family:Grandstander; font-weight:800; line-height:1; white-space:nowrap;">
+                            BabyBites
+                        </h1>
+                        <h5 class="mt-1 mb-0"
+                            style="color:#878F8D; font-family:Grandstander; font-weight:700;
               white-space:nowrap; font-size:clamp(1rem,2vw+0.5rem,1.5rem);">
-            Introducing Solids, One Bite at a Time.
-          </h5>
+                            Introducing Solids, One Bite at a Time.
+                        </h5>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
 
     <div class="row justify-content-center mt-4">
         <div class="col-14 col-sm-10 col-md-8 col-lg-6">
@@ -34,38 +34,45 @@
                     <div class="alert alert-danger">{{ form.non_field_errors }}</div>
                 {% endif %}
 
-            <div class="mb-3">
-                <h2 class="text-center" style="font-weight:800; color:black; margin-bottom:1rem;">
-                    Login
-                </h2>
-                <label for="id_username" class="form-label">Username</label>
-                <input type="text" name="username" autofocus
-                    class="form-control{% if form.username.errors %} is-invalid{% endif %}"
-                    id="id_username" value="{{ form.username.value|default_if_none:'' }}">
-                {% if form.username.errors %}
-                    <div class="invalid-feedback">{{ form.username.errors|striptags }}</div>
-                {% endif %}
-            </div>
-        
-            <div class="mb-3">
-                <label for="id_password" class="form-label">Password</label>
-                <input type="password" name="password"
-                    class="form-control{% if form.password.errors %} is-invalid{% endif %}"
-                    id="id_password">
-                {% if form.password.errors %}
-                    <div class="invalid-feedback">{{ form.password.errors|striptags }}</div>
-                {% endif %}
-            </div>
+                <div class="mb-3">
+                    <h2 class="text-center" style="font-weight:800; color:black; margin-bottom:1rem;">
+                        Login
+                    </h2>
+                    <label for="id_username" class="form-label">Username</label>
+                    <input type="text" name="username" autofocus
+                           class="form-control{% if form.username.errors %} is-invalid{% endif %}"
+                           id="id_username" value="{{ form.username.value|default_if_none:'' }}">
+                    {% if form.username.errors %}
+                        <div class="invalid-feedback">{{ form.username.errors|striptags }}</div>
+                    {% endif %}
+                </div>
 
-            <button type="submit" class="btn w-100" style="background:#000; border-color:#000; color:#fff;">Log In</button>
-            
-            <p class="text-center mt-3 mb-0">
-                Don't have an account?<br>
-                <a href="{% url 'register' %}">Create an Account</a>
-            </p>
+                <div class="mb-3">
+                    <label for="id_password" class="form-label">Password</label>
+                    <input type="password" name="password"
+                           class="form-control{% if form.password.errors %} is-invalid{% endif %}"
+                           id="id_password">
+                    {% if form.password.errors %}
+                        <div class="invalid-feedback">{{ form.password.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn w-100" style="background:#000; border-color:#000; color:#fff;">Log In
+                </button>
+
+                <p class="text-center mt-3 mb-0">
+                    Don't have an account?<br>
+                    <a href="{% url 'register' %}">Create an Account</a>
+                </p>
 
             </form>
         </div>
     </div>
-</div>
+    <hr class="mt-5 mb-5">
+    <div class="text-center mt-5 pb-4" style="font-size:0.9rem; color:#666;">
+        <a href="{% url 'about' %}" class="me-3 text-decoration-none">About</a>
+        <a href="{% url 'contact' %}" class="me-3 text-decoration-none">Contact</a>
+        <a href="{% url 'privacy' %}" class="me-3 text-decoration-none">Privacy</a>
+        <a href="{% url 'terms' %}" class="text-decoration-none">Terms</a>
+    </div>
 {% endblock %}
