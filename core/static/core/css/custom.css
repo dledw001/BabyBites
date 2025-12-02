@@ -8,8 +8,16 @@
     width: 100px;
     height: 100px;
     background-image: url(../img/babybites-logo.png);
-    background-size: cover;
-    background-position: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+@media (max-width: 575.98px) {
+  .bb-logo {
+      width: 80px;
+      height: 80px;
+  }
 }
 
 /*Header titles*/
@@ -21,8 +29,12 @@
     text-align:center;
     margin-left: 220px;
 }
-.bb-title .top{font-size:4.2rem; display:block;}
-.bb-title .bottom{font-size:4.2rem; display: block;}
+
+.bb-title .top,
+.bb-title .bottom {
+    font-size: clamp(2.4rem, 8vw, 4.2rem);
+    display: block;
+}
 
 /* Sidebar visible: shift title */
 @media (min-width: 768px) {
@@ -64,10 +76,7 @@
   .tile.green{background:#cae8bd;}
   .tile.blue{background:#cbe6ff;}
 
-/* Mobile tweak so large text fits nicely */
 @media (max-width:720px){
-  .bb-title .top{font-size:3.2rem;}
-  .bb-title .bottom{font-size:3.2rem;}
   .tile{min-height:170px; font-size:34px;}
   .tile.resources{min-height:80px; font-size:28px;}
 }
