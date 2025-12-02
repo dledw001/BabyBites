@@ -50,7 +50,8 @@ BabyBites provides parents and caregivers with expert-backed resources, meal pre
   - <a href="./website/Lab 2/Martin_Salisbury_Lab2.pdf">Martin Salisbury</a>
 
 ### Lab 3 & Lab 4 - User Manual
-- <a href="https://github.com/dledw001/BabyBites/wiki">Lab 3 & Lab 4 (BabyBites Wiki)</a>  
+- <a href="https://github.com/dledw001/BabyBites/wiki">Lab 3 & Lab 4 (BabyBites Wiki)</a>
+- <a href="https://github.com/dledw001/BabyBites/wiki/Process%2C-Interface%2C-and-Task">User Manual</a>  
 
 ## Resources  
   - <a href="./website/references.html">References</a>
