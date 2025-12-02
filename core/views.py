@@ -386,18 +386,24 @@ def report_preview(request):
         messages.error(request, "Select an active baby profile first.")
         return redirect("baby-list")
 
+    today = timezone.localdate()
     date_str = request.GET.get("date")
     if date_str:
         try:
             report_date = datetime.date.fromisoformat(date_str)
         except ValueError:
-            report_date = timezone.localdate()
+            report_date = today
     else:
-        report_date = timezone.localdate()
+        report_date = today
+
+    if report_date > today:
+        report_date = today
+        messages.info(request, "Invalid: future date. Showing today’s report instead.")
 
     context = {
         "active_profile": active,
         "report_date": report_date,
+        "today": today,
     }
     return render(request, "report_preview.html", context)
 

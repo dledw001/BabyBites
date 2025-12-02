@@ -33,6 +33,7 @@
             name="date"
             class="form-control"
             value="{{ report_date|date:'Y-m-d' }}"
+            max="{{ today|date:'Y-m-d' }}"
           >
         </div>
         <div>
@@ -64,5 +65,4 @@
     {% endif %}
   </div>
 </div>
-
 {% endblock %}
