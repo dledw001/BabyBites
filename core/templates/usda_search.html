@@ -37,7 +37,7 @@
       <button class="btn btn-primary" type="submit">Search</button>
     </div>
   </form>
-</div>
+
 
   {% if error %}
     <div class="alert alert-danger">{{ error }}</div>
@@ -126,5 +126,5 @@
       No USDA results for “{{ query }}”. Try another food.
     </p>
   {% endif %}
-
+</div>
 {% endblock %}
