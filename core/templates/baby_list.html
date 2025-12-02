@@ -4,13 +4,15 @@
 {% block title %}Baby Profile{% endblock %}
 
 {% block content %}
+<h1 class="bb-title mb-0 text-center py-2">
+    <span class="top">BABY PROFILE</span>
+</h1>
+
 <div class="container-fluid min-vh-100" style="padding:30px 30px 30px 300px;">
     <!-- Header + Baby Photo -->
     <div class="d-flex flex-column align-items-center mb-4">
-        <h1 style="font-family:'Grandstander'; font-size:55px; color:#74d4e0; font-weight:800;">
-            BABY PROFILE
-        </h1>
-        <img src="{{ active_profile.avatar_url }}" alt="Baby Photo" class="rounded-circle shadow mt-3" style="width:260px; height:260px; object-fit:cover;">
+
+        <img src="{{ active_profile.avatar_url }}" alt="Baby Photo" class="rounded-circle shadow" style="width:260px; height:260px; object-fit:cover;">
     </div>
 
 <div class="row justify-content-center g-4">
