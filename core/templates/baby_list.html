@@ -4,85 +4,91 @@
 {% block title %}Baby Profile{% endblock %}
 
 {% block content %}
+
 <h1 class="bb-title mb-0 text-center py-2">
     <span class="top">BABY PROFILE</span>
 </h1>
 
-<div class="container-fluid min-vh-100" style="padding:30px 30px 30px 300px;">
-    <!-- Header + Baby Photo -->
-    <div class="d-flex flex-column align-items-center mb-4">
+<div class="container-fluid min-vh-100 px-3 px-md-5" style="padding-top:30px;">
+    <div class="row justify-content-center">
+        <!-- Offset for sidebar on large screens -->
+        <div class="col-12 col-lg-9 offset-lg-3">
 
-        <img src="{{ active_profile.avatar_url }}" alt="Baby Photo" class="rounded-circle shadow" style="width:260px; height:260px; object-fit:cover;">
-    </div>
-
-<div class="row justify-content-center g-4">
-    <!-- Foods Eaten Today -->
-    <div class="col-md-4">
-        <div class="card shadow" style="border-radius:15px;">
-            <div class="card-header text-center" style="background:#d9d9d9; border-top-left-radius:15px; border-top-right-radius:15px;">
-                <h4 class="fw-bold mb-0">Foods Eaten<br>Today</h4>
-            </div>
-            <div class="card-body" style="background:white;">
-                {% if foods_today %}
-                    {% for entry in foods_today %}
-                        <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-                            <div>
-                                <strong>{{ entry.food_name }}</strong><br>
-                                <small>{{ entry.time|time:"g:i a" }}</small>
-                                {% if entry.reaction %} — <span>{{ entry.reaction }}</span>{% endif %}
-                            </div>
-                            <i class="bi bi-check-square-fill text-primary fs-5"></i>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <p class="text-muted text-center mt-3">No food logged yet.</p>
-                {% endif %}
-            </div>
+        <!-- Header + Baby Photo -->
+        <div class="d-flex flex-column align-items-center mb-4">
+            <img src="{{ active_profile.avatar_url }}" alt="Baby Photo" class="rounded-circle shadow" style="width:260px; height:260px; object-fit:cover;">
         </div>
-    </div>
 
-    <!-- Baby Info -->
-    <div class="col-md-4">
-        <div class="card shadow p-3" style="border-radius:15px;">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <h5 class="fw-bold">{{ active_profile.name }}</h5>
-                <a href="{% url 'baby-edit' active_profile.id %}" class="text-dark">
-                    <i class="bi bi-pencil-square fs-4"></i>
-                </a>                    
-            </div>
-
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <strong>Date of Birth</strong><br>{{ active_profile.date_of_birth|date:"F j, Y" }}
-                </li>
-                <li class="list-group-item">
-                    <strong>Allergies</strong><br>
-                        {% if baby.allergies.exists %}
-                            {% for allergy in baby.allergies.all %}
-                                {{ allergy.name }}{% if not forloop.last %}, {% endif %}
+        <div class="row justify-content-center g-4">
+            <!-- Foods Eaten Today -->
+            <div class="col-md-4">
+                <div class="card shadow" style="border-radius:15px;">
+                    <div class="card-header text-center" style="background:#d9d9d9; border-top-left-radius:15px; border-top-right-radius:15px;">
+                        <h4 class="fw-bold mb-0">Foods Eaten<br>Today</h4>
+                    </div>
+                    <div class="card-body" style="background:white;">
+                        {% if foods_today %}
+                            {% for entry in foods_today %}
+                                <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                                    <div>
+                                        <strong>{{ entry.food_name }}</strong><br>
+                                        <small>{{ entry.time|time:"g:i a" }}</small>
+                                        {% if entry.reaction %} — <span>{{ entry.reaction }}</span>{% endif %}
+                                    </div>
+                                    <i class="bi bi-check-square-fill text-primary fs-5"></i>
+                                </div>
                             {% endfor %}
                         {% else %}
-                            None
+                            <p class="text-muted text-center mt-3">No food logged yet.</p>
                         {% endif %}
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Growth Milestones -->
-    <div class="col-md-3">
-        <div class="card shadow p-3" style="border-radius:15px;">
-            <h5 class="fw-bold mb-3">Growth Milestones</h5>
-            <ul class="list-group list-group-flush">
-                {% for milestone in milestones %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <i class="bi bi-star-fill me-2"></i>{{ milestone.name }}
                     </div>
-                    <small class="text-muted">{{ milestone.date|default:"coming soon" }}</small>
-                </li>
-                {% endfor %}
-            </ul>
+                </div>
+            </div>
+
+            <!-- Baby Info -->
+            <div class="col-md-4">
+                <div class="card shadow p-3" style="border-radius:15px;">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="fw-bold">{{ active_profile.name }}</h5>
+                        <a href="{% url 'baby-edit' active_profile.id %}" class="text-dark">
+                            <i class="bi bi-pencil-square fs-4"></i>
+                        </a>                    
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Date of Birth</strong><br>{{ active_profile.date_of_birth|date:"F j, Y" }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Allergies</strong><br>
+                            {% if active_profile.allergies.exists %}
+                                {% for allergy in active_profile.allergies.all %}
+                                    {{ allergy.name }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                None
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Growth Milestones -->
+            <div class="col-md-3">
+                <div class="card shadow p-3" style="border-radius:15px;">
+                    <h5 class="fw-bold mb-3">Growth Milestones</h5>
+                    <ul class="list-group list-group-flush">
+                        {% for milestone in milestones %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="bi bi-star-fill me-2"></i>{{ milestone.name }}
+                            </div>
+                            <small class="text-muted">{{ milestone.date|default:"coming soon" }}</small>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
