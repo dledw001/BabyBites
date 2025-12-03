@@ -9,7 +9,7 @@
     <span class="top">BABY PROFILE</span>
 </h1>
 
-<div class="container-fluid min-vh-100 px-3 px-md-5" style="padding-top:30px;">
+<div class="container-fluid px-3 px-md-5">
     <div class="row justify-content-center">
         <!-- Offset for sidebar on large screens -->
         <div class="col-12 col-lg-9 offset-lg-3">
@@ -92,8 +92,16 @@
         </div>
     </div>
 </div>
-<div class="d-flex justify-content-center my-5">
-    <a href="{% url 'baby-create' %}" class="btn btn-success btn-lg">Create a new baby profile</a>
 </div>
+
+<div class="container-fluid px-3 px-md-5">
+    <div class="row">
+        <div class="col-12 col-lg-9 offset-lg-3 d-flex justify-content-center my-5">
+            <a href="{% url 'baby-create' %}" class="btn btn-success btn-lg">
+                Create a new baby profile
+            </a>
+        </div>
+    </div>
 </div>
+
 {% endblock %}
